@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table '{{soccer_match}}':
  * @property integer $id
- * @property integer $date
+ * @property string $date
  * @property integer $hometeam_id
  * @property integer $awayteam_id
  * @property integer $homegoals
@@ -14,7 +14,8 @@
  * @property integer $stadium_id
  * @property integer $f_api_id
  * @property integer $matchday
- * @property string text
+ * @property string $text
+ * @property string $status
  */
 class SoccerMatch extends CActiveRecord
 {
@@ -36,10 +37,10 @@ class SoccerMatch extends CActiveRecord
 		return array(
 			array('date, hometeam_id, awayteam_id, homegoals, awaygoals, competition_id', 'required'),
 			array('hometeam_id, awayteam_id, homegoals, awaygoals, competition_id, stadium_id, f_api_id, matchday', 'numerical', 'integerOnly'=>true),
-			array('text', 'length', 'max'=>255),
+			array('text, status', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, date, hometeam_id, awayteam_id, homegoals, awaygoals, competition_id, stadium_id, f_api_id, matchday, text', 'safe', 'on'=>'search'),
+			array('id, date, hometeam_id, awayteam_id, homegoals, awaygoals, competition_id, stadium_id, f_api_id, matchday, text, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +52,8 @@ class SoccerMatch extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'hometeam' => array(self::BELONGS_TO, 'SoccerTeam', 'hometeam_id'),
+            'awayteam' => array(self::BELONGS_TO, 'SoccerTeam', 'awayteam_id'),
 		);
 	}
 
@@ -63,14 +66,15 @@ class SoccerMatch extends CActiveRecord
 			'id' => 'ID',
 			'date' => 'Date',
 			'hometeam_id' => 'Hometeam',
-			'awayteam_id' => 'Awayteam2',
+			'awayteam_id' => 'Awayteam',
 			'homegoals' => 'Homegoals',
 			'awaygoals' => 'Awaygoals',
 			'competition_id' => 'Competition',
 			'stadium_id' => 'Stadium',
 			'f_api_id' => 'F Api',
 			'matchday' => 'Matchday',
-			'text' => 'Desc',
+			'text' => 'Text',
+			'status' => 'Status',
 		);
 	}
 
@@ -93,7 +97,7 @@ class SoccerMatch extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('date',$this->date);
+		$criteria->compare('date',$this->date,true);
 		$criteria->compare('hometeam_id',$this->hometeam_id);
 		$criteria->compare('awayteam_id',$this->awayteam_id);
 		$criteria->compare('homegoals',$this->homegoals);
@@ -102,7 +106,8 @@ class SoccerMatch extends CActiveRecord
 		$criteria->compare('stadium_id',$this->stadium_id);
 		$criteria->compare('f_api_id',$this->f_api_id);
 		$criteria->compare('matchday',$this->matchday);
-		$criteria->compare('text',$this->desc,true);
+		$criteria->compare('text',$this->text,true);
+		$criteria->compare('status',$this->status,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

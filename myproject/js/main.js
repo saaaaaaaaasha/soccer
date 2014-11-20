@@ -189,7 +189,7 @@ $(function(){
         var w = ($(window).width()-$('#main_container').width())/2;
         if(w>=45) {
             //$('div#scrollTop').width(w);
-            $('div#scrollTop').width(80);
+            $('div#scrollTop').width(100);
             ($(window).scrollTop()>0 ) ? $('div#scrollTop').fadeIn() : $('div#scrollTop').fadeOut(); 
         } else {
             $('div#scrollTop').hide();

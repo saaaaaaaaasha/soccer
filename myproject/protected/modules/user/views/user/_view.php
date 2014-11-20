@@ -19,7 +19,7 @@ echo CHtml::encode(Text::cutText($data->profile->firstname." ".$data->profile->l
         echo "<a href=\"\" data-user-id=".$data->id." class=\"add_user\">Добавить в друзья</a>";
         }
 
-        echo "<a class=\"send_mail\" href=\"".Yii::app()->createUrl('message/compose', $params = array('id'=>$data->id))."\" ></a>";
+        echo "<a title=\"Написать сообщение\"class=\"send_mail south\" href=\"".Yii::app()->createUrl('message/compose', $params = array('id'=>$data->id))."\" ></a>";
 
             //"<a href=\"\" data-user-id=".$data->id." =\"\"></a>";
         //Yii::app()->request->baseUrl.'/images/buttonsend.gif'

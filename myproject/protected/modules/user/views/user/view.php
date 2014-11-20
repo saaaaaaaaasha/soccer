@@ -1,18 +1,11 @@
 <?php
 $this->breadcrumbs=array(
 	UserModule::t('Users')=>array('index'),
-	$model->username,
+	//$model->username,
+    Yii::app()->getModule('user')->getName($model->id),
 );
 $this->layout='//layouts/column2';
-/*
-$this->menu=array(
-    array('label'=>UserModule::t('List User'), 'url'=>array('index')),
-);*/
 ?>
-<?php //echo UserModule::t('View User').' "'.$model->username.'"'; ?>
-
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://updatesite.ru/js/jquery.tipsy.js"></script>
 
 <style>
     h1:after {
@@ -27,15 +20,9 @@ $this->menu=array(
 
 </style>
 
-<h1><?php echo 'Персональная страница <strong>«'.$model->username.'» </strong>'; ?></h1>
+<!--<h1><?php echo 'Персональная страница <strong>«'.$model->username.'» </strong>'; ?></h1>-->
 
 
-<style>
-
-
-
-
-</style>
 <div style="float:right;">
 <div class="myfriends" style="margin-bottom:20px; font-family: 'Tahoma'; color: #777; min-height:90px; font-size:14px;padding:10px; width:210px; background: #f5f5f5;">
     <div class="myfriends_title" style="text-align:center;"><strong>Друзья</strong> пользователя</div>
@@ -51,7 +38,7 @@ $this->menu=array(
 <div class="userspage">
     <div style="text-align: center;" class="right_userspage">
         <div class="south" title="Аватарка пользователя" style="margin-bottom:5px"><span class="photo2"><span class="user_avatar">
-                    <?php echo ($model->profile->avatar)?CHtml::image($model->profile->avatar):CHtml::image('images/noavatar.gif'); ?>
+                    <?php echo ($model->profile->avatar)?CHtml::image(Yii::app()->baseUrl."/".$model->profile->avatar):CHtml::image(Yii::app()->baseUrl.'/images/noavatar.gif'); ?>
                 </span>
             </span>
         </div>
@@ -101,7 +88,7 @@ $this->menu=array(
         <div class="nameblock_userspage">
 
             <div class="name_userspage">
-                <?php echo $model->profile->firstname." ".$model->profile->lastname; ?>
+                <?php echo $model->profile->firstname." ".$model->profile->lastname;?>
                 <?php if($model->status==1):?> <div title="Пользователь подтвержден" class="aemail south" style=""></div><?php endif; ?>
             </div>
         </div>
@@ -227,7 +214,7 @@ $this->menu=array(
                 //$("#activity").html(result+"%");
             });
         </script>
-
+        <!--if(Yii::app()->getModule('user')->getName($model->id)==$model->username) echo " (".$model->username.")"-->
 
         <div class="information_userspage">
             <div style="padding-bottom:11px;"><div style="width: 100px;" class="spanup">Заходил</div> <div style="color #737c93 !important; font-weight: bold !important;" class="spanup"><span id="regtime"><?php echo Date::timeElapsedString(strtotime($model->lastvisit_at)); ?></span></div></div>
@@ -252,25 +239,9 @@ $this->menu=array(
 </div>
 </div>
 
-<script type='text/javascript'>
-    $(function() {
-        $('.north').tipsy({gravity: 'n'});
-        $('.south').tipsy({gravity: 's'});
-        $('.east').tipsy({gravity: 'e'});
-        $('.west').tipsy({gravity: 'w'});
-
-    });
-</script>
 
 
 
-
-
-
-
-
-
-<!--<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
 <script>
 
     $(document).ready(function(){

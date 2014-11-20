@@ -5,16 +5,8 @@ $this->breadcrumbs=array(
 	$model->rusname,
 );
 $this->layout='//layouts/column2';
-/*
-$this->menu=array(
-    array('label'=>UserModule::t('List User'), 'url'=>array('index')),
-);*/
 ?>
-<?php //echo UserModule::t('View User').' "'.$model->username.'"'; ?>
 
-<!--
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://updatesite.ru/js/jquery.tipsy.js"></script>-->
 
 
 
@@ -40,10 +32,6 @@ $this->menu=array(
     <div class="myfriends" style="margin-bottom:20px; font-family: 'Tahoma'; color: #777; min-height:90px; font-size:14px;padding:10px; width:210px; background: #f5f5f5;">
         <div class="myfriends_title" style="text-align:center;"><strong>Друзья</strong> пользователя</div>
     </div>
-
-    <div class="myfriends" style="font-family: 'Tahoma'; color: #777; min-height:90px; font-size:14px;padding:10px; width:210px; background: #f5f5f5;">
-        <div class="myfriends_title" style="text-align:center;"><strong>Активность</strong> <?php echo $model->name; ?></div>
-    </div>
 </div>
 
 
@@ -51,7 +39,7 @@ $this->menu=array(
 <div class="userspage">
     <div style="text-align: center;" class="right_userspage">
         <div class="south" title="Аватарка пользователя" style="margin-bottom:5px"><span class="photo2"><span class="user_avatar">
-                    <?php echo ($model->logo_img)?CHtml::image('images/soccer/team/'.$model->logo_img):CHtml::image('images/noavatar.gif'); ?>
+                    <?php echo ($model->logo_img)?CHtml::image(Yii::app()->baseUrl.'/images/soccer/team/'.$model->logo_img):CHtml::image(Yii::app()->baseUrl.'/images/noavatar.gif'); ?>
                 </span>
             </span>
         </div>
@@ -94,19 +82,8 @@ $this->menu=array(
     <div class="player" id="c<?php echo $player->player->id; ?>">
 
         <div class="author">
-            <?php echo CHtml::image('images/soccer/player/'.$player->player->photo_img,'',array('height'=>'20px')); echo "  ".$player->player->rusname; ?> says:
+            <?php echo CHtml::image(Yii::app()->baseUrl.'/images/soccer/player/'.$player->player->photo_img,'',array('height'=>'20px')); echo "  ".$player->player->rusname; ?> says:
         </div>
     </div><!-- comment -->
 <?php endforeach; ?>
-
-
-<script type='text/javascript'>
-    $(function() {
-        $('.north').tipsy({gravity: 'n'});
-        $('.south').tipsy({gravity: 's'});
-        $('.east').tipsy({gravity: 'e'});
-        $('.west').tipsy({gravity: 'w'});
-
-    });
-</script>
 

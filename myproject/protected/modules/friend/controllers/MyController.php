@@ -3,7 +3,7 @@
 class MyController extends Controller
 {
     public $defaultAction = 'index';
-
+    public $layout= '//layouts/column2';
     public function actionIndex() {
 
         //$model= new Friend;

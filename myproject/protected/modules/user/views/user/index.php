@@ -12,7 +12,6 @@ if(UserModule::isAdmin()) {
 ?>
 
 <h1><?php echo UserModule::t("List User"); ?></h1>
-<?php //echo $data->login;?>
 
 <ul class="userlist">
 <?php $this->widget('zii.widgets.CListView', array(
@@ -45,7 +44,7 @@ if(UserModule::isAdmin()) {
 <div id="createurl-unsub" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/unsub"); ?></div>
 <div id="createurl-delete" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/delete"); ?></div>
 <div id="createurl-add" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/add"); ?></div>
-<div id="createurl-userpage" style="display:none;"><?php echo Yii::app()->CreateUrl("/user/&User_page=");?></div>
+<div id="createurl-userpage" style="display:none;"><?php echo Yii::app()->CreateUrl("/user/user/index/User_page")."/";?></div>
 <script>
 
 

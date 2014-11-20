@@ -21,10 +21,10 @@
     <script src="http://updatesite.ru/js/jquery.tipsy.js"></script>
     <script type='text/javascript'>
         $(document).ready( function() {
-            //$('.north').tipsy({gravity: 'n'});
-            //$('.south').tipsy({gravity: 's'});
-            //$('.east').tipsy({gravity: 'e'});
-            //$('.west').tipsy({gravity: 'w'});
+            $('.north').tipsy({gravity: 'n'});
+            $('.south').tipsy({gravity: 's'});
+            $('.east').tipsy({gravity: 'e'});
+            $('.west').tipsy({gravity: 'w'});
 
         });
     </script>
@@ -215,7 +215,7 @@ function modal(id) {
     }
     onlineuser();
 </script>
-<div id="scrollTop" style="width: 80px; display: block;"><div id="scrollTopButton">НАВЕРХ</div></div>
+<div id="scrollTop" style="width: 100px; display: block;"><div id="scrollTopButton">Вверх!</div></div>
 </body>
 </html>
 

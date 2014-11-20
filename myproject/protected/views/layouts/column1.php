@@ -38,8 +38,12 @@
         <div class="leftbarsection">
             <div class="leftbartitle"><strong>Мой профиль</strong></div>
             <ul class="leftnav">
-                <li><a class="point" href="<?php echo Yii::app()->baseUrl."/user/profile/my" ?>">Персональная страница</a><span class="leftnavadd"><a href="<?php echo Yii::app()->baseUrl."/user/profile/edit" ?>">Ред.</a></span></li>
-                <li><a class="point" href="#">Мои друзья</a><span class="leftnavadd2"><a href="#">+3</a></span></li>
+                <li><a class="point" href="<?php echo Yii::app()->baseUrl."/user/profile" ?>">Персональная страница</a><span class="leftnavadd"><a href="<?php echo Yii::app()->baseUrl."/user/profile/edit" ?>">Ред.</a></span></li>
+                <li><a class="point" href="<?php echo Yii::app()->baseUrl.Yii::app()->getModule('friend')->myfriendsUrl[0]; ?>">Мои друзья</a>
+                    <?php if(Yii::app()->getModule('friend')->getCountFollowers(Yii::app()->user->getId())): ?>
+                        <span class="leftnavadd2"><a href="<?php echo Yii::app()->baseUrl.Yii::app()->getModule('friend')->myfriendsUrl[0]; ?>">+<?php echo Yii::app()->getModule('friend')->getCountFollowers(Yii::app()->user->getId());?></a></span>
+                    <?php endif; ?>
+                </li>
                 <li><a class="point" href="<?php echo Yii::app()->baseUrl.Yii::app()->getModule('message')->inboxUrl[0]; ?>">Мои сообщения</a>
 
                     <?php if(Yii::app()->getModule('message')->getCountUnreadedMessages(Yii::app()->user->getId())): ?>

@@ -92,6 +92,25 @@ return array(
 
 	// application components
 	'components'=>array(
+
+        'widgetFactory' => array(
+            'widgets' => array(
+                'CLinkPager' => array(
+                    'header' => '',
+                    'nextPageLabel'=>'→',
+                    'prevPageLabel'=>'←',
+                    'lastPageLabel'=>'»',
+                    'firstPageLabel'=>'«',
+                    'selectedPageCssClass' => 'active',
+                    'hiddenPageCssClass' => 'disabled',
+                    'htmlOptions' => array(
+                        'class' => 'pagination pagination-centered',
+                        'style' => 'padding-left: 33% !important',
+                    ),
+                ),
+            ),
+        ),
+
         'curl' => array(
             'class' => 'ext.curl.Curl',
             'options' => array(/* additional curl options */),
