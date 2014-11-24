@@ -13,9 +13,9 @@ return array(
 	'preload'=>array('log'),
 
 
-    'aliases' => array(
+    /*'aliases' => array(
         'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'), // change this if necessary
-    ),
+    ),*/
 
 	// autoloading model and component classes
 	'import'=>array(
@@ -24,7 +24,7 @@ return array(
         'application.modules.user.models.*',
         'application.modules.user.components.*',
         'application.modules.message.*',
-        'bootstrap.helpers.TbHtml',
+        //'bootstrap.helpers.TbHtml',
         //'application.modules.messages.models.*',
         //'application.modules.messages.components.*',
         /*'application.modules.rights.*',
@@ -35,6 +35,8 @@ return array(
         'ext.lightopenid.*',
         'ext.eauth.*',
         'ext.eauth.services.*',
+        'application.modules.likes.models.*',
+        'application.modules.comments.models.*',
 	),
 
 	'modules'=>array(
@@ -86,6 +88,65 @@ return array(
         /*'rights'=>array(
             'install'=>false, // Enables the installer.
         ),*/
+
+        //av
+        'post',
+        'likes',
+        'video',
+        'admin',
+        'comments'=>array(
+            //you may override default config for all connecting models
+            'defaultModelConfig' => array(
+                //only registered users can post comments
+                'registeredOnly' => false,
+                'useCaptcha' => false,
+                //allow comment tree
+                'allowSubcommenting' => true,
+                //display comments after moderation
+                'premoderate' => false,
+                //action for postig comment
+                'postCommentAction' => 'comments/comment/postComment',
+                //super user condition(display comment list in admin view and automoderate comments)
+                'isSuperuser'=>'Yii::app()->user->checkAccess("moderate")',
+                //order direction for comments
+                'orderComments'=>'DESC',
+            ),
+            //the models for commenting
+            'commentableModels'=>array(
+                //model with individual settings
+                'Post'=>array(
+                    'registeredOnly'=>true,
+                    'useCaptcha'=>false,
+                    'allowSubcommenting'=>true,
+                    //config for create link to view model page(page with comments)
+                    'pageUrl'=>array(
+                        'route'=>'post/post/view',
+                        //'route'=>'video/video/view',
+                        'data'=>array('id'=>'id'),
+                    ),
+                ),
+
+                'Video'=>array(
+                    'registeredOnly'=>true,
+                    'useCaptcha'=>false,
+                    'allowSubcommenting'=>true,
+                    //config for create link to view model page(page with comments)
+                    'pageUrl'=>array(
+                        'route'=>'video/video/view',
+                        //'route'=>'video/video/view',
+                        'data'=>array('id'=>'id'),
+                    ),
+                ),
+                //model with default settings
+                'ImpressionSet',
+            ),
+            //config for user models, which is used in application
+            'userConfig'=>array(
+                'class'=>'User',
+                'nameProperty'=>'username',
+                'emailProperty'=>'email',
+            ),
+        ),
 
 
 	),
@@ -256,6 +317,8 @@ return array(
                 'login/<service:(google|google-oauth|yandex|yandex-oauth|twitter|linkedin|vkontakte|facebook|steam|yahoo|mailru|moikrug|github|live|odnoklassniki)>' => 'user/login',
                 'login' => 'user/login',
                 'logout' => 'user/logout',
+
+
 
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',

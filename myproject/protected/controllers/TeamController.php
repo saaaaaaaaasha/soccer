@@ -19,9 +19,22 @@ class TeamController extends Controller
         $model = $this->loadModel();
 
         $players = SoccerPlayerTeam::model()->findAll('tid=:team',array('team'=>$model->id));
+        $coach = SoccerCoachTeam::model()->find('tid=:team',array('team'=>$model->id));
+        $stadium = SoccerStadiumTeam::model()->find('tid=:team',array('team'=>$model->id));
+        $stats = SoccerMatch::getTeamStats($model->id);
+        $place = SoccerMatch::getTable($model->id,38,true);
+        $lastgames = SoccerMatch::getLastMatch($model->id);
+        $nextgames = SoccerMatch::getNextMatch($model->id);
+
         $this->render('view',array(
             'model'=>$model,
             'players'=>$players,
+            'coach'=>$coach,
+            'stadium'=>$stadium,
+            'stats'=>$stats,
+            'place'=>$place,
+            'lastgames'=>$lastgames,
+            'nextgames'=>$nextgames,
         ));
     }
 

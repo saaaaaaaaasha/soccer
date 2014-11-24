@@ -1,83 +1,76 @@
+<script>
+    function livegameright() {
+        //alert('yess');
+        //var id_game=$("#game").data("id-game");
+        //alert(id_game);
+        $( "#minilivegames" ).load( '/myproject/ #minilivegames');
 
-<table class="stat-table matches-table">
-<tr data-match-id="976063">
-    <td style="padding-right: 0;" class="alLeft gray-text">14:30</td>
-    <!--<td class="alLeft gray-text">Завершен</td>-->
-    <td class="owner-td">
-        <div class="rel"><a class="player" href="#" title="Ривер Плейт">Ривер Плейт</a></div>
-    </td>
-    <td class="score-td score-popover" data-control="Common.Score" data-id="976063"><a class="score" href="#">
+        //$.get('/myproject/games/'+id_game+' #game', function(content){
+        //alert(content);
+        //$("#game").html(content);
+        /*if (content=="0"){
+         $(".useronline").parent().parent().hide();//html("Пользователей онлайн нет");
+         }
+         else {
+         var text="пользователей";
+         $(".useronline").parent().parent().show();
+         $(".useronline").html(content);
+         }*/
+        //new Noty('Онлайн: '+content+'!',4000);
+        //});
+        setTimeout(function(){livegameright()},30000)
+    }
+    livegameright();
+</script>
 
-            <b><span class="s-left">1</span> : <span class="s-right">1</span></b>
-        </a>
-    </td>
-    <td class="guests-td">
-        <div class="rel"><a class="player" href="#" title="Олимпо">Олимпо</a></div>
-    </td>
-    <!--<td class="alRight"><div class="match-service-icons" data-video-type="video"><i id="tvbutton_976063" class="ico camera" title="Все видео"></i><i id="mytvbutton_976063" class="ico change-ico" title="Мой выбор"></i></div>
-    </td>-->
+
+<table id="minilivegames" class="stat-table results" cellpadding="0" cellspacing="0">
+<tr>
+    <td colspan="3" style="text-align:center">воскресенье <b>23 ноября</b></td>
 </tr>
-    <tr data-match-id="976063">
-        <td style="padding-right: 0;" class="alLeft gray-text">14:30</td>
-        <!--<td class="alLeft gray-text">Завершен</td>-->
-        <td class="owner-td">
-            <div class="rel"><a class="player" href="#" title="Ривер Плейт">Ривер Плейт</a></div>
-        </td>
-        <td class="score-td score-popover" data-control="Common.Score" data-id="976063"><a class="score" href="#">
+    <?php foreach($matchs as $match): ?>
+<tr data-match-id="976063">
+    <!--<td class="gray-text">14:30</td>-->
+    <td class="owner-td">
 
-                <b><span class="s-left">1</span> : <span class="s-right">1</span></b>
-            </a>
-        </td>
-        <td class="guests-td">
-            <div class="rel"><a class="player" href="#" title="Олимпо">Олимпо</a></div>
-        </td>
-        <!--<td class="alRight"><div class="match-service-icons" data-video-type="video"><i id="tvbutton_976063" class="ico camera" title="Все видео"></i><i id="mytvbutton_976063" class="ico change-ico" title="Мой выбор"></i></div>
-        </td>-->
-    </tr>
-
+        <!--<div style="float: left;color: white;background: #F73737;padding: 2px 5px;display: inline-block;line-height: 11px;margin-top: 5px;font-weight: bold;font-size: 10px;border-radius: 2px;">LIVE</div>-->
+        <div class="rel"><a class="player" href="<?php echo Yii::app()->baseUrl."/team/".$match->hometeam->id; ?>" title="<?php echo $match->hometeam->rusname; ?>"><?php echo Text::GetShotName2($match->hometeam->rusname); ?></a><i class="flag-s" style="background-image: url(<?php echo Yii::app()->baseUrl."/images/soccer/team/".$match->hometeam->logo_img ;?>);" title="Англия" alt="Англия"></i></div></td>
+    <td class="score-td"><a class="score" href="<?php echo Yii::app()->baseUrl."/games/".$match->id; ?>"><noindex><b><?php echo Text::getScoreMatch($match->homegoals,$match->awaygoals); ?></b></noindex></a></td>
+    <td class="guests-td"><div class="rel"><i class="flag-s" style="background-image: url(<?php echo Yii::app()->baseUrl."/images/soccer/team/".$match->awayteam->logo_img ;?>);" title="Англия" alt="Англия"></i><a class="player" href="<?php echo Yii::app()->baseUrl."/team/".$match->awayteam->id; ?>" title="<?php echo $match->awayteam->name; ?>"><?php echo Text::GetShotName2($match->awayteam->rusname); ?></a></div></td>
+</tr>
+    <?php endforeach; ?>
 </table>
 
 
 <style>
-    .stat-table {
+    .stat-table.results {
         font-size: 11px;
+        table-layout: auto;
+    }
+    .stat-table {
+        font-size: 13px;
         width: 100%;
         text-align: center;
         table-layout: fixed;
     }
-    .matches-table TD, .calend-table TD {
-        background: #fff;
-    }
-    .matches-table TD:nth-of-type(-n+4) {
-       /* border-top: 1px solid #d8d8d8;*/
-    }
-
-    .stat-table TD, .stat-table THEAD .score-td {
-        background: #f9f9f7;
-        /*border-top: 1px solid #d8d8d8;*/
-        border-bottom: 1px solid #d8d8d8;
-        vertical-align: middle;
-        line-height: 15px;
-    }
-    .stat-table TD {
-        white-space: nowrap;
-    }
-    .alLeft {
-        text-align: left !important;
-    }
-    .gray-text {
-        color: #7f7f7f !important;
+    .stat-table.results .owner-td {
+        padding-left: 8px;
+        width: 107px;
     }
     .stat-table .owner-td {
         padding-right: 5px;
         text-align: right;
         white-space: nowrap;
     }
-    .stat-table .owner-td > .rel {
-        float: right;
+    .stat-table TD, .stat-table THEAD .score-td {
+        background: #f9f9f7;
+        /*border-top: 1px solid #d8d8d8;*/
+        border-bottom: 1px solid #d8d8d8;
+        vertical-align: middle;
+        line-height: 24px;
     }
-    .rel {
-        position: relative;
+    .stat-table TD {
+        white-space: nowrap;
     }
     .stat-table .owner-td .rel > .fader {
         right: 16px;
@@ -85,9 +78,6 @@
         width: 9px;
         background-position: 1px 0;
         z-index: 5;
-    }
-    .matches-table .fader, .calend-table .fader {
-        background-image: url(http://s5o.ru/common/css/i/fader-wht.png);
     }
     .fader {
         display: block;
@@ -98,11 +88,32 @@
         width: 14px;
         height: 22px;
     }
-    .stat-table.matches-table .player {
-        max-width: 98px;
-    }
-    .stat-table .owner-td .player, .stat-table .owner-td .flag-s, .stat-table .owner-td .player-score {
+    /*.stat-table .owner-td .player, .stat-table .owner-td .flag-s, .stat-table .owner-td .player-score {
         float: right;
+    }*/
+    .stat-table .flag-s {
+        display: inline-block;
+        margin: 3px 0 0;
+        vertical-align: top;
+    }
+    .flag-s.flag-1413 {
+        background-position: -113px -3px;
+    }
+    .flag-s {
+        /*background-image: url(http://s5o.ru/common/css/i/flags-sprite.png);*/
+        background-repeat: no-repeat;
+        background-size:16px 16px;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+    }
+    .stat-table.results .owner-td .player {
+        padding: 0 5px 0 0;
+    }
+    .stat-table.results .player {
+        max-width: auto;
+        width: 56px;
+        position: static;
     }
     .stat-table .player {
         overflow: hidden;
@@ -110,51 +121,31 @@
         display: inline-block;
         vertical-align: top;
         white-space: nowrap;
-        max-width: 125px;
-        /*padding: 0 5px;*/
-    }
-    .stat-table .score {
-        display: inline-block;
-        vertical-align: top;
+        max-width: 60px;
+        padding: 0 5px;
     }
     .stat-table A {
         text-decoration: none;
     }
-    .stat-table .score-td {
-        width: 30px;
-        background: #e8e8e0;
-    }
-    .stat-table .score .s-left {
-        text-align: right;
-    }
-    .stat-table .score .s-left, .stat-table .score .s-right {
-        width: 13px;
+    .stat-table .score {
         display: inline-block;
+        vertical-align: top;
+
     }
-    .stat-table .score .s-right {
-        text-align: left;
+    .stat-table.results .guests-td {
+        padding-right: 8px;
+        width: 50px;
     }
     .stat-table .guests-td {
         padding-left: 5px;
         text-align: left;
         white-space: nowrap;
     }
-    .mainPart .stat-table .guests-td > .rel {
-        overflow: hidden;
-    }
-    .stat-table .guests-td > .rel {
-        float: left;
-    }
-    .stat-table .guests-td .rel > .fader {
-        right: -2px;
-        top: 2px;
-        width: 9px;
-        z-index: 5;
-    }
-    .alRight {
-        text-align: right !important;
+    .stat-table .score-td {
+        /*width: 60px;*/
+        background: #e8e8e0;
+        text-align: center;
+        padding: 0 5px;
     }
 
-
-    /*http://s5o.ru/common/css/i/icons.png*/
 </style>

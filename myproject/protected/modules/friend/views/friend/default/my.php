@@ -4,110 +4,99 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<h1><?php echo FriendModule::t("Мои друзья"); ?> <?php if ($countFriends>0) echo "(".$countFriends.")"; ?></h1>
 
+<?php $this->renderPartial('//../modules/friend/views/friend/default/friends_nav',array('friend'=>'active','fol'=>'','sub'=>'')); ?>
 
-
-<style>
-    ul, ol {padding-left: 0 !important;}
-    .userlist li.user .useravatar,.buttonsrelationship{text-align:center; margin-bottom:5px; }
-    .userlist li.user .useravatar img{ border-radius:100px; height: 110px; width:110px;}
-    .userlist li.user{float: left; width:22%; list-style-type: none;padding-bottom:15px;height: 185px;}
-    .userlist:after{
-        content:'';
-        display:block;
-        clear: both;
-    }
-    .userlist .userlogin{font-weight:bold; font-size:16px; color: #555; text-align: center;}
-    .userlist .userlogin a{text-decoration: none; color: #555;}
-    .userlist .username{font-weight:normal; font-size:13px; color: #aaa; text-align: center;}
-
-
-
-    .list-view .sorter,.list-view .summary {
-        text-align: left !important;
-    }
-    /*.list-view strong {color: #fff; background: #00b3ee; padding: 0px 5px; border-radius: 2px;}*/
-    /*.list-view .sorter:after {
-        content:'';
-        display:block;
-        clear: both;
-        height:1px;
-        margin: 10px 0px;
-        background: #eee;
-    }*/
-
-    .buttonsrelationship
-    {
-        text-align:center;
-        margin:5px 1px;
-    }
-
-    .buttonsrelationship a{
-        padding: 2px 4px;
-        border-radius: 3px;
-        font-size:9px;
-        font-weight: bold;
-        text-align: center;
-        color:#fff;
-        /*margin:3px 1px;*/
-
-        text-decoration: none;
-        text-transform: uppercase;
-        font-family: "Tahoma","Arial",sans-serif;
-    }
-    .buttonsrelationship a:hover,.userlist li.user .useravatar img:hover,.userlist .userlogin a:hover{
-        opacity:0.7;
-    }
-    .buttonsrelationship a.add_user{
-        background: linear-gradient(to top, #1A9CBC, #26C3E4);
-    }
-    .buttonsrelationship a.unsub_user{
-        background: linear-gradient(to top, #c2c2c2, #d2d2d2);
-    }
-    .buttonsrelationship a.delete_user{
-        background: linear-gradient(to top, #DE386A, #D3395B);
-    }
-    .buttonsrelationship a.send_mail{
-        background-image: url('/myproject/images/buttonsend.png');
-        background-repeat: no-repeat;
-        background-position: 0 0;
-        background-color: #1A9CBC;
-        width: 30px;
-        padding-right: 15px;
-        height: 20px;
-        margin-left: 3px;
-
-    }
-
-</style>
-
-
-<h1><?php echo FriendModule::t("Мои друзья"); ?></h1>
-
+<?php
+if ($countFriends<1): ?> У вас нет подписчиков
+<?php else:?>
 
 <ul class="userlist">
+    <?php $this->widget('zii.widgets.CListView', array(
+        'dataProvider'=>$dataProvider,
+        //'itemView' => '/friend/default/_view',
+        'itemView' => '//../modules/user/views/user/_view',
 
+        /*'sortableAttributes'=>array(
+            'username',
+            'create_at',
+        ),
+        'sorterHeader' => 'Сортировать по:',*/
+        'summaryText' => '',
+        'pagerCssClass'=>'custom-pager',
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
-        'enableAjaxValidation'=>false,
+        /*'columns'=>array(
+            array(
+                'name' => 'username',
+                'type'=>'raw',
+                'value' => 'CHtml::link(CHtml::encode($data->username),array("user/view","id"=>$data->id))',
+            ),
+            'create_at',
+            array(
+                'name' => 'lastvisit_at',
+                //'value' => (($this->model->lastvisit_at!='0000-00-00 00:00:00')?$this->model->lastvisit_at:UserModule::t('Not visited')),
+            ),
+        ),*/
     )); ?>
-
-
-    <?php foreach ($friendsAdapter->data as $index => $friend): ?>
-        <?php $this->renderPartial('/friend/default/_view',array(
-            'data'=>$friend->friend,
-        )); ?>
-    <?php endforeach ?>
-
-    <?php $this->endWidget(); ?>
-    <?php $this->widget('CLinkPager', array('pages' => $friendsAdapter->getPagination())) ?>
-
-
 </ul>
 
-
-
-
+<?php endif; ?>
+<div id="createurl-unsub" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/unsub"); ?></div>
+<div id="createurl-delete" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/delete"); ?></div>
+<div id="createurl-add" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/add"); ?></div>
+<div id="createurl-userpage" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/my/index/User_page")."/";?></div>
 <script>
 
+
+
+    $(document.body).on("click", ".unsub_user", function (event) {
+        var uid=$(this).data("user-id");
+        user_name = $(this).parent().prev().prev().html();
+        $.ajax({
+            url: $('#createurl-unsub').html(),
+            type: 'POST',
+            data: "unsubfriend="+uid,
+            success: function (html) {
+                current_page=$("#yw1 .selected a").html();
+                new Noty('Вы отписались от '+user_name+'',4000);
+                $(".userlist").load($('#createurl-userpage').html()+current_page+' .userlist');
+                return;
+            }
+        });
+        event.preventDefault();
+    });
+    $(document.body).on("click", ".delete_user", function (event) {
+        var uid=$(this).data("user-id");
+        user_name = $(this).parent().prev().prev().html();
+        $.ajax({
+            url: $('#createurl-delete').html(),
+            type: 'POST',
+            data: "deletefriend="+uid,
+            success: function (html) {
+                current_page=$("#yw1 .selected a").html();
+                new Noty('Вы успешно удалили из друзей '+user_name+'',4000);
+                $(".userlist").load($('#createurl-userpage').html()+current_page+' .userlist');
+                return;
+            }
+        });
+        event.preventDefault();
+    });
+    $(document.body).on("click", ".add_user", function (event) {
+        var uid=$(this).data("user-id");
+        user_name = $(this).parent().prev().prev().html();
+        // alert(user_name);
+        $.ajax({
+            url: $('#createurl-add').html(),
+            type: 'POST',
+            data: "addfriend="+uid,
+            success: function (html) {
+                current_page=$("#yw1 .selected a").html();
+                new Noty('Вы успешно подписались на '+user_name+'!',4000);
+                $(".userlist").load($('#createurl-userpage').html()+current_page+' .userlist');
+                return;
+            }
+        });
+        event.preventDefault();
+    });
 </script>

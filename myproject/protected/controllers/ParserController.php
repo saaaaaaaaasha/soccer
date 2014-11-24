@@ -811,7 +811,7 @@ class ParserController extends Controller
         //$home_team=3;
         //$away_team=17;
 
-        $json = "http://football-api.com/api/?Action=fixtures&APIKey=".$this->key."&comp_id=1204&&from_date=22.11.2014&&to_date=22.11.2014";
+        $json = "http://football-api.com/api/?Action=fixtures&APIKey=".$this->key."&comp_id=1204&&from_date=20.11.2014&&to_date=20.11.2014";
         $info = json_decode(file_get_contents($json),true);
         if (!isset($info["matches"])) {
             echo "No match today..";

@@ -1,4 +1,6 @@
-<?php /* @var $this Controller */ ?>
+<?php /* @var $this Controller */
+Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -15,19 +17,14 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/posts.css" />
 
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!--<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-1.11.0.min.js"></script>
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.tipsy.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
-    <script src="http://updatesite.ru/js/jquery.tipsy.js"></script>
-    <script type='text/javascript'>
-        $(document).ready( function() {
-            $('.north').tipsy({gravity: 'n'});
-            $('.south').tipsy({gravity: 's'});
-            $('.east').tipsy({gravity: 'e'});
-            $('.west').tipsy({gravity: 'w'});
+    <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/cookie.js"></script>
 
-        });
-    </script>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
@@ -215,6 +212,7 @@ function modal(id) {
     }
     onlineuser();
 </script>
+
 <div id="scrollTop" style="width: 100px; display: block;"><div id="scrollTopButton">Вверх!</div></div>
 </body>
 </html>

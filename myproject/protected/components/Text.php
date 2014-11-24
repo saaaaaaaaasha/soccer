@@ -2,6 +2,13 @@
 
 class Text
 {
+    static function GetShotName2($str,$russian=true){
+        if ($str=="Манчестер Юнайтед") return "МЮ";
+        elseif ($str=="Манчестер Сити") return "МС";
+        elseif ($str=="Куинз Парк Рейнджерс") return "КПР";
+        return $str;
+    }
+
     static function GetShotName($str,$russian=false){
         if ($russian==true){
             if ($str=="Chelsea FC") return "Челси";
@@ -127,5 +134,10 @@ class Text
             return $str;
         }
         return mb_substr($str, $start, $N,'UTF-8');
+    }
+
+    static function getScoreMatch($g1,$g2) {
+        if ($g1=="-1" || $g2=="-1") return " vs ";
+        return $g1." : ".$g2;
     }
 }

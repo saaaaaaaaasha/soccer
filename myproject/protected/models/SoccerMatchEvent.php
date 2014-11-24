@@ -47,6 +47,7 @@ class SoccerMatchEvent extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'player' => array(self::BELONGS_TO, 'SoccerPlayer', 'player_id'),
 		);
 	}
 

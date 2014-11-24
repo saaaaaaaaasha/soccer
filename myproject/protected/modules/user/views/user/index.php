@@ -24,19 +24,6 @@ if(UserModule::isAdmin()) {
     'sorterHeader' => 'Сортировать по:',
     'summaryText' => 'Зарегистрировано: <strong>{count}</strong> | Показано с <strong>{start}</strong> по <strong>{end}</strong>',
     'pagerCssClass'=>'custom-pager',
-
-	/*'columns'=>array(
-		array(
-			'name' => 'username',
-			'type'=>'raw',
-			'value' => 'CHtml::link(CHtml::encode($data->username),array("user/view","id"=>$data->id))',
-		),
-		'create_at',
-        array(
-            'name' => 'lastvisit_at',
-            //'value' => (($this->model->lastvisit_at!='0000-00-00 00:00:00')?$this->model->lastvisit_at:UserModule::t('Not visited')),
-        ),
-	),*/
 )); ?>
 </ul>
 
@@ -46,9 +33,6 @@ if(UserModule::isAdmin()) {
 <div id="createurl-add" style="display:none;"><?php echo Yii::app()->CreateUrl("/friend/add"); ?></div>
 <div id="createurl-userpage" style="display:none;"><?php echo Yii::app()->CreateUrl("/user/user/index/User_page")."/";?></div>
 <script>
-
-
-
     $(document.body).on("click", ".unsub_user", function (event) {
         var uid=$(this).data("user-id");
         user_name = $(this).parent().prev().prev().html();
@@ -57,7 +41,7 @@ if(UserModule::isAdmin()) {
             type: 'POST',
             data: "unsubfriend="+uid,
             success: function (html) {
-                current_page=$("#yw1 .selected a").html();
+                current_page=$("#yw1 .active a").html();
                 new Noty('Вы отписались от '+user_name+'',4000);
                 $(".userlist").load($('#createurl-userpage').html()+current_page+' .userlist');
                 return;
@@ -73,7 +57,7 @@ if(UserModule::isAdmin()) {
             type: 'POST',
             data: "deletefriend="+uid,
             success: function (html) {
-                current_page=$("#yw1 .selected a").html();
+                current_page=$("#yw1 .active a").html();
                 new Noty('Вы успешно удалили из друзей '+user_name+'',4000);
                 $(".userlist").load($('#createurl-userpage').html()+current_page+' .userlist');
                 return;
@@ -90,7 +74,7 @@ if(UserModule::isAdmin()) {
             type: 'POST',
             data: "addfriend="+uid,
             success: function (html) {
-                current_page=$("#yw1 .selected a").html();
+                current_page=$("#yw1 .active a").html();
                 new Noty('Вы успешно подписались на '+user_name+'!',4000);
                 $(".userlist").load($('#createurl-userpage').html()+current_page+' .userlist');
                 return;

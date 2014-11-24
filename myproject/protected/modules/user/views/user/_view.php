@@ -1,8 +1,12 @@
 
-<li class="user">
+<li class="user" style="position:relative">
+
+    <?php if($data->id!=Yii::app()->user->getId() && !Yii::app()->user->isGuest && Yii::app()->getModule('friend')->isUnread($data->id,Yii::app()->user->getId(),true) ): ?><div title="Оставить в подписчиках" data-user-id="<?php echo $data->id; ?>" class="unreadfoll south">X</div><?php endif; ?>
+
+
     <!--<img src="<?php //echo $data->profile->avatar; ?>">-->
-    <div class="useravatar"><?php echo CHtml::link(($data->profile->avatar)?CHtml::image(Yii::app()->baseUrl."/".$data->profile->avatar):CHtml::image(Yii::app()->baseUrl.'/images/noavatar.gif'),array("user/view","id"=>$data->id)); ?></div>
-<div class="userlogin"><?php echo CHtml::link("".CHtml::encode(Yii::app()->getModule('user')->getName($data->id)),array("user/view","id"=>$data->id)) ?></div>
+    <div class="useravatar"><?php echo CHtml::link(($data->profile->avatar)?CHtml::image(Yii::app()->baseUrl."/".$data->profile->avatar):CHtml::image(Yii::app()->baseUrl.'/images/noavatar.gif'),array("/user/user/view","id"=>$data->id)); ?></div>
+<div class="userlogin"><?php echo CHtml::link("".CHtml::encode(Yii::app()->getModule('user')->getName($data->id)),array("/user/user/view","id"=>$data->id)) ?></div>
 <div class="username">
 <?php
 echo CHtml::encode(Text::cutText($data->profile->firstname." ".$data->profile->lastname,21));?>

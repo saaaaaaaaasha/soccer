@@ -2,6 +2,11 @@
 
 class Date {
 
+
+    static function getDayMonth($date) {
+        return Date("d.m",strtotime($date));
+    }
+
     private function getRussianMonth($month){
         if($month > 12 || $month < 1) return FALSE;
         $aMonth = array('января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря');

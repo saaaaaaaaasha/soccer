@@ -54,6 +54,10 @@ class SoccerMatch extends CActiveRecord
 		return array(
             'hometeam' => array(self::BELONGS_TO, 'SoccerTeam', 'hometeam_id'),
             'awayteam' => array(self::BELONGS_TO, 'SoccerTeam', 'awayteam_id'),
+            'stadium' => array(self::BELONGS_TO, 'SoccerStadium', 'stadium_id'),
+            //'stadium' => array(self::BELONGS_TO, 'SoccerStadium', 'competition_id'),
+            //       * @property integer $competition_id
+    //* @property integer $stadium_id
 		);
 	}
 
@@ -124,4 +128,204 @@ class SoccerMatch extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function getStatusMatch($str){
+        //echo $str;
+        if (!$str) return "Не начался";
+        elseif ($str=="FT") return "Закончен";
+        elseif ($str=="HT") return "Перерыв";
+        elseif (strlen($str)==5) return "Не начался";
+        //$str=substr($str,0,strlen($str)-1);
+        if ($str>=0 && $str<=90 && $str!="NULL" && $str) return"Идет ".$str."'";
+
+
+        return "Не начался";
+    }
+
+
+    public static function getIconClassEvent($type){
+
+        if ($type==1) return "live_goal";
+        elseif ($type==2) return "live_owngoal";
+        elseif ($type==3) return "live_pengoal";
+        elseif ($type==4) return "live_yellowcard";
+        elseif ($type==5) return "live_redcard";
+        elseif ($type==6) return "live_mispen";
+
+        return "";
+    }
+    public static function getResultMatch($g1,$g2){
+        if ($g1=="?" || $g1=="-1") return "- : -";
+        return $g1." : ".$g2;
+    }
+
+
+    public static function getPlayer($p){
+        $number=$p["number"];
+        $content="<div style=\"height:15px;\" data-number=\"".$number."\" class=\"event_at\">";
+        $content.= "<span class=\"event_time\">".$number."</span>";
+        $content.= "<span class=\"flag16\" style=\"background-image:url('".Yii::app()->baseUrl.'/images/soccer/player/'.$p->player->photo_img."')\"><a href=\"".Yii::app()->baseUrl."/player/".$p->player->id."\">".$p->player->rusname."</a></span>";
+
+        //echo "Тип: ".$event["type"]." | ";
+        //echo "Команда: ".$event["team"]." | ";
+        //echo "Игрок: ".$event["player_id"]."";
+
+        return $content."</div>";
+    }
+
+    public static function getLineEvent($event){
+
+        //print_r($event);
+        //print_r($event->player);
+
+        $type=$event["type"];
+        $minute=$event["minute"];
+
+        if (!(strpos($minute, "og") === false)) {
+            preg_match_all('|\d+|', $minute, $matches);
+            //print_r($matches[0]);
+            $minute=$matches[0][0]."";
+            $type=2;
+        }
+
+        $content="<div data-minute=\"".$minute."\" class=\"event_at\">";
+
+        $content.= "<span class=\"event_time\">".$minute."'</span>";
+        $content.= "<div class=\"event_at_icon ".self::getIconClassEvent($type)."\"></div>";
+        $content.= "<span class=\"flag16\" style=\"background-image:url('".Yii::app()->baseUrl.'/images/soccer/player/'.$event->player->photo_img."')\"><a href=\"".Yii::app()->baseUrl."/player/".$event->player->id."\">".$event->player->rusname."</a></span>";
+
+        //echo "Тип: ".$event["type"]." | ";
+        //echo "Команда: ".$event["team"]." | ";
+        //echo "Игрок: ".$event["player_id"]."";
+
+        return $content."</div>";
+    }
+
+    public static function getCommentaries($comment){
+
+        $minute=$comment["minute"];
+
+        $content="<div data-minute=\"".$minute."\">";
+
+        //* @property integer $important
+        //* @property integer $isgoal
+        //* @property string $comment
+        $content.= "<span class=\"event_time\">".$minute."'</span>";
+        if ($comment["isgoal"]=="1"){
+            $content.= "<div class=\"event_at_icon live_goal\"></div>";
+        }
+        $imp="";
+        if ($comment["important"]==1) $imp="style=\"font-weight:bold;\"";
+        $content.= "<span ".$imp.">".$comment["comment"]."</span>";
+
+        //echo "Тип: ".$event["type"]." | ";
+        //echo "Команда: ".$event["team"]." | ";
+        //echo "Игрок: ".$event["player_id"]."";
+
+        return $content."</div><div class=\"clear\"></div>";
+    }
+
+    public static function getPlace($id) {
+        return 5;
+    }
+
+    public static function getTable($id,$matchday=38,$count=false){
+        $teams=SoccerTeam::model()->FindAll(); // find team in tournament (current season)
+        for($i=0;$i<count($teams);$i++) {
+            $stats[$i]=self::getTeamStats($teams[$i]->id,$matchday);
+        }
+
+        for($i=0;$i<count($teams);$i++)
+            for($j=$i+1;$j<count($teams);$j++)
+            {
+                if ($stats[$i]["score"]<$stats[$j]["score"] || ($stats[$i]["score"]==$stats[$j]["score"] && $stats[$i]["goal1"]<$stats[$j]["goal2"] )) {
+                    $temp=$teams[$i]; $teams[$i]=$teams[$j]; $teams[$j]=$temp;
+                    $temp=$stats[$i]; $stats[$i]=$stats[$j]; $stats[$j]=$temp;
+                }
+            }
+        if ($count==true) {
+            for($i=0;$i<count($teams);$i++) {
+                if ($id==$teams[$i]->id) return ($i+1);
+            }
+        }
+        $result['teams']=$teams;
+        $result['stats']=$stats;
+        return $result;
+    }
+
+    public static function getLastMatch($id,$count=5,$matchday=38){
+        $matches=SoccerMatch::model()->FindAll('(hometeam_id=:hid OR awayteam_id=:hid) AND status="FT"',array('hid'=>$id));
+        //print_r($matches);
+        $games=array(); $k=$count-1;
+        for ($i=count($matches)-1;$i>=0;$i--) {
+            if ($k==-1) break;
+            $games[$k--]=$matches[$i];
+        }
+        return $games;
+    }
+
+    public static function getNextMatch($id,$count=5,$matchday=38){
+        $matches=SoccerMatch::model()->FindAll('(hometeam_id=:hid OR awayteam_id=:hid)',array('hid'=>$id));
+        //print_r($matches);
+        $games=array(); $k=$count-1;
+        for ($i=count($matches)-1;$i>=0;$i--) {
+            if ($k==-1) break;
+            $games[$k--]=$matches[$i];
+        }
+        return $games;
+    }
+
+    public static function getTeamStats($id,$matchday=38){
+        //$teams=SoccerTeam::model()->FindAll();//'',array(''=>''));
+        $stats['score']=0;
+        $stats['game']=0;
+        $stats['goal1']=0;
+        $stats['goal2']=0;
+        $stats['wins']=0;
+        $stats['loses']=0;
+        $stats['draws']=0;
+
+        $matches=SoccerMatch::model()->FindAll('hometeam_id=:hid AND status="FT"',array('hid'=>$id));
+        for($i=0;$i<count($matches);$i++) {
+            $stats['goal1']+=$matches[$i]->homegoals;
+            $stats['goal2']+=$matches[$i]->awaygoals;
+            $stats['game']++;
+
+            if($matches[$i]->homegoals>$matches[$i]->awaygoals) {
+                $stats['score']+=3;
+                $stats['wins']++;
+            }
+            elseif($matches[$i]->homegoals==$matches[$i]->awaygoals) {
+                $stats['score']+=1;
+                $stats['draws']++;
+            }
+            elseif($matches[$i]->homegoals<$matches[$i]->awaygoals) {
+                $stats['loses']++;
+            }
+        }
+        $matches=SoccerMatch::model()->FindAll('awayteam_id=:aid AND status="FT"',array('aid'=>$id));
+
+        for($i=0;$i<count($matches);$i++) {
+            $stats['goal2']+=$matches[$i]->homegoals;
+            $stats['goal1']+=$matches[$i]->awaygoals;
+            $stats['game']++;
+
+            if($matches[$i]->homegoals<$matches[$i]->awaygoals) {
+                $stats['score']+=3;
+                $stats['wins']++;
+            }
+            elseif($matches[$i]->homegoals==$matches[$i]->awaygoals) {
+                $stats['score']+=1;
+                $stats['draws']++;
+            }
+            elseif($matches[$i]->homegoals>$matches[$i]->awaygoals) {
+                $stats['loses']++;
+            }
+        }
+        //for($i=0;$i<count($teams);$i++) {
+        return $stats;
+    }
+
+
+
 }

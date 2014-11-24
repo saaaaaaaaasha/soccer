@@ -38,7 +38,7 @@ class UserModule extends CWebModule
 	 * @var boolean
 	 * @desc allow auth for is not active user
 	 */
-	public $loginNotActiv=false;
+	public $loginNotActiv=true;
 	
 	/**
 	 * @var boolean

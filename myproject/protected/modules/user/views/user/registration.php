@@ -116,7 +116,7 @@ $this->breadcrumbs=array(
     <div class="form-group">
         <div style="padding-top: 4px; float: left; width: 100px;">E-mail</div>
         <div class="col-sm-10" style="padding-left:120px;">
-            <?php echo $form->passwordField($model,'email',array('size'=>60,'maxlength'=>255,'encode'=>false,'value'=>'','placeholder'=>'Введите свой e-mail')); ?>
+            <?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>255,'encode'=>false,'value'=>'','placeholder'=>'Введите свой e-mail')); ?>
             <?php echo $form->error($model,'email'); ?>
         </div>
     </div>

@@ -15,10 +15,14 @@ class Friend extends CActiveRecord
     const SUBSCRIBER = 0;
     const FOLLOWED=1;
 
+    const ISREAD = 1;
+    const ISNOTREAD =0;
+
     public $friend_index;
     public $userModel;
     public $countFollowers;
-
+    public $countFriends;
+    public $countFollowed;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -135,6 +139,7 @@ class Friend extends CActiveRecord
 		$criteria->compare('user1',$this->user1,true);
 		$criteria->compare('user2',$this->user2,true);
 		$criteria->compare('relation',$this->relation,true);
+        $criteria->compare('isread',$this->isread,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -172,6 +177,23 @@ class Friend extends CActiveRecord
         $count = self::model()->count($c);
         if($count==0) return false;
         return true;
+    }
+
+    public function checkUnread($u1,$u2) {
+        $c = new CDbCriteria();
+        $c->addCondition('t.user1 = :u1');
+        $c->addCondition('t.user2 = :u2');
+        $c->addCondition('t.relation = :type');
+        $c->addCondition('t.isread = :isread');
+        $c->params = array(
+            'u1' => $u1,
+            'u2' => $u2,
+            'type' => Friend::FOLLOWED,
+            'isread' => Friend::ISNOTREAD,
+        );
+        $count = self::model()->count($c);
+        if($count==0) return false;
+        return true;
 
     }
 
@@ -193,6 +215,22 @@ class Friend extends CActiveRecord
 
     }
 
+    public function getCountFriends($userId) {
+        if (!$this->countFriends) {
+
+            $c = new CDbCriteria();
+            $c->addCondition('t.user1 = :u1');
+            $c->addCondition('t.relation = :type');
+            $c->params = array(
+                'u1' => $userId,
+                'type' => Friend::FRIEND,
+            );
+            $count = self::model()->count($c);
+            $this->countFriends = $count;
+        }
+
+        return $this->countFriends;
+    }
 
     public function getCountUnfriends($userId) {
         if (!$this->countFollowers) {
@@ -202,7 +240,7 @@ class Friend extends CActiveRecord
             $c->addCondition('t.relation = :type');
             $c->params = array(
                 'u1' => $userId,
-                'type' => Friend::FOLLOWED,
+                'type' => Friend::SUBSCRIBER,
             );
             $count = self::model()->count($c);
             $this->countFollowers = $count;
@@ -211,6 +249,34 @@ class Friend extends CActiveRecord
         return $this->countFollowers;
     }
 
+    public function getCountFollowed($userId) {
+        if (!$this->countFollowed) {
 
+            $c = new CDbCriteria();
+            $c->addCondition('t.user1 = :u1');
+            $c->addCondition('t.relation = :type');
+            $c->params = array(
+                'u1' => $userId,
+                'type' => Friend::FOLLOWED,
+            );
+            $count = self::model()->count($c);
+            $this->countFollowed = $count;
+        }
+
+        return $this->countFollowed;
+    }
+
+    public function getCountNewFollowed($userId) {
+        $c = new CDbCriteria();
+        $c->addCondition('t.user1 = :u1');
+        $c->addCondition('t.relation = :type');
+        $c->addCondition('t.isread = :isread');
+        $c->params = array(
+            'u1' => $userId,
+            'type' => Friend::FOLLOWED,
+            'isread' => Friend::ISNOTREAD,
+        );
+        return self::model()->count($c);
+    }
 
 }

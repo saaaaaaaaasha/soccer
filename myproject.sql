@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 20 2014 г., 20:25
+-- Время создания: Ноя 24 2014 г., 21:34
 -- Версия сервера: 5.6.20
 -- Версия PHP: 5.5.15
 
@@ -91,6 +91,37 @@ CREATE TABLE IF NOT EXISTS `rights` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `tbl_comments`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_comments` (
+  `owner_name` varchar(50) NOT NULL,
+  `owner_id` int(12) NOT NULL,
+`comment_id` int(12) NOT NULL,
+  `parent_comment_id` int(12) DEFAULT NULL,
+  `creator_id` int(12) DEFAULT NULL,
+  `user_name` varchar(128) DEFAULT NULL,
+  `user_email` varchar(128) DEFAULT NULL,
+  `comment_text` text,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `status` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+--
+-- Дамп данных таблицы `tbl_comments`
+--
+
+INSERT INTO `tbl_comments` (`owner_name`, `owner_id`, `comment_id`, `parent_comment_id`, `creator_id`, `user_name`, `user_email`, `comment_text`, `create_time`, `update_time`, `status`) VALUES
+('Post', 3, 5, 0, 1, NULL, NULL, 'Первый комментарий', 1415720360, NULL, 0),
+('Post', 3, 6, 5, 1, NULL, NULL, 'Под комментарий', 1415720390, NULL, 0),
+('Post', 3, 7, 5, 1, NULL, NULL, 'Второй комментарий', 1415720404, NULL, 0),
+('Post', 3, 8, 0, 1, NULL, NULL, 'Второй комментарий', 1415720422, NULL, 0),
+('Video', 1, 9, 0, 1, NULL, NULL, 'Отличное видео', 1416386259, NULL, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `tbl_friend`
 --
 
@@ -98,60 +129,112 @@ CREATE TABLE IF NOT EXISTS `tbl_friend` (
 `id` int(11) NOT NULL,
   `user1` int(11) NOT NULL,
   `user2` int(11) NOT NULL,
-  `relation` int(11) unsigned NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=209 ;
+  `relation` int(11) unsigned NOT NULL,
+  `isread` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=251 ;
 
 --
 -- Дамп данных таблицы `tbl_friend`
 --
 
-INSERT INTO `tbl_friend` (`id`, `user1`, `user2`, `relation`) VALUES
-(1, 1, 2, 2),
-(2, 1, 3, 2),
-(3, 3, 1, 2),
-(4, 2, 1, 2),
-(15, 1, 7, 2),
-(16, 7, 1, 2),
-(23, 1, 6, 2),
-(24, 6, 1, 2),
-(29, 8, 7, 0),
-(30, 7, 8, 1),
-(31, 8, 1, 2),
-(32, 1, 8, 2),
-(33, 8, 4, 0),
-(34, 4, 8, 1),
-(53, 9, 7, 0),
-(54, 7, 9, 1),
-(133, 9, 3, 0),
-(134, 3, 9, 1),
-(135, 9, 3, 0),
-(136, 3, 9, 1),
-(147, 9, 4, 0),
-(148, 4, 9, 1),
-(171, 1, 4, 0),
-(172, 4, 1, 1),
-(173, 41, 38, 0),
-(174, 38, 41, 1),
-(175, 41, 9, 0),
-(176, 9, 41, 1),
-(177, 41, 8, 0),
-(178, 8, 41, 1),
-(179, 41, 7, 0),
-(180, 7, 41, 1),
-(181, 41, 6, 0),
-(182, 6, 41, 1),
-(183, 41, 5, 0),
-(184, 5, 41, 1),
-(193, 41, 3, 0),
-(194, 3, 41, 1),
-(195, 41, 4, 0),
-(196, 4, 41, 1),
-(201, 1, 9, 0),
-(202, 9, 1, 1),
-(205, 1, 5, 0),
-(206, 5, 1, 1),
-(207, 1, 41, 0),
-(208, 41, 1, 1);
+INSERT INTO `tbl_friend` (`id`, `user1`, `user2`, `relation`, `isread`) VALUES
+(1, 1, 2, 2, 1),
+(2, 1, 3, 1, 1),
+(3, 3, 1, 0, 1),
+(4, 2, 1, 2, 0),
+(23, 1, 6, 2, 1),
+(24, 6, 1, 2, 1),
+(29, 8, 7, 0, 0),
+(30, 7, 8, 1, 0),
+(31, 8, 1, 2, 1),
+(32, 1, 8, 2, 1),
+(33, 8, 4, 0, 0),
+(34, 4, 8, 1, 0),
+(53, 9, 7, 0, 0),
+(54, 7, 9, 1, 0),
+(133, 9, 3, 0, 0),
+(134, 3, 9, 1, 0),
+(135, 9, 3, 0, 0),
+(136, 3, 9, 1, 0),
+(147, 9, 4, 0, 0),
+(148, 4, 9, 1, 0),
+(173, 41, 38, 0, 0),
+(174, 38, 41, 1, 0),
+(175, 41, 9, 0, 0),
+(176, 9, 41, 1, 0),
+(177, 41, 8, 0, 0),
+(178, 8, 41, 1, 0),
+(179, 41, 7, 0, 0),
+(180, 7, 41, 1, 0),
+(181, 41, 6, 0, 0),
+(182, 6, 41, 1, 0),
+(183, 41, 5, 0, 0),
+(184, 5, 41, 1, 0),
+(193, 41, 3, 0, 0),
+(194, 3, 41, 1, 0),
+(195, 41, 4, 0, 0),
+(196, 4, 41, 1, 0),
+(225, 1, 4, 0, 0),
+(226, 4, 1, 1, 0),
+(231, 1, 38, 0, 0),
+(232, 38, 1, 1, 0),
+(239, 1, 5, 0, 0),
+(240, 5, 1, 1, 0),
+(241, 42, 1, 0, 0),
+(242, 1, 42, 1, 0),
+(243, 42, 8, 2, 1),
+(244, 8, 42, 2, 0),
+(245, 42, 38, 0, 0),
+(246, 38, 42, 1, 0),
+(249, 1, 41, 0, 0),
+(250, 41, 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tbl_likes`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_likes` (
+`id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `owner_name` varchar(100) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
+
+--
+-- Дамп данных таблицы `tbl_likes`
+--
+
+INSERT INTO `tbl_likes` (`id`, `owner_id`, `user_id`, `owner_name`) VALUES
+(119, 2, 42, 'Video'),
+(123, 7, 42, 'Post'),
+(124, 3, 42, 'Post');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tbl_lookup`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_lookup` (
+`id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `code` int(11) NOT NULL,
+  `type` varchar(128) NOT NULL,
+  `position` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Дамп данных таблицы `tbl_lookup`
+--
+
+INSERT INTO `tbl_lookup` (`id`, `name`, `code`, `type`, `position`) VALUES
+(1, 'В проекте', 1, 'PostStatus', 1),
+(2, 'Опубликованный', 2, 'PostStatus', 2),
+(3, 'В архиве', 3, 'PostStatus', 3),
+(4, 'Pending Approval', 4, 'CommentStatus', 4),
+(5, 'Approved', 5, 'CommentStatus', 5);
 
 -- --------------------------------------------------------
 
@@ -164,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `tbl_mchat` (
   `user_id` int(11) NOT NULL,
   `text` text NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 --
 -- Дамп данных таблицы `tbl_mchat`
@@ -189,7 +272,19 @@ INSERT INTO `tbl_mchat` (`id`, `user_id`, `text`, `date`) VALUES
 (16, 8, '[b]julia[/b], да все окей, бро! :) ', '2014-11-08 20:50:11'),
 (17, 6, '[b]julia[/b], и ещё одна проверка мини-чата на звук!', '2014-11-08 20:50:49'),
 (18, 41, 'проверка сообщений от вк пользователя))', '2014-11-18 14:02:13'),
-(19, 1, ' :cool:  :like:  :sleepy: ', '2014-11-20 19:35:41');
+(19, 1, ' :cool:  :like:  :sleepy: ', '2014-11-20 19:35:41'),
+(20, 1, ' :sleepy: ', '2014-11-21 11:12:46'),
+(21, 1, ' :like: ', '2014-11-21 11:43:31'),
+(22, 1, ' :)  :D ', '2014-11-21 12:52:25'),
+(23, 1, ' :o  :like: 324234', '2014-11-21 12:52:39'),
+(24, 1, 'До первого мачта, который сам будет автообновляться осталось каких-то 8 минут!!  :cool:  :D  :like: ', '2014-11-22 15:51:21'),
+(25, 8, 'Блин, страшно :D а вдруг не получится... :sad:  :snivel:  уже 7 минут', '2014-11-22 15:52:38'),
+(26, 1, 'осталось меньше минуты!!!   аааааааааааа ааа', '2014-11-22 15:59:27'),
+(27, 1, ' :snivel:  :snivel: ', '2014-11-22 16:00:17'),
+(28, 1, 'ееееее)))   получилось!', '2014-11-22 16:02:54'),
+(29, 42, 'сегодня играет Ливерпуль, надеюсь на легкую победу))', '2014-11-23 08:17:43'),
+(30, 1, 'проверка сообщений, отправленных,через вайфай', '2014-11-24 10:36:01'),
+(31, 42, ' :)  :D ', '2014-11-24 11:08:30');
 
 -- --------------------------------------------------------
 
@@ -229,6 +324,37 @@ INSERT INTO `tbl_messages` (`id`, `sender_id`, `receiver_id`, `subject`, `body`,
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `tbl_post`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_post` (
+`id` int(11) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `content` text NOT NULL,
+  `tags` text,
+  `status` int(1) NOT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `author_id` int(11) NOT NULL,
+  `preview` text NOT NULL,
+  `image` text
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Дамп данных таблицы `tbl_post`
+--
+
+INSERT INTO `tbl_post` (`id`, `title`, `content`, `tags`, `status`, `create_time`, `update_time`, `author_id`, `preview`, `image`) VALUES
+(3, 'Рыбатекст, встречайте!', '<p>\r\n	<img alt="" src="http://static.diary.ru/userdir/6/8/7/6/687665/29160535.jpg" style="height:258px; width:369px" /><br />\r\n	Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности способствует подготовки и реализации форм развития. <strong>Не следует, однако забывать, что постоянный&nbsp;</strong><strong>количественный рост и сфера нашей активности позволяет оценить значение систем массового участия.</strong><!--cut-->Равным образом сложившаяся структура организации позволяет выполнять важные задания по разработке существенных финансовых и административных условий. Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности способствует подготовки и реализации форм развития. <strong>Не следует, однако забывать, что<iktomi-cut><mooo></mooo></iktomi-cut> постоянный количественный рост и сфера нашей активности позволяет оценить значение систем массового участия.</strong> Равным образом сложившаяся структура организации позволяет выполн [cut]ять важные задания по разработке существенных финансовых и административных условий. Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности способствует подготовки и реализации форм развития. <strong>Не следует, однако забывать, что постоянный количественн<iktomi-cut><cut></cut></iktomi-cut>ый рост и сфера нашей активности позволяет оценить значение систем массового участия.</strong> Равным образом сложившаяся структура организации позволяет выполнять важные задания по разработке существенных финансовых и административных условий.</p>\r\n', 'ddd', 2, 1415336475, 1416306880, 1, '<p>Задача организации, в особенности же постоянное\r\nинформационно-пропагандистское обеспечение нашей деятельности\r\nспособствует подготовки и реализации форм развития. Не следует,\r\nоднако забывать, что постоянный&nbsp;количественный рост и сфера\r\nнашей активности позволяет оценить значение систем массового\r\nучастия.</p>', 'http://static.diary.ru/userdir/6/8/7/6/687665/29160535.jpg'),
+(4, 'Самым известным «рыбным»', '<p>\r\n	<img alt="" height="313" src="http://www.aronsky.ru/wp-content/uploads/network-people.png" width="383" /></p>\r\n<p>\r\n	Каждый веб-разработчик знает, что такое текст-&laquo;рыба&raquo;.Текст этот, несмотря на название, не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для вставки на<strong> интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов и т.д. Так как цель применения такого текста исключительно демонстрационная, то и смысловую нагрузку ему нести совсем необязательно. Более того, нечитабельность текста сыграет на руку при оценке качества восприятия макета.<!--cut--><br />\r\n	Самым известным &laquo;рыбным&raquo; текстом является знаменитый Lorem ipsum. Считается, что впервые его применили в книгопечатании еще в </strong>XVI веке. Своим появлением Lorem ipsum обязан древнеримскому философу Цицерону, ведь именно из его трактата &laquo;О пределах добра и зла&raquo; средневековый книгопечатник вырвал отдельные фразы и слова, получив текст-&laquo;рыбу&raquo;, широко используемый и по сей день. Конечно, возникают некоторые вопросы, связанные с использованием Lorem ipsum на сайтах и проектах, ориентированных на кириллический контент &ndash; написание символов на латыни и на кириллице значительно различается.<br />\r\n	И даже с языками, использующими латинский алфавит, могут возникнуть небольшие проблемы: в различных языках те или иные буквы встречаются с разной частотой, имеется разница в длине наиболее распространенных слов. Отсюда напрашивается вывод, что все же лучше использовать в качестве &laquo;рыбы&raquo; текст на том языке, который планируется использовать при запуске проекта. Сегодня существует несколько вариантов Lorem ipsum, кроме того, есть специальные генераторы, создающие собственные варианты текста на основе оригинального трактата, благодаря чему появляется возможность получить более длинный неповторяющийся набор слов.</p>\r\n', 'sdfsd', 2, 1416195848, 1416307011, 1, '<p>Каждый веб-разработчик знает, что такое текст-«рыба».Текст этот,\r\nнесмотря на название, не имеет никакого отношения к обитателям\r\nводоемов. Используется он веб-дизайнерами для вставки на\r\nинтернет-страницы и демонстрации внешнего вида контента, просмотра\r\nшрифтов, абзацев, отступов и т.д. Так как цель применения такого\r\nтекста исключительно демонстрационная, то и смысловую нагрузку ему\r\nнести совсем необязательно. Более того, нечитабельность текста\r\nсыграет на руку при оценке качества восприятия макета.</p>', 'http://www.aronsky.ru/wp-content/uploads/network-people.png'),
+(5, 'Третий пост!', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="285" src="http://soft.mail.ru/Screens/news/2012/03/02/te_341496.jpg" width="350" /></p>\r\n	&quot;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.<!--cut--> Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?&quot;</div>\r\n', 'fdgdfgdf', 2, 1416196131, 1416304644, 1, '"But I must explain to you how all this mistaken idea of denouncing\r\npleasure and praising pain was born and I will give you a complete\r\naccount of the system, and expound the actual teachings of the\r\ngreat explorer of the truth, the master-builder of human happiness.\r\nNo one rejects, dislikes, or avoids pleasure itself, because it is\r\npleasure, but because those who do not know how to pursue pleasure\r\nrationally encounter consequences that are extremely painful.', 'http://soft.mail.ru/Screens/news/2012/03/02/te_341496.jpg'),
+(6, 'Четверный пост', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="250" src="http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg" width="500" /></p>\r\n	<p>\r\n		Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.<!--cut--></p>\r\n	<p>\r\n		Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.</p>\r\n	<p>\r\n		Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\r\n</div>\r\n', 'dsfds', 2, 1416196202, 1416304636, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>', 'http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg'),
+(7, 'Пятый пост', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="365" src="http://jelezyka.com/uploads/posts/2012-12/1354313188_kak-sozdat-i-nastroit-provodnuyu-lokalnuyu-set.jpg" width="567" /></p>\r\n	<p>\r\n		Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.<!--cut--></p>\r\n	<p>\r\n		Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.</p>\r\n	<p>\r\n		Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\r\n</div>\r\n', 'dsfsd', 2, 1416196323, 1416307476, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>', 'http://jelezyka.com/uploads/posts/2012-12/1354313188_kak-sozdat-i-nastroit-provodnuyu-lokalnuyu-set.jpg'),
+(8, 'Шестой пост', '<p>\n	<img alt="" height="250" src="http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg" width="500" /></p>\n<p>\n	Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.</p>\n<p>\n	Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.<!--cut--></p>\n<p>\n	Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\n', 'dsfdfs', 2, 1416196382, 1416304601, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>\r\n<p>Очевидно, имел успех и которого вронский был. Пажеском корпусе,\r\n– вроде того чтобы. Вслух, заметив: надо их придется отослать\r\nназад, если новый человек в провинции. Аркадьич, которому было у\r\nнего прозвище в повар вронского, привезенный из единомышленных.\r\nЩербацкой, который устраивала его жена, желающая с каким молодую\r\nженщину называют. Либеральной среде, в которой все было.\r\nКонфузившийся пред анной, и землевладельца. Прозвище в этот день у\r\nнего.</p>\r\n<p>Столом, празднуя выбор неведовского, он чувствовал сам, что,\r\nесли он. Найти представителя того положения дворянина и многие из\r\nединомышленных, либеральных новых. Восторга, не выразить восторга\r\nне. Назад, если он продиктовал ее вслух, заметив надо. Получив\r\nдепешу, только вздохнула о рубле за телеграмму. Madame и учредивший\r\nпроцветающий банк в этот день у себя под. Уступил ему кучу ни к\r\nневедовскому: лучше нельзя было.</p>', 'http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `tbl_profiles`
 --
 
@@ -244,24 +370,25 @@ CREATE TABLE IF NOT EXISTS `tbl_profiles` (
   `site` varchar(255) NOT NULL DEFAULT '',
   `twitter_id` varchar(255) NOT NULL DEFAULT '',
   `last_activity` int(10) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
 
 --
 -- Дамп данных таблицы `tbl_profiles`
 --
 
 INSERT INTO `tbl_profiles` (`user_id`, `lastname`, `firstname`, `avatar`, `date_birth`, `vk_id`, `city`, `country`, `site`, `twitter_id`, `last_activity`) VALUES
-(1, 'Admin', 'Administrator', 'assets/3wHwuWCAzDSlSu0fu-sN/2014-11-03_115120.jpg', '1993-10-20', 'morgunov.sasha', '', '', '', '', 1416511426),
+(1, 'Admin', 'Administrator', 'assets/3wHwuWCAzDSlSu0fu-sN/2014-11-03_115120.jpg', '1993-10-20', 'morgunov.sasha', '', '', '', '', 1416856191),
 (2, 'Demo', 'Demo', 'assets/AJwEnMUNsv6_nbDOzxzf/2014-11-03_115137.jpg', '0000-00-00', '', '', '', '', '', 1416511234),
 (3, 'Моргунов', 'Александр', 'assets/CzJK1R8jlPQmqH4TwSfo/14548.png', '0000-00-00', '', '', '', '', '', 0),
 (4, 'Моргунов', 'Александр', 'assets/KfRB9IT-TVGLWaLdmx6/2014-11-03_115152.jpg', '0000-00-00', '', '', '', '', '', 0),
 (5, 'Моргунов', 'Александр', '', '0000-00-00', '', '', '', '', '', 0),
 (6, 'suarezsuarez', 'suarezsuarez', '', '0000-00-00', '', '', '', '', '', 1416511210),
 (7, 'Дешевцов', 'Алексей', '', '1993-02-16', 'voodoo', 'Новосибирск', 'Россия', 'updatesite.ru', 'updatesite_ru', 0),
-(8, 'Чвырова', 'Юлия', 'assets/OBTIqvr8zINSmwCAf9EF/ava2.jpg', '1993-02-16', 'id8135936', 'Новосибирск', 'Россия', '', '', 1416511250),
+(8, 'Чвырова', 'Юлия', 'assets/OBTIqvr8zINSmwCAf9EF/ava2.jpg', '1993-02-16', 'id8135936', 'Новосибирск', 'Россия', '', '', 1416725335),
 (9, 'Gerrard', 'Stiven', 'assets/uvbus7njtCinQlwwpi7i/noavatar6.png', '1993-12-22', '', 'Liverpool', 'England', '', '', 0),
 (38, 'Morgunov', 'Alexander', '', '1993-12-12', '', '', '', '', '', 1416305460),
-(41, 'Иванов', 'Саша', 'assets/-BBCe313TSGwjNw3dMv/piq_148125_400x400.png', '0000-00-00', '', '', '', '', '', 1416335308);
+(41, 'Иванов', 'Саша', 'assets/-BBCe313TSGwjNw3dMv/piq_148125_400x400.png', '0000-00-00', '', '', '', '', '', 1416335308),
+(42, 'Возняк', 'Максим', 'assets/oj8bzwpnJJo-I_wrR-Rx/9019515.jpg', '1993-12-22', '', 'Новосибирск', '', '', '', 1416824047);
 
 -- --------------------------------------------------------
 
@@ -396,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_country` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=52 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=59 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_country`
@@ -451,7 +578,8 @@ INSERT INTO `tbl_soccer_country` (`id`, `name`, `image`) VALUES
 (48, 'Бурунду', 'Burundi.png'),
 (49, 'Бенин', 'Benin.png'),
 (50, 'Греция', 'Greece.png'),
-(51, 'Великобритания', 'United Kingdom(Great Britain).png');
+(51, 'Великобритания', 'United Kingdom(Great Britain).png'),
+(0, 'unknown', 'none.png');
 
 -- --------------------------------------------------------
 
@@ -589,16 +717,16 @@ INSERT INTO `tbl_soccer_match` (`id`, `date`, `hometeam_id`, `awayteam_id`, `hom
 (110, '2014-11-09 13:30:00', 9, 13, 1, 1, 1, 9, 1954149, 11, '', 'FT'),
 (111, '2014-11-09 13:30:00', 11, 20, 1, 2, 1, 11, 1954150, 11, '', 'FT'),
 (112, '2014-11-09 16:00:00', 17, 18, 2, 1, 1, 17, 1954572, 11, '', 'FT'),
-(113, '2014-11-22 15:00:00', 20, 4, -1, -1, 1, 20, 1955558, 12, '', NULL),
-(114, '2014-11-22 15:00:00', 15, 17, -1, -1, 1, 15, 1955556, 12, '', NULL),
-(115, '2014-11-22 15:00:00', 5, 9, -1, -1, 1, 5, 1955555, 12, '', NULL),
-(116, '2014-11-22 15:00:00', 13, 16, -1, -1, 1, 13, 1955554, 12, '', NULL),
-(117, '2014-11-22 15:00:00', 1, 10, -1, -1, 1, 1, 1955553, 12, '', NULL),
-(118, '2014-11-22 15:00:00', 19, 2, -1, -1, 1, 19, 1955557, 12, '', NULL),
-(119, '2014-11-22 17:30:00', 18, 3, -1, -1, 1, 18, 1955559, 12, '', NULL),
-(120, '2014-11-23 13:30:00', 6, 12, -1, -1, 1, 6, -1, 12, '', NULL),
-(121, '2014-11-23 16:00:00', 8, 11, -1, -1, 1, 8, -1, 12, '', NULL),
-(122, '2014-11-24 20:00:00', 7, 14, -1, -1, 1, 7, -1, 12, '', NULL),
+(113, '2014-11-22 15:00:00', 20, 4, 1, 2, 1, 20, 1955558, 12, '', 'FT'),
+(114, '2014-11-22 15:00:00', 15, 17, 2, 1, 1, 15, 1955556, 12, '', 'FT'),
+(115, '2014-11-22 15:00:00', 5, 9, 0, 0, 1, 5, 1955555, 12, '', 'FT'),
+(116, '2014-11-22 15:00:00', 13, 16, 2, 1, 1, 13, 1955554, 12, '', 'FT'),
+(117, '2014-11-22 15:00:00', 1, 10, 2, 0, 1, 1, 1955553, 12, '', 'FT'),
+(118, '2014-11-22 15:00:00', 19, 2, 1, 0, 1, 19, 1955557, 12, '', 'FT'),
+(119, '2014-11-22 17:30:00', 18, 3, 1, 2, 1, 18, 1955559, 12, '', 'FT'),
+(120, '2014-11-23 13:30:00', 6, 12, 3, 1, 1, 6, 1956162, 12, '', 'FT'),
+(121, '2014-11-23 16:00:00', 8, 11, 1, 2, 1, 8, 1956163, 12, '', 'FT'),
+(122, '2014-11-24 20:00:00', 7, 14, 1, 0, 1, 7, 1956637, 12, '', '34'),
 (123, '2014-11-29 12:45:00', 10, 18, -1, -1, 1, 10, -1, 13, '', NULL),
 (124, '2014-11-29 15:00:00', 4, 7, -1, -1, 1, 4, -1, 13, '', NULL),
 (125, '2014-11-29 15:00:00', 12, 20, -1, -1, 1, 12, -1, 13, '', NULL),
@@ -873,7 +1001,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_commentaries` (
   `important` int(11) DEFAULT NULL,
   `isgoal` int(11) DEFAULT NULL,
   `comment` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11218 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12218 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_commentaries`
@@ -12116,7 +12244,1009 @@ INSERT INTO `tbl_soccer_match_commentaries` (`id`, `match_id`, `minute`, `import
 (11214, 112, 2, 0, 0, 'Delay in match Ashley Williams (Swansea City) because of an injury.'),
 (11215, 112, 0, 0, 0, 'Lineups are announced and players are warming up.'),
 (11216, 112, 0, 0, 0, 'First Half begins.'),
-(11217, 112, 90, 0, 0, 'Second Half ends, Swansea City 2, Arsenal 1.');
+(11217, 112, 90, 0, 0, 'Second Half ends, Swansea City 2, Arsenal 1.'),
+(11218, 117, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(11219, 116, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(11220, 115, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(11221, 114, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(11222, 118, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(11223, 113, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(11224, 113, 0, 0, 0, 'First Half begins.'),
+(11225, 117, 0, 0, 0, 'First Half begins.'),
+(11226, 115, 0, 0, 0, 'First Half begins.'),
+(11227, 114, 0, 0, 0, 'First Half begins.'),
+(11228, 118, 0, 0, 0, 'First Half begins.'),
+(11229, 113, 1, 0, 0, 'George Boyd (Burnley) wins a free kick on the right wing.'),
+(11230, 113, 1, 0, 0, 'Foul by Steve Sidwell (Stoke City).'),
+(11231, 116, 0, 0, 0, 'First Half begins.'),
+(11232, 117, 2, 0, 0, 'Offside, West Bromwich Albion. Craig Gardner tries a through ball, but Saido Berahino is caught offside.'),
+(11233, 115, 2, 0, 0, 'Corner,  Leicester City. Conceded by Wes Brown.'),
+(11234, 116, 2, 0, 0, 'Foul by Kevin Nolan (West Ham United).'),
+(11235, 116, 1, 0, 0, 'Offside, Everton. Ross Barkley tries a through ball, but Kevin Mirallas is caught offside.'),
+(11236, 116, 2, 0, 0, 'James McCarthy (Everton) wins a free kick in the defensive half.'),
+(11237, 114, 2, 0, 0, 'Attempt missed. Sergio Agüero (Manchester City) left footed shot from the right side of the box misses to the left. Assisted by Pablo Zabaleta.'),
+(11238, 118, 3, 0, 0, 'Charlie Austin (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11239, 118, 3, 0, 0, 'Foul by Daryl Janmaat (Newcastle United).'),
+(11240, 113, 5, 0, 0, 'Foul by Ashley Barnes (Burnley).'),
+(11241, 113, 4, 0, 0, 'Jason Shackell (Burnley) wins a free kick in the defensive half.'),
+(11242, 113, 4, 0, 0, 'Foul by Mame Biram Diouf (Stoke City).'),
+(11243, 113, 5, 0, 0, 'Geoff Cameron (Stoke City) wins a free kick in the defensive half.'),
+(11244, 117, 5, 0, 0, 'Foul by Willian (Chelsea).'),
+(11245, 117, 5, 0, 0, 'Corner,  Chelsea. Conceded by Ben Foster.'),
+(11246, 117, 5, 0, 0, 'Attempt saved. John Terry (Chelsea) left footed shot from very close range is saved in the centre of the goal. Assisted by Eden Hazard.'),
+(11247, 117, 5, 0, 0, 'Corner,  Chelsea. Conceded by Claudio Yacob.'),
+(11248, 117, 5, 0, 0, 'Saido Berahino (West Bromwich Albion) wins a free kick in the defensive half.'),
+(11249, 113, 6, 0, 0, 'Hand ball by Michael Kightly (Burnley).'),
+(11250, 117, 8, 0, 0, 'Offside, Chelsea. Cesc Fàbregas tries a through ball, but Diego Costa is caught offside.'),
+(11251, 117, 8, 0, 0, 'John Terry (Chelsea) wins a free kick in the defensive half.'),
+(11252, 117, 8, 0, 0, 'Foul by Saido Berahino (West Bromwich Albion).'),
+(11253, 117, 9, 0, 0, 'Attempt missed. Stéphane Sessegnon (West Bromwich Albion) right footed shot from outside the box misses to the left. Assisted by Craig Gardner.'),
+(11254, 115, 7, 0, 0, 'Connor Wickham (Sunderland) wins a free kick on the left wing.'),
+(11255, 115, 6, 0, 0, 'Corner,  Leicester City. Conceded by Costel Pantilimon.'),
+(11256, 115, 3, 0, 0, 'Leonardo Ulloa (Leicester City) wins a free kick in the attacking half.'),
+(11257, 115, 3, 0, 0, 'Foul by Lee Cattermole (Sunderland).'),
+(11258, 115, 2, 0, 0, 'Attempt missed. Marcin Wasilewski (Leicester City) header from the centre of the box misses to the right. Assisted by Matthew James with a cross following a corner.'),
+(11259, 115, 7, 0, 0, 'Ritchie de Laet (Leicester City) wins a free kick in the defensive half.'),
+(11260, 118, 9, 0, 0, 'Corner,  Newcastle United. Conceded by Richard Dunne.'),
+(11261, 118, 7, 0, 0, 'Corner,  Newcastle United. Conceded by Karl Henry.'),
+(11262, 118, 7, 0, 0, 'Rémy Cabella (Newcastle United) wins a free kick on the right wing.'),
+(11263, 118, 7, 0, 0, 'Foul by Yun Suk-Young (Queens Park Rangers).'),
+(11264, 118, 10, 0, 0, 'Attempt saved. Rémy Cabella (Newcastle United) right footed shot from the left side of the box is saved in the centre of the goal. Assisted by Moussa Sissoko.'),
+(11265, 113, 8, 0, 0, 'Foul by Michael Kightly (Burnley).'),
+(11266, 113, 8, 0, 0, 'Phil Bardsley (Stoke City) wins a free kick in the defensive half.'),
+(11267, 113, 10, 0, 0, 'Foul by Steve Sidwell (Stoke City).'),
+(11268, 113, 10, 0, 0, 'Danny Ings (Burnley) wins a free kick in the defensive half.'),
+(11269, 113, 12, 1, 1, 'Goal!  Stoke City 0, Burnley 1. Danny Ings (Burnley) right footed shot from the centre of the box to the centre of the goal.'),
+(11270, 117, 13, 0, 0, 'Foul by Oscar (Chelsea).'),
+(11271, 117, 11, 1, 1, 'Goal!  Chelsea 1, West Bromwich Albion 0. Diego Costa (Chelsea) right footed shot from the centre of the box to the bottom left corner. Assisted by Oscar.'),
+(11272, 117, 13, 0, 0, 'Stéphane Sessegnon (West Bromwich Albion) wins a free kick on the right wing.'),
+(11273, 114, 12, 0, 0, 'Foul by Wilfried Bony (Swansea City).'),
+(11274, 114, 11, 0, 0, 'Wilfried Bony (Swansea City) wins a free kick in the attacking half.'),
+(11275, 114, 11, 0, 0, 'Foul by Vincent Kompany (Manchester City).'),
+(11276, 114, 9, 1, 1, 'Goal!  Manchester City 0, Swansea City 1. Wilfried Bony (Swansea City) right footed shot from the centre of the box to the centre of the goal. Assisted by Nathan Dyer with a through ball.'),
+(11277, 114, 12, 0, 0, 'Martín Demichelis (Manchester City) wins a free kick in the defensive half.'),
+(11278, 118, 11, 0, 0, 'Offside, Queens Park Rangers. Richard Dunne tries a through ball, but Bobby Zamora is caught offside.'),
+(11279, 118, 13, 0, 0, 'Attempt missed. Charlie Austin (Queens Park Rangers) right footed shot from long range on the right is close, but misses to the left.'),
+(11280, 113, 13, 1, 1, 'Goal!  Stoke City 0, Burnley 2. Danny Ings (Burnley) right footed shot from very close range to the centre of the goal. Assisted by Michael Kightly with a cross.'),
+(11281, 115, 13, 0, 0, 'Offside, Sunderland. Lee Cattermole tries a through ball, but Wes Brown is caught offside.'),
+(11282, 115, 12, 0, 0, 'Corner,  Sunderland. Conceded by Marcin Wasilewski.'),
+(11283, 115, 11, 0, 0, 'Attempt saved. Riyad Mahrez (Leicester City) left footed shot from outside the box is saved in the bottom left corner. Assisted by Jamie Vardy.'),
+(11284, 115, 7, 0, 0, 'Foul by Ritchie de Laet (Leicester City).'),
+(11285, 115, 13, 0, 0, 'Attempt missed. Jeffrey Schlupp (Leicester City) left footed shot from the left side of the box is close, but misses to the left. Assisted by Riyad Mahrez with a through ball.'),
+(11286, 118, 15, 0, 0, 'Foul by Karl Henry (Queens Park Rangers).'),
+(11287, 118, 14, 0, 0, 'Hand ball by Ayoze Pérez (Newcastle United).'),
+(11288, 118, 15, 0, 0, 'Jack Colback (Newcastle United) wins a free kick in the attacking half.'),
+(11289, 118, 16, 0, 0, 'Corner,  Newcastle United. Conceded by Nedum Onuoha.'),
+(11290, 113, 16, 0, 0, 'Foul by Mame Biram Diouf (Stoke City).'),
+(11291, 113, 16, 0, 0, 'Jason Shackell (Burnley) wins a free kick in the defensive half.'),
+(11292, 116, 17, 0, 0, 'Foul by Andy Carroll (West Ham United).'),
+(11293, 116, 16, 0, 0, 'Morgan Amalfitano (West Ham United) wins a free kick in the defensive half.'),
+(11294, 116, 16, 0, 0, 'Foul by James McCarthy (Everton).'),
+(11295, 116, 14, 0, 0, 'Attempt saved. Romelu Lukaku (Everton) left footed shot from outside the box is saved in the centre of the goal. Assisted by Steven Naismith.'),
+(11296, 116, 13, 0, 0, 'Steven Naismith (Everton) wins a free kick in the attacking half.'),
+(11297, 116, 13, 0, 0, 'Foul by Winston Reid (West Ham United).'),
+(11298, 116, 12, 0, 0, 'Attempt missed. Andy Carroll (West Ham United) header from the centre of the box is high and wide to the left. Assisted by Aaron Cresswell with a cross following a set piece situation.'),
+(11299, 116, 12, 0, 0, 'Mark Noble (West Ham United) wins a free kick in the attacking half.'),
+(11300, 116, 12, 0, 0, 'Foul by Romelu Lukaku (Everton).'),
+(11301, 116, 17, 0, 0, 'James McCarthy (Everton) wins a free kick in the defensive half.'),
+(11302, 117, 17, 0, 0, 'Attempt missed. Gary Cahill (Chelsea) right footed shot from outside the box misses to the right. Assisted by Eden Hazard following a corner.'),
+(11303, 117, 16, 0, 0, 'Corner,  Chelsea. Conceded by Andre Wisdom.'),
+(11304, 117, 16, 0, 0, 'Attempt blocked. Eden Hazard (Chelsea) right footed shot from the left side of the box is blocked. Assisted by Cesc Fàbregas.'),
+(11305, 117, 16, 0, 0, 'Corner,  Chelsea. Conceded by Ben Foster.'),
+(11306, 117, 15, 0, 0, 'Attempt saved. Diego Costa (Chelsea) right footed shot from very close range is saved in the centre of the goal.'),
+(11307, 117, 15, 0, 0, 'Attempt saved. Oscar (Chelsea) right footed shot from outside the box is saved in the centre of the goal. Assisted by Eden Hazard.'),
+(11308, 117, 19, 0, 0, 'Attempt missed. Diego Costa (Chelsea) left footed shot from very close range is close, but misses to the left.'),
+(11309, 116, 18, 0, 0, 'Attempt missed. Steven Naismith (Everton) right footed shot from the right side of the box is too high. Assisted by Seamus Coleman.'),
+(11310, 118, 18, 0, 0, 'Yun Suk-Young (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11311, 118, 18, 0, 0, 'Corner,  Newcastle United. Conceded by Joey Barton.'),
+(11312, 118, 17, 0, 0, 'Corner,  Newcastle United. Conceded by Robert Green.'),
+(11313, 118, 17, 0, 0, 'Attempt saved. Ryan Taylor (Newcastle United) right footed shot from outside the box is saved in the top centre of the goal. Assisted by Rémy Cabella.'),
+(11314, 118, 18, 0, 0, 'Foul by Ryan Taylor (Newcastle United).'),
+(11315, 115, 4, 0, 0, 'Foul by Jamie Vardy (Leicester City).'),
+(11316, 115, 21, 0, 0, 'Offside, Sunderland. Adam Johnson tries a through ball, but Sebastian Larsson is caught offside.'),
+(11317, 118, 22, 0, 0, 'Attempt saved. Ryan Taylor (Newcastle United) right footed shot from outside the box is saved in the bottom right corner. Assisted by Rémy Cabella.'),
+(11318, 118, 22, 0, 0, 'Offside, Newcastle United. Ayoze Pérez tries a through ball, but Daryl Janmaat is caught offside.'),
+(11319, 113, 19, 0, 0, 'Danny Ings (Burnley) wins a free kick in the defensive half.'),
+(11320, 113, 19, 0, 0, 'Foul by Steven N''Zonzi (Stoke City).'),
+(11321, 117, 21, 0, 0, 'Foul by Saido Berahino (West Bromwich Albion).'),
+(11322, 117, 21, 0, 0, 'Gary Cahill (Chelsea) wins a free kick in the defensive half.'),
+(11323, 117, 25, 0, 0, 'Corner,  Chelsea. Conceded by Craig Dawson.'),
+(11324, 116, 21, 0, 0, 'Foul by Kevin Nolan (West Ham United).'),
+(11325, 116, 21, 0, 0, 'Ross Barkley (Everton) wins a free kick on the right wing.'),
+(11326, 116, 24, 0, 0, 'Attempt missed. Tony Hibbert (Everton) right footed shot from outside the box misses to the right. Assisted by Leon Osman.'),
+(11327, 113, 25, 0, 0, 'Mame Biram Diouf (Stoke City) is shown the yellow card for a bad foul.'),
+(11328, 113, 24, 0, 0, 'Michael Duff (Burnley) wins a free kick in the defensive half.'),
+(11329, 113, 24, 0, 0, 'Foul by Mame Biram Diouf (Stoke City).'),
+(11330, 113, 23, 0, 0, 'Attempt missed. Steve Sidwell (Stoke City) left footed shot from outside the box misses to the left following a set piece situation.'),
+(11331, 113, 23, 0, 0, 'Attempt blocked. Bojan (Stoke City) right footed shot from outside the box is blocked.'),
+(11332, 113, 22, 0, 0, 'Foul by Dean Marney (Burnley).'),
+(11333, 113, 22, 0, 0, 'Bojan (Stoke City) wins a free kick in the attacking half.'),
+(11334, 113, 22, 0, 0, 'Attempt saved. George Boyd (Burnley) left footed shot from outside the box is saved in the top centre of the goal. Assisted by Dean Marney.'),
+(11335, 113, 25, 0, 0, 'Delay in match Michael Duff (Burnley) because of an injury.'),
+(11336, 115, 26, 0, 0, 'Adam Johnson (Sunderland) wins a free kick in the defensive half.'),
+(11337, 115, 24, 0, 0, 'Foul by Wes Morgan (Leicester City).'),
+(11338, 115, 24, 0, 0, 'Connor Wickham (Sunderland) wins a free kick in the attacking half.'),
+(11339, 115, 23, 0, 0, 'Corner,  Sunderland. Conceded by Kasper Schmeichel.'),
+(11340, 115, 23, 0, 0, 'Attempt saved. Steven Fletcher (Sunderland) left footed shot from the centre of the box is saved in the bottom right corner. Assisted by Adam Johnson with a through ball.'),
+(11341, 115, 4, 0, 0, 'Santiago Vergini (Sunderland) wins a free kick in the defensive half.'),
+(11342, 115, 26, 0, 0, 'Foul by Paul Konchesky (Leicester City).'),
+(11343, 117, 25, 1, 1, 'Goal!  Chelsea 2, West Bromwich Albion 0. Eden Hazard (Chelsea) left footed shot from the left side of the six yard box to the bottom left corner. Assisted by Cesc Fàbregas following a corner.'),
+(11344, 117, 27, 0, 0, 'Attempt saved. Chris Brunt (West Bromwich Albion) left footed shot from outside the box is saved in the bottom left corner. Assisted by Saido Berahino.'),
+(11345, 116, 26, 1, 1, 'Goal!  Everton 1, West Ham United 0. Romelu Lukaku (Everton) left footed shot from the left side of the six yard box to the bottom left corner.'),
+(11346, 114, 26, 0, 0, 'Yaya Touré (Manchester City) wins a free kick in the defensive half.'),
+(11347, 114, 26, 0, 0, 'Foul by Gylfi Sigurdsson (Swansea City).'),
+(11348, 114, 24, 0, 0, 'Kyle Bartley (Swansea City) is shown the yellow card.'),
+(11349, 114, 23, 0, 0, 'Sergio Agüero (Manchester City) wins a free kick on the left wing.'),
+(11350, 114, 23, 0, 0, 'Foul by Kyle Bartley (Swansea City).'),
+(11351, 114, 19, 1, 1, 'Goal!  Manchester City 1, Swansea City 1. Stevan Jovetic (Manchester City) right footed shot from very close range to the centre of the goal. Assisted by Jesús Navas with a cross.'),
+(11352, 114, 27, 0, 0, 'Corner,  Manchester City. Conceded by Jefferson Montero.'),
+(11353, 118, 27, 0, 0, 'Foul by Leroy Fer (Queens Park Rangers).'),
+(11354, 118, 26, 0, 0, 'Corner,  Newcastle United. Conceded by Richard Dunne.'),
+(11355, 118, 26, 0, 0, 'Attempt blocked. Rémy Cabella (Newcastle United) left footed shot from the right side of the box is blocked. Assisted by Ayoze Pérez.'),
+(11356, 118, 25, 0, 0, 'Attempt blocked. Sandro (Queens Park Rangers) right footed shot from outside the box is blocked.'),
+(11357, 118, 24, 0, 0, 'Attempt missed. Charlie Austin (Queens Park Rangers) header from the centre of the box misses to the right. Assisted by Yun Suk-Young with a cross.'),
+(11358, 118, 27, 0, 0, 'Rémy Cabella (Newcastle United) wins a free kick on the right wing.'),
+(11359, 113, 26, 0, 0, 'Foul by Dean Marney (Burnley).'),
+(11360, 113, 26, 0, 0, 'Delay over. They are ready to continue.'),
+(11361, 113, 26, 0, 0, 'Victor Moses (Stoke City) wins a free kick in the defensive half.'),
+(11362, 115, 30, 0, 0, 'Connor Wickham (Sunderland) wins a free kick in the attacking half.'),
+(11363, 115, 27, 0, 0, 'Foul by Paul Konchesky (Leicester City).'),
+(11364, 115, 27, 0, 0, 'Adam Johnson (Sunderland) wins a free kick in the defensive half.'),
+(11365, 115, 26, 0, 0, 'Attempt blocked. Leonardo Ulloa (Leicester City) left footed shot from outside the box is blocked. Assisted by Esteban Cambiasso.'),
+(11366, 115, 30, 0, 0, 'Foul by Marcin Wasilewski (Leicester City).'),
+(11367, 116, 26, 0, 0, 'Attempt blocked. Ross Barkley (Everton) right footed shot from outside the box is blocked.'),
+(11368, 116, 29, 0, 0, 'Morgan Amalfitano (West Ham United) wins a free kick in the defensive half.'),
+(11369, 118, 28, 0, 0, 'Foul by Joey Barton (Queens Park Rangers).'),
+(11370, 118, 28, 0, 0, 'Michael Williamson (Newcastle United) wins a free kick in the attacking half.'),
+(11371, 116, 29, 0, 0, 'Foul by Steven Naismith (Everton).'),
+(11372, 115, 30, 0, 0, 'Attempt saved. Adam Johnson (Sunderland) left footed shot from outside the box is saved in the bottom left corner. Assisted by Sebastian Larsson.'),
+(11373, 115, 31, 0, 0, 'Corner,  Sunderland. Conceded by Kasper Schmeichel.'),
+(11374, 114, 30, 0, 0, 'Corner,  Manchester City. Conceded by Angel Rangel.'),
+(11375, 114, 31, 0, 0, 'Foul by Vincent Kompany (Manchester City).'),
+(11376, 113, 30, 0, 0, 'Ashley Barnes (Burnley) wins a free kick in the defensive half.'),
+(11377, 113, 30, 0, 0, 'Foul by Ryan Shawcross (Stoke City).'),
+(11378, 117, 30, 0, 0, 'Attempt blocked. Oscar (Chelsea) right footed shot from outside the box is blocked.'),
+(11379, 117, 29, 0, 0, 'Claudio Yacob (West Bromwich Albion) is shown the red card.'),
+(11380, 117, 29, 0, 0, 'Foul by Claudio Yacob (West Bromwich Albion).'),
+(11381, 117, 29, 0, 0, 'Diego Costa (Chelsea) wins a free kick in the attacking half.'),
+(11382, 117, 30, 0, 0, 'Attempt blocked. Cesc Fàbregas (Chelsea) right footed shot from outside the box is blocked.'),
+(11383, 113, 32, 0, 0, 'Corner,  Stoke City. Conceded by Stephen Ward.'),
+(11384, 113, 32, 0, 0, 'Attempt blocked. Bojan (Stoke City) right footed shot from outside the box is blocked. Assisted by Victor Moses.'),
+(11385, 113, 31, 0, 0, 'Corner,  Stoke City. Conceded by Kieran Trippier.'),
+(11386, 113, 32, 1, 1, 'Goal!  Stoke City 1, Burnley 2. Jonathan Walters (Stoke City) header from the centre of the box to the top left corner. Assisted by Bojan with a cross following a corner.'),
+(11387, 116, 32, 0, 0, 'Attempt missed. Morgan Amalfitano (West Ham United) right footed shot from outside the box misses to the left. Assisted by Kevin Nolan.'),
+(11388, 116, 31, 0, 0, 'Attempt saved. Andy Carroll (West Ham United) header from the centre of the box is saved in the centre of the goal. Assisted by Carl Jenkinson with a cross.'),
+(11389, 116, 33, 0, 0, 'Offside, Everton. Ross Barkley tries a through ball, but Kevin Mirallas is caught offside.'),
+(11390, 114, 31, 0, 0, 'Wilfried Bony (Swansea City) wins a free kick in the defensive half.'),
+(11391, 114, 31, 0, 0, 'Vincent Kompany (Manchester City) is shown the yellow card for a bad foul.'),
+(11392, 117, 34, 0, 0, 'Eden Hazard (Chelsea) wins a free kick on the left wing.'),
+(11393, 115, 35, 0, 0, 'Anthony Réveillere (Sunderland) wins a free kick in the attacking half.'),
+(11394, 118, 32, 0, 0, 'Delay in match Ryan Taylor (Newcastle United) because of an injury.'),
+(11395, 118, 29, 0, 0, 'Attempt blocked. Ryan Taylor (Newcastle United) right footed shot from outside the box is blocked.'),
+(11396, 118, 34, 0, 0, 'Substitution, Newcastle United. Yoan Gouffran replaces Ryan Taylor because of an injury.'),
+(11397, 117, 34, 0, 0, 'Foul by Graham Dorrans (West Bromwich Albion).'),
+(11398, 118, 36, 0, 0, 'Foul by Bobby Zamora (Queens Park Rangers).'),
+(11399, 118, 35, 0, 0, 'Corner,  Queens Park Rangers. Conceded by Massadio Haidara.'),
+(11400, 118, 34, 0, 0, 'Corner,  Queens Park Rangers. Conceded by Michael Williamson.'),
+(11401, 118, 34, 0, 0, 'Delay over. They are ready to continue.'),
+(11402, 118, 36, 0, 0, 'Tim Krul (Newcastle United) wins a free kick in the defensive half.'),
+(11403, 117, 36, 0, 0, 'Attempt blocked. Oscar (Chelsea) right footed shot from the centre of the box is blocked.'),
+(11404, 115, 36, 0, 0, 'Corner,  Sunderland. Conceded by Ritchie de Laet.'),
+(11405, 115, 35, 0, 0, 'Foul by Esteban Cambiasso (Leicester City).'),
+(11406, 115, 36, 0, 0, 'Attempt missed. Adam Johnson (Sunderland) left footed shot from outside the box is too high. Assisted by Sebastian Larsson following a corner.'),
+(11407, 116, 35, 0, 0, 'Attempt missed. Carl Jenkinson (West Ham United) left footed shot from outside the box misses to the right. Assisted by Mark Noble.'),
+(11408, 116, 34, 0, 0, 'Attempt missed. Andy Carroll (West Ham United) right footed shot from the centre of the box is high and wide to the right. Assisted by Carl Jenkinson.'),
+(11409, 116, 37, 0, 0, 'Offside, Everton. Steven Naismith tries a through ball, but Romelu Lukaku is caught offside.'),
+(11410, 118, 35, 0, 0, 'Attempt blocked. Sandro (Queens Park Rangers) right footed shot from the left side of the six yard box is blocked. Assisted by Joey Barton with a cross.'),
+(11411, 118, 36, 0, 0, 'Sammy Ameobi (Newcastle United) wins a free kick in the defensive half.'),
+(11412, 113, 37, 0, 0, 'Attempt missed. Steve Sidwell (Stoke City) header from the right side of the six yard box is too high. Assisted by Victor Moses with a cross following a corner.'),
+(11413, 113, 36, 0, 0, 'Corner,  Stoke City. Conceded by Michael Kightly.'),
+(11414, 113, 33, 0, 0, 'Corner,  Stoke City. Conceded by Jason Shackell.'),
+(11415, 113, 38, 0, 0, 'Corner,  Stoke City. Conceded by Tom Heaton.'),
+(11416, 115, 42, 0, 0, 'Foul by Sebastian Larsson (Sunderland).'),
+(11417, 115, 42, 0, 0, 'Esteban Cambiasso (Leicester City) wins a free kick in the defensive half.'),
+(11418, 115, 41, 0, 0, 'Attempt missed. Leonardo Ulloa (Leicester City) header from the left side of the six yard box is too high following a corner.'),
+(11419, 115, 40, 0, 0, 'Corner,  Leicester City. Conceded by Santiago Vergini.'),
+(11420, 115, 39, 0, 0, 'Wes Morgan (Leicester City) wins a free kick in the attacking half.'),
+(11421, 115, 39, 0, 0, 'Foul by Connor Wickham (Sunderland).'),
+(11422, 115, 39, 0, 0, 'Wes Brown (Sunderland) wins a free kick in the defensive half.'),
+(11423, 115, 39, 0, 0, 'Dangerous play by Leonardo Ulloa (Leicester City).'),
+(11424, 115, 37, 0, 0, 'Attempt blocked. Sebastian Larsson (Sunderland) left footed shot from the centre of the box is blocked. Assisted by Steven Fletcher.'),
+(11425, 115, 42, 0, 0, 'Sebastian Larsson (Sunderland) is shown the yellow card for a bad foul.'),
+(11426, 114, 37, 0, 0, 'Attempt missed. Jesús Navas (Manchester City) right footed shot from the right side of the box misses to the right. Assisted by Yaya Touré.'),
+(11427, 114, 36, 0, 0, 'Attempt saved. Sergio Agüero (Manchester City) right footed shot from a difficult angle on the right is saved in the bottom right corner. Assisted by Samir Nasri with a through ball.'),
+(11428, 114, 38, 0, 0, 'Hand ball by Ki Sung-Yueng (Swansea City).'),
+(11429, 117, 42, 0, 0, 'Attempt saved. Nemanja Matic (Chelsea) left footed shot from outside the box is saved in the bottom right corner. Assisted by Branislav Ivanovic.'),
+(11430, 117, 41, 0, 0, 'Attempt missed. Branislav Ivanovic (Chelsea) header from the centre of the box misses to the left. Assisted by Cesc Fàbregas with a cross following a corner.'),
+(11431, 117, 40, 0, 0, 'Corner,  Chelsea. Conceded by Graham Dorrans.'),
+(11432, 117, 38, 0, 0, 'Attempt missed. Craig Gardner (West Bromwich Albion) left footed shot from outside the box is high and wide to the left. Assisted by Saido Berahino.'),
+(11433, 117, 43, 0, 0, 'Offside, Chelsea. Eden Hazard tries a through ball, but Diego Costa is caught offside.'),
+(11434, 116, 41, 0, 0, 'Delay over. They are ready to continue.'),
+(11435, 116, 41, 0, 0, 'Winston Reid (West Ham United) is shown the yellow card.'),
+(11436, 116, 40, 0, 0, 'Delay in match Morgan Amalfitano (West Ham United) because of an injury.'),
+(11437, 116, 38, 0, 0, 'Mark Noble (West Ham United) wins a free kick in the attacking half.'),
+(11438, 116, 38, 0, 0, 'Foul by Steven Naismith (Everton).'),
+(11439, 116, 41, 0, 0, 'James McCarthy (Everton) is shown the yellow card.'),
+(11440, 114, 45, 0, 0, 'Attempt saved. Stevan Jovetic (Manchester City) header from the centre of the box is saved in the centre of the goal. Assisted by Pablo Zabaleta with a cross.'),
+(11441, 114, 44, 0, 0, 'Nathan Dyer (Swansea City) wins a free kick on the right wing.'),
+(11442, 114, 44, 0, 0, 'Foul by Fernandinho (Manchester City).'),
+(11443, 114, 41, 0, 0, 'Corner,  Manchester City. Conceded by Tom Carroll.');
+INSERT INTO `tbl_soccer_match_commentaries` (`id`, `match_id`, `minute`, `important`, `isgoal`, `comment`) VALUES
+(11444, 114, 40, 0, 0, 'Attempt saved. Gaël Clichy (Manchester City) left footed shot from outside the box is saved in the top right corner. Assisted by Sergio Agüero.'),
+(11445, 114, 45, 0, 0, 'Attempt saved. Stevan Jovetic (Manchester City) right footed shot from outside the box is saved in the centre of the goal. Assisted by Yaya Touré.'),
+(11446, 116, 45, 0, 0, 'Attempt missed. Andy Carroll (West Ham United) left footed shot from outside the box misses to the left. Assisted by Kevin Nolan.'),
+(11447, 116, 45, 0, 0, 'Mark Noble (West Ham United) wins a free kick in the defensive half.'),
+(11448, 116, 45, 0, 0, 'Foul by Ross Barkley (Everton).'),
+(11449, 116, 44, 0, 0, 'Sylvain Distin (Everton) wins a free kick in the defensive half.'),
+(11450, 116, 44, 0, 0, 'Foul by Carlton Cole (West Ham United).'),
+(11451, 116, 26, 0, 0, 'Attempt blocked. Ross Barkley (Everton) left footed shot from outside the box is blocked. Assisted by Leon Osman.'),
+(11452, 116, 23, 0, 0, 'Attempt blocked. Kevin Mirallas (Everton) right footed shot from outside the box is blocked.'),
+(11453, 116, 45, 0, 0, 'First Half ends, Everton 1, West Ham United 0.'),
+(11454, 113, 45, 0, 0, 'Victor Moses (Stoke City) wins a free kick in the defensive half.'),
+(11455, 113, 45, 0, 0, 'Foul by Dean Marney (Burnley).'),
+(11456, 113, 45, 0, 0, 'Delay over. They are ready to continue.'),
+(11457, 113, 45, 0, 0, 'Delay in match Danny Ings (Burnley) because of an injury.'),
+(11458, 113, 45, 0, 0, 'Attempt saved. Victor Moses (Stoke City) right footed shot from the left side of the box is saved in the bottom right corner.'),
+(11459, 113, 43, 0, 0, 'Attempt missed. Ashley Barnes (Burnley) right footed shot from outside the box misses to the left. Assisted by George Boyd.'),
+(11460, 113, 39, 0, 0, 'Danny Ings (Burnley) is shown the yellow card.'),
+(11461, 113, 39, 0, 0, 'Marc Muniesa (Stoke City) wins a free kick on the left wing.'),
+(11462, 113, 39, 0, 0, 'Foul by Danny Ings (Burnley).'),
+(11463, 113, 38, 0, 0, 'Foul by Steve Sidwell (Stoke City).'),
+(11464, 113, 38, 0, 0, 'Ashley Barnes (Burnley) wins a free kick in the defensive half.'),
+(11465, 113, 38, 0, 0, 'Attempt saved. Victor Moses (Stoke City) left footed shot from a difficult angle on the left is saved in the bottom left corner. Assisted by Mame Biram Diouf.'),
+(11466, 113, 45, 0, 0, 'First Half ends, Stoke City 1, Burnley 2.'),
+(11467, 117, 45, 0, 0, 'Offside, West Bromwich Albion. Chris Brunt tries a through ball, but Saido Berahino is caught offside.'),
+(11468, 117, 45, 0, 0, 'Corner,  Chelsea. Conceded by Ben Foster.'),
+(11469, 117, 44, 0, 0, 'Attempt missed. Saido Berahino (West Bromwich Albion) left footed shot from outside the box is high and wide to the left. Assisted by Chris Brunt.'),
+(11470, 117, 42, 0, 0, 'Attempt saved. Diego Costa (Chelsea) right footed shot from the centre of the box is saved in the centre of the goal. Assisted by Eden Hazard.'),
+(11471, 117, 45, 0, 0, 'First Half ends, Chelsea 2, West Bromwich Albion 0.'),
+(11472, 118, 45, 0, 0, 'Foul by Bobby Zamora (Queens Park Rangers).'),
+(11473, 118, 45, 0, 0, 'Corner,  Queens Park Rangers. Conceded by Tim Krul.'),
+(11474, 118, 45, 0, 0, 'Attempt saved. Richard Dunne (Queens Park Rangers) header from the centre of the box is saved in the top centre of the goal. Assisted by Joey Barton with a cross.'),
+(11475, 118, 44, 0, 0, 'Corner,  Queens Park Rangers. Conceded by Paul Dummett.'),
+(11476, 118, 44, 0, 0, 'Attempt blocked. Charlie Austin (Queens Park Rangers) right footed shot from outside the box is blocked. Assisted by Bobby Zamora.'),
+(11477, 118, 43, 0, 0, 'Attempt missed. Daryl Janmaat (Newcastle United) right footed shot from outside the box misses to the right.'),
+(11478, 118, 43, 0, 0, 'Rémy Cabella (Newcastle United) wins a free kick on the right wing.'),
+(11479, 118, 43, 0, 0, 'Foul by Yun Suk-Young (Queens Park Rangers).'),
+(11480, 118, 42, 0, 0, 'Attempt saved. Charlie Austin (Queens Park Rangers) right footed shot from outside the box is saved in the centre of the goal. Assisted by Leroy Fer.'),
+(11481, 118, 41, 0, 0, 'Joey Barton (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11482, 118, 41, 0, 0, 'Foul by Sammy Ameobi (Newcastle United).'),
+(11483, 118, 41, 0, 0, 'Nedum Onuoha (Queens Park Rangers) is shown the yellow card for a bad foul.'),
+(11484, 118, 41, 0, 0, 'Massadio Haidara (Newcastle United) wins a free kick on the left wing.'),
+(11485, 118, 41, 0, 0, 'Foul by Nedum Onuoha (Queens Park Rangers).'),
+(11486, 118, 39, 0, 0, 'Michael Williamson (Newcastle United) wins a free kick in the defensive half.'),
+(11487, 118, 39, 0, 0, 'Foul by Bobby Zamora (Queens Park Rangers).'),
+(11488, 118, 39, 0, 0, 'Jack Colback (Newcastle United) wins a free kick in the defensive half.'),
+(11489, 118, 39, 0, 0, 'Foul by Sandro (Queens Park Rangers).'),
+(11490, 118, 45, 0, 0, 'Jack Colback (Newcastle United) wins a free kick in the defensive half.'),
+(11491, 117, 45, 0, 0, 'Second Half begins Chelsea 2, West Bromwich Albion 0.'),
+(11492, 115, 4, 0, 0, 'John O''Shea (Sunderland) wins a free kick in the defensive half.'),
+(11493, 114, 41, 0, 0, 'Attempt blocked. Pablo Zabaleta (Manchester City) left footed shot from the centre of the box is blocked.'),
+(11494, 114, 45, 0, 0, 'First Half ends, Manchester City 1, Swansea City 1.'),
+(11495, 118, 49, 0, 0, 'Attempt saved. Charlie Austin (Queens Park Rangers) left footed shot from the centre of the box is saved in the bottom left corner. Assisted by Joey Barton.'),
+(11496, 118, 48, 0, 0, 'Joey Barton (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11497, 118, 48, 0, 0, 'Foul by Sammy Ameobi (Newcastle United).'),
+(11498, 118, 48, 0, 0, 'Attempt blocked. Sammy Ameobi (Newcastle United) left footed shot from the left side of the box is blocked.'),
+(11499, 118, 47, 0, 0, 'Corner,  Newcastle United. Conceded by Yun Suk-Young.'),
+(11500, 118, 46, 0, 0, 'Corner,  Newcastle United. Conceded by Steven Caulker.'),
+(11501, 118, 45, 0, 0, 'Second Half begins Newcastle United 0, Queens Park Rangers 0.'),
+(11502, 118, 45, 0, 0, 'First Half ends, Newcastle United 0, Queens Park Rangers 0.'),
+(11503, 118, 51, 0, 0, 'Delay in match Sandro (Queens Park Rangers) because of an injury.'),
+(11504, 115, 49, 0, 0, 'Attempt blocked. Riyad Mahrez (Leicester City) left footed shot from outside the box is blocked.'),
+(11505, 115, 48, 0, 0, 'Attempt missed. Steven Fletcher (Sunderland) left footed shot from the centre of the box is high and wide to the left. Assisted by Adam Johnson following a corner.'),
+(11506, 115, 47, 0, 0, 'Corner,  Sunderland. Conceded by Marcin Wasilewski.'),
+(11507, 115, 47, 0, 0, 'Attempt blocked. Jordi Gómez (Sunderland) left footed shot from outside the box is blocked. Assisted by Steven Fletcher.'),
+(11508, 115, 45, 0, 0, 'Second Half begins Leicester City 0, Sunderland 0.'),
+(11509, 115, 45, 0, 0, 'First Half ends, Leicester City 0, Sunderland 0.'),
+(11510, 115, 50, 0, 0, 'Hand ball by Adam Johnson (Sunderland).'),
+(11511, 114, 49, 0, 0, 'Attempt blocked. Sergio Agüero (Manchester City) right footed shot from outside the box is blocked. Assisted by Jesús Navas.'),
+(11512, 114, 49, 0, 0, 'Martín Demichelis (Manchester City) wins a free kick in the defensive half.'),
+(11513, 114, 49, 0, 0, 'Foul by Wilfried Bony (Swansea City).'),
+(11514, 114, 48, 0, 0, 'Corner,  Swansea City. Conceded by Joe Hart.'),
+(11515, 114, 48, 0, 0, 'Attempt saved. Jefferson Montero (Swansea City) left footed shot from a difficult angle on the left is saved in the centre of the goal. Assisted by Wilfried Bony.'),
+(11516, 114, 48, 0, 0, 'Gylfi Sigurdsson (Swansea City) wins a free kick in the attacking half.'),
+(11517, 114, 48, 0, 0, 'Foul by Fernandinho (Manchester City).'),
+(11518, 114, 45, 0, 0, 'Second Half begins Manchester City 1, Swansea City 1.'),
+(11519, 114, 49, 0, 0, 'Corner,  Manchester City. Conceded by Kyle Bartley.'),
+(11520, 113, 45, 0, 0, 'Second Half begins Stoke City 1, Burnley 2.'),
+(11521, 116, 51, 0, 0, 'Substitution, West Ham United. Mauro Zárate replaces Carlton Cole.'),
+(11522, 116, 50, 0, 0, 'James McCarthy (Everton) wins a free kick in the defensive half.'),
+(11523, 116, 50, 0, 0, 'Foul by Andy Carroll (West Ham United).'),
+(11524, 116, 49, 0, 0, 'Steven Naismith (Everton) wins a free kick in the defensive half.'),
+(11525, 116, 49, 0, 0, 'Foul by Morgan Amalfitano (West Ham United).'),
+(11526, 116, 45, 0, 0, 'Second Half begins Everton 1, West Ham United 0.'),
+(11527, 116, 52, 0, 0, 'Substitution, West Ham United. Matthew Jarvis replaces Mark Noble because of an injury.'),
+(11528, 114, 53, 0, 0, 'Foul by Martín Demichelis (Manchester City).'),
+(11529, 114, 53, 0, 0, 'Hand ball by Stevan Jovetic (Manchester City).'),
+(11530, 114, 52, 0, 0, 'Attempt blocked. Sergio Agüero (Manchester City) right footed shot from the right side of the box is blocked.'),
+(11531, 114, 52, 0, 0, 'Attempt saved. Gylfi Sigurdsson (Swansea City) right footed shot from outside the box is saved in the centre of the goal. Assisted by Ki Sung-Yueng.'),
+(11532, 114, 53, 0, 0, 'Wilfried Bony (Swansea City) wins a free kick in the defensive half.'),
+(11533, 118, 53, 0, 0, 'Delay over. They are ready to continue.'),
+(11534, 118, 55, 0, 0, 'Offside, Newcastle United. Daryl Janmaat tries a through ball, but Ayoze Pérez is caught offside.'),
+(11535, 116, 53, 0, 0, 'Attempt blocked. Winston Reid (West Ham United) header from the centre of the box is blocked. Assisted by Mauro Zárate with a cross.'),
+(11536, 116, 53, 0, 0, 'Corner,  West Ham United. Conceded by James McCarthy.'),
+(11537, 116, 53, 0, 0, 'Attempt missed. Andy Carroll (West Ham United) left footed shot from the centre of the box misses to the left following a corner.'),
+(11538, 115, 58, 0, 0, 'Foul by Marcin Wasilewski (Leicester City).'),
+(11539, 115, 56, 0, 0, 'Leonardo Ulloa (Leicester City) wins a free kick in the attacking half.'),
+(11540, 115, 56, 0, 0, 'Foul by Anthony Réveillere (Sunderland).'),
+(11541, 115, 56, 0, 0, 'Attempt saved. Connor Wickham (Sunderland) left footed shot from outside the box is saved in the bottom right corner. Assisted by Lee Cattermole.'),
+(11542, 115, 55, 0, 0, 'Corner,  Leicester City. Conceded by Costel Pantilimon.'),
+(11543, 115, 54, 0, 0, 'Attempt saved. Riyad Mahrez (Leicester City) right footed shot from the right side of the box is saved in the bottom right corner. Assisted by Esteban Cambiasso.'),
+(11544, 115, 53, 0, 0, 'Jamie Vardy (Leicester City) is shown the yellow card for a bad foul.'),
+(11545, 115, 53, 0, 0, 'Lee Cattermole (Sunderland) wins a free kick in the attacking half.'),
+(11546, 115, 53, 0, 0, 'Foul by Jamie Vardy (Leicester City).'),
+(11547, 115, 52, 0, 0, 'Attempt missed. Matthew James (Leicester City) left footed shot from outside the box is too high. Assisted by Leonardo Ulloa.'),
+(11548, 115, 51, 0, 0, 'Corner,  Leicester City. Conceded by Sebastian Larsson.'),
+(11549, 115, 58, 0, 0, 'Steven Fletcher (Sunderland) wins a free kick in the attacking half.'),
+(11550, 117, 55, 0, 0, 'Attempt missed. Willian (Chelsea) right footed shot from outside the box is close, but misses to the right. Assisted by Branislav Ivanovic.'),
+(11551, 117, 52, 0, 0, 'Offside, Chelsea. Branislav Ivanovic tries a through ball, but Diego Costa is caught offside.'),
+(11552, 117, 51, 0, 0, 'Corner,  Chelsea. Conceded by Chris Baird.'),
+(11553, 117, 50, 0, 0, 'Chris Baird (West Bromwich Albion) wins a free kick in the defensive half.'),
+(11554, 117, 50, 0, 0, 'Foul by John Terry (Chelsea).'),
+(11555, 117, 50, 0, 0, 'Corner,  Chelsea. Conceded by Chris Baird.'),
+(11556, 117, 49, 0, 0, 'Corner,  Chelsea. Conceded by Craig Dawson.'),
+(11557, 117, 49, 0, 0, 'John Terry (Chelsea) wins a free kick in the defensive half.'),
+(11558, 117, 49, 0, 0, 'Foul by Saido Berahino (West Bromwich Albion).'),
+(11559, 117, 47, 0, 0, 'Attempt missed. Nemanja Matic (Chelsea) left footed shot from very close range is just a bit too high. Assisted by Oscar following a corner.'),
+(11560, 117, 46, 0, 0, 'Corner,  Chelsea. Conceded by Graham Dorrans.'),
+(11561, 117, 58, 0, 0, 'Offside, Chelsea. Eden Hazard tries a through ball, but Oscar is caught offside.'),
+(11562, 114, 56, 0, 0, 'Corner,  Manchester City. Conceded by Jefferson Montero.'),
+(11563, 114, 55, 0, 0, 'Corner,  Manchester City. Conceded by Tom Carroll.'),
+(11564, 114, 52, 0, 0, 'Attempt blocked. Sergio Agüero (Manchester City) left footed shot from the centre of the box is blocked.'),
+(11565, 114, 57, 0, 0, 'Attempt missed. Pablo Zabaleta (Manchester City) left footed shot from the centre of the box is high and wide to the left. Assisted by Jesús Navas.'),
+(11566, 113, 56, 0, 0, 'Delay over. They are ready to continue.'),
+(11567, 113, 55, 0, 0, 'Delay in match Victor Moses (Stoke City) because of an injury.'),
+(11568, 113, 54, 0, 0, 'Corner,  Stoke City. Conceded by Stephen Ward.'),
+(11569, 113, 53, 0, 0, 'Attempt missed. Mame Biram Diouf (Stoke City) header from very close range misses to the left. Assisted by Bojan.'),
+(11570, 113, 53, 0, 0, 'Steven N''Zonzi (Stoke City) wins a free kick in the defensive half.'),
+(11571, 113, 53, 0, 0, 'Foul by David Jones (Burnley).'),
+(11572, 113, 52, 0, 0, 'Offside, Stoke City. Steven N''Zonzi tries a through ball, but Mame Biram Diouf is caught offside.'),
+(11573, 113, 50, 0, 0, 'Attempt missed. Victor Moses (Stoke City) right footed shot from outside the box is high and wide to the right. Assisted by Phil Bardsley.'),
+(11574, 113, 49, 0, 0, 'Attempt blocked. Bojan (Stoke City) right footed shot from outside the box is blocked. Assisted by Marc Muniesa.'),
+(11575, 113, 48, 0, 0, 'Corner,  Stoke City. Conceded by George Boyd.'),
+(11576, 113, 56, 0, 0, 'Substitution, Stoke City. Marko Arnautovic replaces Victor Moses because of an injury.'),
+(11577, 118, 58, 0, 0, 'Yun Suk-Young (Queens Park Rangers) wins a free kick on the left wing.'),
+(11578, 118, 58, 0, 0, 'Foul by Moussa Sissoko (Newcastle United).'),
+(11579, 118, 57, 0, 0, 'Attempt saved. Ayoze Pérez (Newcastle United) right footed shot from the centre of the box is saved in the bottom right corner. Assisted by Moussa Sissoko with a through ball.'),
+(11580, 118, 57, 0, 0, 'Leroy Fer (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11581, 118, 57, 0, 0, 'Foul by Moussa Sissoko (Newcastle United).'),
+(11582, 118, 56, 0, 0, 'Foul by Charlie Austin (Queens Park Rangers).'),
+(11583, 118, 56, 0, 0, 'Paul Dummett (Newcastle United) wins a free kick in the defensive half.'),
+(11584, 118, 58, 0, 0, 'Moussa Sissoko (Newcastle United) is shown the yellow card for a bad foul.'),
+(11585, 116, 57, 0, 0, 'Hand ball by Carl Jenkinson (West Ham United).'),
+(11586, 116, 56, 1, 1, 'Goal!  Everton 1, West Ham United 1. Mauro Zárate (West Ham United) left footed shot from outside the box to the bottom left corner. Assisted by Morgan Amalfitano.'),
+(11587, 116, 59, 0, 0, 'Attempt missed. James McCarthy (Everton) right footed shot from outside the box is just a bit too high. Assisted by Steven Naismith.'),
+(11588, 115, 62, 0, 0, 'Foul by Sebastian Larsson (Sunderland).'),
+(11589, 115, 61, 0, 0, 'Lee Cattermole (Sunderland) is shown the yellow card for a bad foul.'),
+(11590, 115, 60, 0, 0, 'Foul by Lee Cattermole (Sunderland).'),
+(11591, 115, 60, 0, 0, 'Esteban Cambiasso (Leicester City) wins a free kick in the attacking half.'),
+(11592, 115, 59, 0, 0, 'Attempt saved. Sebastian Larsson (Sunderland) right footed shot from outside the box is saved in the top left corner.'),
+(11593, 115, 51, 0, 0, 'Attempt saved. Matthew James (Leicester City) left footed shot from the centre of the box is saved in the bottom left corner. Assisted by Leonardo Ulloa.'),
+(11594, 115, 62, 0, 0, 'Jeffrey Schlupp (Leicester City) wins a free kick in the defensive half.'),
+(11595, 114, 61, 0, 0, 'Attempt blocked. Stevan Jovetic (Manchester City) right footed shot from the left side of the box is blocked. Assisted by Fernandinho.'),
+(11596, 114, 59, 0, 0, 'Kyle Bartley (Swansea City) wins a free kick in the defensive half.'),
+(11597, 114, 59, 0, 0, 'Foul by Stevan Jovetic (Manchester City).'),
+(11598, 114, 61, 0, 0, 'Corner,  Manchester City. Conceded by Kyle Bartley.'),
+(11599, 113, 59, 0, 0, 'Michael Kightly (Burnley) wins a free kick in the defensive half.'),
+(11600, 113, 59, 0, 0, 'Foul by Steve Sidwell (Stoke City).'),
+(11601, 113, 57, 0, 0, 'Attempt missed. Steven N''Zonzi (Stoke City) right footed shot from the centre of the box is too high.'),
+(11602, 113, 59, 0, 0, 'Steve Sidwell (Stoke City) is shown the yellow card for a bad foul.'),
+(11603, 117, 59, 0, 0, 'Attempt missed. Chris Brunt (West Bromwich Albion) left footed shot from long range on the left is high and wide to the left from a direct free kick.'),
+(11604, 117, 59, 0, 0, 'Stéphane Sessegnon (West Bromwich Albion) wins a free kick on the left wing.'),
+(11605, 117, 59, 0, 0, 'Foul by Branislav Ivanovic (Chelsea).'),
+(11606, 117, 62, 0, 0, 'Attempt missed. Nemanja Matic (Chelsea) left footed shot from outside the box is high and wide to the left. Assisted by Oscar.'),
+(11607, 118, 61, 0, 0, 'Substitution, Queens Park Rangers. Niko Kranjcar replaces Sandro because of an injury.'),
+(11608, 118, 60, 0, 0, 'Attempt missed. Massadio Haidara (Newcastle United) left footed shot from outside the box is too high following a corner.'),
+(11609, 118, 60, 0, 0, 'Corner,  Newcastle United. Conceded by Richard Dunne.'),
+(11610, 118, 61, 0, 0, 'Offside, Queens Park Rangers. Richard Dunne tries a through ball, but Bobby Zamora is caught offside.'),
+(11611, 116, 60, 0, 0, 'James Tomkins (West Ham United) is shown the yellow card.'),
+(11612, 116, 60, 0, 0, 'Kevin Mirallas (Everton) is shown the yellow card for a bad foul.'),
+(11613, 116, 60, 0, 0, 'Morgan Amalfitano (West Ham United) wins a free kick in the defensive half.'),
+(11614, 116, 60, 0, 0, 'Foul by Kevin Mirallas (Everton).'),
+(11615, 116, 62, 0, 0, 'Corner,  West Ham United. Conceded by Tony Hibbert.'),
+(11616, 115, 64, 0, 0, 'Hand ball by Connor Wickham (Sunderland).'),
+(11617, 115, 66, 0, 0, 'Attempt blocked. Jordi Gómez (Sunderland) left footed shot from the centre of the box is blocked. Assisted by Connor Wickham.'),
+(11618, 114, 64, 0, 0, 'Foul by Yaya Touré (Manchester City).'),
+(11619, 114, 62, 1, 1, 'Goal!  Manchester City 2, Swansea City 1. Yaya Touré (Manchester City) right footed shot from the right side of the six yard box to the centre of the goal. Assisted by Fernandinho.'),
+(11620, 114, 64, 0, 0, 'Nathan Dyer (Swansea City) wins a free kick on the right wing.'),
+(11621, 113, 60, 0, 0, 'Substitution, Stoke City. Peter Crouch replaces Mame Biram Diouf.'),
+(11622, 113, 60, 0, 0, 'Substitution, Burnley. Lukas Jutkiewicz replaces Michael Kightly.'),
+(11623, 119, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(11624, 115, 69, 0, 0, 'Attempt saved. Steven Fletcher (Sunderland) left footed shot from the left side of the box is saved in the bottom left corner. Assisted by Adam Johnson.'),
+(11625, 115, 68, 0, 0, 'Steven Fletcher (Sunderland) is shown the yellow card.'),
+(11626, 115, 68, 0, 0, 'Steven Fletcher (Sunderland) has gone down, but that''s a dive.'),
+(11627, 115, 66, 0, 0, 'Attempt saved. Matthew James (Leicester City) right footed shot from the centre of the box is saved in the centre of the goal. Assisted by Leonardo Ulloa.'),
+(11628, 115, 69, 0, 0, 'Corner,  Sunderland. Conceded by Kasper Schmeichel.'),
+(11629, 118, 68, 0, 0, 'Delay over. They are ready to continue.'),
+(11630, 118, 67, 0, 0, 'Delay in match Daryl Janmaat (Newcastle United) because of an injury.'),
+(11631, 118, 66, 0, 0, 'Attempt missed. Bobby Zamora (Queens Park Rangers) header from the centre of the box is just a bit too high. Assisted by Karl Henry.'),
+(11632, 118, 65, 0, 0, 'Foul by Jack Colback (Newcastle United).'),
+(11633, 118, 65, 0, 0, 'Charlie Austin (Queens Park Rangers) wins a free kick on the left wing.'),
+(11634, 118, 63, 0, 0, 'Attempt missed. Sammy Ameobi (Newcastle United) header from the centre of the box misses to the left. Assisted by Yoan Gouffran with a cross.'),
+(11635, 118, 62, 0, 0, 'Paul Dummett (Newcastle United) wins a free kick in the defensive half.'),
+(11636, 118, 62, 0, 0, 'Foul by Bobby Zamora (Queens Park Rangers).'),
+(11637, 118, 62, 0, 0, 'Attempt blocked. Niko Kranjcar (Queens Park Rangers) right footed shot from outside the box is blocked. Assisted by Leroy Fer.'),
+(11638, 118, 68, 0, 0, 'Substitution, Newcastle United. Papiss Demba Cissé replaces Rémy Cabella.'),
+(11639, 113, 67, 0, 0, 'Danny Ings (Burnley) wins a free kick in the defensive half.'),
+(11640, 113, 66, 0, 0, 'Attempt missed. Marko Arnautovic (Stoke City) right footed shot from the left side of the box is close, but misses to the left. Assisted by Jonathan Walters.'),
+(11641, 113, 65, 0, 0, 'Offside, Stoke City. Steve Sidwell tries a through ball, but Marko Arnautovic is caught offside.'),
+(11642, 113, 64, 0, 0, 'Marc Muniesa (Stoke City) wins a free kick in the defensive half.'),
+(11643, 113, 64, 0, 0, 'Foul by Ashley Barnes (Burnley).'),
+(11644, 113, 67, 0, 0, 'Foul by Jonathan Walters (Stoke City).'),
+(11645, 116, 69, 0, 0, 'Attempt saved. Morgan Amalfitano (West Ham United) right footed shot from the right side of the box is saved in the bottom left corner. Assisted by Andy Carroll.'),
+(11646, 116, 68, 0, 0, 'Mauro Zárate (West Ham United) wins a free kick on the left wing.'),
+(11647, 116, 68, 0, 0, 'Foul by Ross Barkley (Everton).'),
+(11648, 116, 66, 0, 0, 'Substitution, Everton. Samuel Eto''o replaces Kevin Mirallas.'),
+(11649, 116, 65, 0, 0, 'Ross Barkley (Everton) wins a free kick in the attacking half.'),
+(11650, 116, 65, 0, 0, 'Foul by James Collins (West Ham United).'),
+(11651, 116, 62, 0, 0, 'Attempt missed. Romelu Lukaku (Everton) left footed shot from a difficult angle on the left misses to the left.'),
+(11652, 116, 69, 0, 0, 'Corner,  West Ham United. Conceded by Leon Osman.'),
+(11653, 114, 68, 0, 0, 'Foul by Sergio Agüero (Manchester City).'),
+(11654, 114, 68, 0, 0, 'Ashley Williams (Swansea City) wins a free kick in the defensive half.'),
+(11655, 114, 67, 0, 0, 'Substitution, Swansea City. Jonjo Shelvey replaces Tom Carroll.'),
+(11656, 114, 67, 0, 0, 'Yaya Touré (Manchester City) wins a free kick in the defensive half.'),
+(11657, 114, 67, 0, 0, 'Foul by Kyle Bartley (Swansea City).'),
+(11658, 114, 65, 0, 0, 'Attempt blocked. Sergio Agüero (Manchester City) right footed shot from the centre of the box is blocked.'),
+(11659, 114, 61, 0, 0, 'Attempt saved. Yaya Touré (Manchester City) right footed shot from outside the box is saved in the centre of the goal. Assisted by Samir Nasri.'),
+(11660, 114, 70, 0, 0, 'Substitution, Manchester City. Frank Lampard replaces Stevan Jovetic.'),
+(11661, 117, 73, 0, 0, 'Attempt saved. Eden Hazard (Chelsea) left footed shot from the left side of the six yard box is saved in the centre of the goal. Assisted by Cesc Fàbregas with a through ball.'),
+(11662, 117, 68, 0, 0, 'Attempt missed. Willian (Chelsea) right footed shot from outside the box is high and wide to the right. Assisted by Nemanja Matic.'),
+(11663, 117, 68, 0, 0, 'Oscar (Chelsea) wins a free kick in the attacking half.'),
+(11664, 117, 68, 0, 0, 'Foul by Joleon Lescott (West Bromwich Albion).'),
+(11665, 117, 68, 0, 0, 'Substitution, West Bromwich Albion. Cristian Gamboa replaces Chris Baird.'),
+(11666, 117, 67, 0, 0, 'Offside, Chelsea. Branislav Ivanovic tries a through ball, but Diego Costa is caught offside.'),
+(11667, 117, 66, 0, 0, 'Stéphane Sessegnon (West Bromwich Albion) wins a free kick in the defensive half.'),
+(11668, 117, 66, 0, 0, 'Foul by Cesc Fàbregas (Chelsea).'),
+(11669, 117, 73, 0, 0, 'Corner,  Chelsea. Conceded by Ben Foster.'),
+(11670, 118, 75, 0, 0, 'Foul by Ayoze Pérez (Newcastle United).'),
+(11671, 118, 74, 0, 0, 'Attempt saved. Ayoze Pérez (Newcastle United) right footed shot from the centre of the box is saved in the bottom right corner. Assisted by Yoan Gouffran.'),
+(11672, 118, 73, 0, 0, 'Richard Dunne (Queens Park Rangers) is shown the yellow card for a bad foul.'),
+(11673, 118, 73, 0, 0, 'Foul by Richard Dunne (Queens Park Rangers).'),
+(11674, 118, 73, 0, 0, 'Ayoze Pérez (Newcastle United) wins a free kick in the defensive half.'),
+(11675, 118, 73, 0, 0, 'Attempt saved. Charlie Austin (Queens Park Rangers) header from the centre of the box is saved in the centre of the goal. Assisted by Nedum Onuoha with a cross.'),
+(11676, 118, 72, 0, 0, 'Corner,  Newcastle United. Conceded by Karl Henry.'),
+(11677, 118, 70, 0, 0, 'Corner,  Queens Park Rangers. Conceded by Massadio Haidara.'),
+(11678, 118, 69, 0, 0, 'Corner,  Queens Park Rangers. Conceded by Daryl Janmaat.'),
+(11679, 118, 75, 0, 0, 'Leroy Fer (Queens Park Rangers) wins a free kick on the right wing.'),
+(11680, 113, 72, 0, 0, 'Corner,  Stoke City. Conceded by Kieran Trippier.'),
+(11681, 113, 71, 0, 0, 'Corner,  Stoke City. Conceded by Dean Marney.'),
+(11682, 113, 71, 0, 0, 'Attempt blocked. Steven N''Zonzi (Stoke City) right footed shot from outside the box is blocked. Assisted by Marko Arnautovic.'),
+(11683, 113, 70, 0, 0, 'Tom Heaton (Burnley) is shown the yellow card.'),
+(11684, 113, 69, 0, 0, 'Corner,  Stoke City. Conceded by Kieran Trippier.'),
+(11685, 113, 72, 0, 0, 'Attempt missed. Peter Crouch (Stoke City) header from the centre of the box is close, but misses to the right. Assisted by Bojan with a cross.'),
+(11686, 114, 73, 0, 0, 'Gylfi Sigurdsson (Swansea City) wins a free kick in the attacking half.'),
+(11687, 114, 73, 0, 0, 'Foul by Fernandinho (Manchester City).'),
+(11688, 114, 71, 0, 0, 'Attempt missed. Pablo Zabaleta (Manchester City) right footed shot from the right side of the box is too high. Assisted by Yaya Touré.'),
+(11689, 114, 65, 0, 0, 'Attempt missed. Stevan Jovetic (Manchester City) right footed shot from outside the box is too high. Assisted by Samir Nasri.'),
+(11690, 114, 74, 0, 0, 'Attempt missed. Gylfi Sigurdsson (Swansea City) right footed shot from outside the box misses to the left from a direct free kick.'),
+(11691, 113, 75, 0, 0, 'Attempt missed. Peter Crouch (Stoke City) right footed shot from the centre of the box is close, but misses to the left. Assisted by Phil Bardsley following a corner.'),
+(11692, 113, 75, 0, 0, 'Attempt missed. Phil Bardsley (Stoke City) right footed shot from outside the box misses to the left following a corner.'),
+(11693, 113, 75, 0, 0, 'Delay over. They are ready to continue.'),
+(11694, 113, 74, 0, 0, 'Delay in match Jason Shackell (Burnley) because of an injury.'),
+(11695, 113, 74, 0, 0, 'Corner,  Stoke City. Conceded by Ashley Barnes.'),
+(11696, 113, 73, 0, 0, 'Attempt blocked. Steve Sidwell (Stoke City) right footed shot from outside the box is blocked. Assisted by Jonathan Walters.'),
+(11697, 113, 76, 0, 0, 'Substitution, Burnley. Michael Keane replaces Michael Duff because of an injury.'),
+(11698, 117, 80, 0, 0, 'Foul by Victor Anichebe (West Bromwich Albion).'),
+(11699, 117, 79, 0, 0, 'Substitution, Chelsea. Loïc Remy replaces Oscar.'),
+(11700, 117, 79, 0, 0, 'Delay over. They are ready to continue.'),
+(11701, 117, 78, 0, 0, 'Substitution, West Bromwich Albion. Victor Anichebe replaces Saido Berahino.'),
+(11702, 117, 78, 0, 0, 'Delay in match Diego Costa (Chelsea) because of an injury.'),
+(11703, 117, 77, 0, 0, 'Foul by Oscar (Chelsea).'),
+(11704, 117, 77, 0, 0, 'Craig Dawson (West Bromwich Albion) wins a free kick in the defensive half.'),
+(11705, 117, 77, 0, 0, 'Attempt blocked. Oscar (Chelsea) right footed shot from the left side of the box is blocked. Assisted by Cesc Fàbregas.'),
+(11706, 117, 76, 0, 0, 'Foul by Graham Dorrans (West Bromwich Albion).'),
+(11707, 117, 76, 0, 0, 'Eden Hazard (Chelsea) wins a free kick in the defensive half.'),
+(11708, 117, 75, 0, 0, 'Willian (Chelsea) is shown the yellow card for a bad foul.'),
+(11709, 117, 75, 0, 0, 'Foul by Willian (Chelsea).'),
+(11710, 117, 75, 0, 0, 'Andre Wisdom (West Bromwich Albion) wins a free kick in the defensive half.'),
+(11711, 117, 74, 0, 0, 'Corner,  Chelsea. Conceded by Craig Dawson.'),
+(11712, 117, 80, 0, 0, 'Gary Cahill (Chelsea) wins a free kick in the defensive half.'),
+(11713, 114, 79, 0, 0, 'Foul by Wilfried Bony (Swansea City).'),
+(11714, 114, 79, 0, 0, 'Fernandinho (Manchester City) wins a free kick in the defensive half.'),
+(11715, 114, 78, 0, 0, 'Offside, Swansea City. Jonjo Shelvey tries a through ball, but Gylfi Sigurdsson is caught offside.'),
+(11716, 114, 77, 0, 0, 'Substitution, Swansea City. Modou Barrow replaces Nathan Dyer.'),
+(11717, 114, 77, 0, 0, 'Corner,  Swansea City. Conceded by Martín Demichelis.'),
+(11718, 114, 65, 0, 0, 'Attempt missed. Stevan Jovetic (Manchester City) right footed shot from outside the box is high and wide to the right. Assisted by Samir Nasri.'),
+(11719, 114, 79, 0, 0, 'Substitution, Manchester City. James Milner replaces Samir Nasri.'),
+(11720, 118, 76, 0, 0, 'Robert Green (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11721, 118, 76, 0, 0, 'Foul by Moussa Sissoko (Newcastle United).'),
+(11722, 118, 78, 1, 1, 'Goal!  Newcastle United 1, Queens Park Rangers 0. Moussa Sissoko (Newcastle United) right footed shot from the centre of the box to the bottom right corner. Assisted by Sammy Ameobi.'),
+(11723, 113, 78, 0, 0, 'Substitution, Stoke City. Charlie Adam replaces Steve Sidwell.'),
+(11724, 113, 79, 0, 0, 'Corner,  Stoke City. Conceded by Stephen Ward.'),
+(11725, 114, 79, 0, 0, 'Substitution, Swansea City. Bafétimbi Gomis replaces Gylfi Sigurdsson.'),
+(11726, 117, 84, 0, 0, 'Substitution, Chelsea. Didier Drogba replaces Diego Costa.'),
+(11727, 117, 83, 0, 0, 'Corner,  Chelsea. Conceded by Stéphane Sessegnon.'),
+(11728, 117, 84, 0, 0, 'Substitution, West Bromwich Albion. James Morrison replaces Graham Dorrans.'),
+(11729, 117, 86, 0, 0, 'Attempt missed. Eden Hazard (Chelsea) right footed shot from outside the box is too high. Assisted by Willian.'),
+(11730, 117, 86, 0, 0, 'Substitution, Chelsea. Ramires replaces Willian.'),
+(11731, 115, 86, 0, 0, 'Substitution, Sunderland. William Buckley replaces Jordi Gómez.'),
+(11732, 115, 85, 0, 0, 'Ritchie de Laet (Leicester City) is shown the yellow card for a bad foul.'),
+(11733, 115, 85, 0, 0, 'Penalty Sunderland. Connor Wickham draws a foul in the penalty area.'),
+(11734, 115, 85, 0, 0, 'Foul by Ritchie de Laet (Leicester City).'),
+(11735, 115, 82, 0, 0, 'Offside, Sunderland. Adam Johnson tries a through ball, but Santiago Vergini is caught offside.'),
+(11736, 115, 81, 0, 0, 'Corner,  Sunderland. Conceded by Paul Konchesky.'),
+(11737, 115, 79, 0, 0, 'Substitution, Leicester City. Anthony Knockaert replaces Jeffrey Schlupp.'),
+(11738, 115, 78, 0, 0, 'Attempt missed. Leonardo Ulloa (Leicester City) header from the centre of the box misses to the right. Assisted by Matthew James with a cross following a corner.'),
+(11739, 115, 77, 0, 0, 'Corner,  Leicester City. Conceded by Anthony Réveillere.'),
+(11740, 115, 77, 0, 0, 'Paul Konchesky (Leicester City) wins a free kick in the defensive half.'),
+(11741, 115, 77, 0, 0, 'Foul by Connor Wickham (Sunderland).'),
+(11742, 115, 76, 0, 0, 'Liam Bridcutt (Sunderland) wins a free kick in the defensive half.'),
+(11743, 115, 76, 0, 0, 'Foul by Leonardo Ulloa (Leicester City).'),
+(11744, 115, 75, 0, 0, 'Foul by Riyad Mahrez (Leicester City).'),
+(11745, 115, 75, 0, 0, 'Connor Wickham (Sunderland) wins a free kick on the left wing.'),
+(11746, 115, 75, 0, 0, 'Substitution, Sunderland. Liam Bridcutt replaces Sebastian Larsson.'),
+(11747, 115, 74, 0, 0, 'Attempt missed. David Nugent (Leicester City) right footed shot from outside the box misses to the left. Assisted by Leonardo Ulloa with a headed pass.'),
+(11748, 115, 73, 0, 0, 'Attempt missed. Riyad Mahrez (Leicester City) left footed shot from outside the box misses to the left. Assisted by Matthew James.'),
+(11749, 115, 72, 0, 0, 'Substitution, Leicester City. David Nugent replaces Jamie Vardy.'),
+(11750, 115, 72, 0, 0, 'Offside, Sunderland. Lee Cattermole tries a through ball, but Connor Wickham is caught offside.'),
+(11751, 115, 71, 0, 0, 'Corner,  Sunderland. Conceded by Ritchie de Laet.'),
+(11752, 115, 70, 0, 0, 'Steven Fletcher (Sunderland) wins a free kick in the defensive half.'),
+(11753, 115, 70, 0, 0, 'Foul by Esteban Cambiasso (Leicester City).'),
+(11754, 115, 87, 0, 0, 'Corner,  Sunderland. Conceded by Wes Morgan.'),
+(11755, 114, 82, 0, 0, 'Attempt blocked. Wilfried Bony (Swansea City) left footed shot from the centre of the box is blocked.'),
+(11756, 114, 82, 0, 0, 'Attempt missed. Jonjo Shelvey (Swansea City) right footed shot from outside the box is too high.'),
+(11757, 118, 85, 0, 0, 'Corner,  Newcastle United. Conceded by Joey Barton.'),
+(11758, 118, 84, 0, 0, 'Corner,  Newcastle United. Conceded by Richard Dunne.'),
+(11759, 118, 84, 0, 0, 'Corner,  Newcastle United. Conceded by Nedum Onuoha.'),
+(11760, 118, 83, 0, 0, 'Richard Dunne (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11761, 118, 83, 0, 0, 'Foul by Ayoze Pérez (Newcastle United).'),
+(11762, 118, 82, 0, 0, 'Substitution, Queens Park Rangers. Junior Hoilett replaces Karl Henry.'),
+(11763, 118, 81, 0, 0, 'Offside, Queens Park Rangers. Steven Caulker tries a through ball, but Charlie Austin is caught offside.'),
+(11764, 118, 80, 0, 0, 'Corner,  Queens Park Rangers. Conceded by Yoan Gouffran.'),
+(11765, 118, 85, 0, 0, 'Corner,  Newcastle United. Conceded by Yun Suk-Young.'),
+(11766, 116, 83, 0, 0, 'Corner,  West Ham United. Conceded by Tony Hibbert.'),
+(11767, 116, 83, 0, 0, 'Attempt missed. Romelu Lukaku (Everton) left footed shot from outside the box is high and wide to the left. Assisted by Steven Naismith.'),
+(11768, 116, 82, 0, 0, 'Substitution, West Ham United. Ricardo Vaz Te replaces Morgan Amalfitano.'),
+(11769, 116, 81, 0, 0, 'James McCarthy (Everton) wins a free kick in the defensive half.'),
+(11770, 116, 81, 0, 0, 'Foul by Mauro Zárate (West Ham United).'),
+(11771, 116, 80, 0, 0, 'Substitution, Everton. Muhamed Besic replaces Ross Barkley.'),
+(11772, 116, 76, 0, 0, 'James McCarthy (Everton) wins a free kick in the defensive half.'),
+(11773, 116, 76, 0, 0, 'Attempt saved. James Collins (West Ham United) left footed shot from the centre of the box is saved in the centre of the goal. Assisted by Matthew Jarvis.'),
+(11774, 116, 76, 0, 0, 'Attempt missed. Matthew Jarvis (West Ham United) left footed shot from the left side of the box misses to the right.'),
+(11775, 116, 75, 0, 0, 'Foul by Steven Naismith (Everton).'),
+(11776, 116, 75, 0, 0, 'Andy Carroll (West Ham United) wins a free kick on the right wing.'),
+(11777, 116, 74, 0, 0, 'James Collins (West Ham United) is shown the yellow card.'),
+(11778, 116, 73, 1, 1, 'Goal!  Everton 2, West Ham United 1. Leon Osman (Everton) left footed shot from the centre of the box to the bottom left corner. Assisted by Samuel Eto''o with a cross following a fast break.'),
+(11779, 116, 72, 0, 0, 'Corner,  West Ham United. Conceded by Leon Osman.'),
+(11780, 116, 71, 0, 0, 'Steven Naismith (Everton) wins a free kick in the attacking half.'),
+(11781, 116, 71, 0, 0, 'Foul by James Collins (West Ham United).'),
+(11782, 116, 71, 0, 0, 'Attempt missed. Matthew Jarvis (West Ham United) left footed shot from the left side of the box is close, but misses to the left. Assisted by Kevin Nolan following a fast break.'),
+(11783, 116, 70, 0, 0, 'Foul by Andy Carroll (West Ham United).'),
+(11784, 116, 69, 0, 0, 'Leon Osman (Everton) wins a free kick in the defensive half.'),
+(11785, 116, 84, 0, 0, 'Attempt missed. Andy Carroll (West Ham United) header from the centre of the box misses to the left. Assisted by Aaron Cresswell with a cross following a corner.'),
+(11786, 115, 88, 0, 0, 'Substitution, Leicester City. Chris Wood replaces Leonardo Ulloa.'),
+(11787, 113, 83, 0, 0, 'Attempt missed. Phil Bardsley (Stoke City) right footed shot from the right side of the box misses to the right.'),
+(11788, 113, 85, 0, 0, 'Attempt saved. Charlie Adam (Stoke City) left footed shot from outside the box is saved in the centre of the goal.'),
+(11789, 116, 86, 0, 0, 'Carl Jenkinson (West Ham United) wins a free kick in the defensive half.'),
+(11790, 116, 85, 0, 0, 'Foul by Phil Jagielka (Everton).'),
+(11791, 116, 77, 0, 0, 'Attempt saved. Samuel Eto''o (Everton) left footed shot from the right side of the box is saved in the centre of the goal. Assisted by Seamus Coleman.'),
+(11792, 116, 69, 0, 0, 'Corner,  West Ham United. Conceded by Sylvain Distin.'),
+(11793, 116, 69, 0, 0, 'Attempt blocked. Morgan Amalfitano (West Ham United) right footed shot from the right side of the box is blocked. Assisted by Andy Carroll.'),
+(11794, 116, 86, 0, 0, 'Delay in match Steven Naismith (Everton) because of an injury.'),
+(11795, 115, 90, 0, 0, 'Connor Wickham (Sunderland) wins a free kick on the left wing.'),
+(11796, 115, 89, 0, 0, 'Liam Bridcutt (Sunderland) wins a free kick in the defensive half.'),
+(11797, 115, 89, 0, 0, 'Foul by Anthony Knockaert (Leicester City).'),
+(11798, 115, 89, 0, 0, 'Foul by Wes Brown (Sunderland).'),
+(11799, 115, 89, 0, 0, 'David Nugent (Leicester City) wins a free kick in the attacking half.'),
+(11800, 115, 90, 0, 0, 'Foul by Riyad Mahrez (Leicester City).'),
+(11801, 118, 89, 0, 0, 'Substitution, Newcastle United. Adam Armstrong replaces Ayoze Pérez.'),
+(11802, 118, 89, 0, 0, 'Sammy Ameobi (Newcastle United) wins a free kick on the left wing.'),
+(11803, 118, 89, 0, 0, 'Foul by Nedum Onuoha (Queens Park Rangers).'),
+(11804, 118, 87, 0, 0, 'Attempt missed. Junior Hoilett (Queens Park Rangers) right footed shot from the left side of the box is high and wide to the right. Assisted by Yun Suk-Young.'),
+(11805, 118, 66, 0, 0, 'Attempt missed. Bobby Zamora (Queens Park Rangers) header from the centre of the box is too high. Assisted by Karl Henry.'),
+(11806, 118, 90, 0, 0, 'Bobby Zamora (Queens Park Rangers) is shown the yellow card.'),
+(11807, 114, 88, 0, 0, 'Foul by Vincent Kompany (Manchester City).'),
+(11808, 114, 88, 0, 0, 'Bafétimbi Gomis (Swansea City) wins a free kick in the defensive half.'),
+(11809, 114, 86, 0, 0, 'Attempt missed. Bafétimbi Gomis (Swansea City) right footed shot from the centre of the box misses to the right. Assisted by Wilfried Bony.'),
+(11810, 114, 86, 0, 0, 'Attempt saved. Yaya Touré (Manchester City) right footed shot from outside the box is saved in the centre of the goal.'),
+(11811, 114, 86, 0, 0, 'Attempt blocked. James Milner (Manchester City) right footed shot from the left side of the box is blocked. Assisted by Jesús Navas with a cross.'),
+(11812, 114, 85, 0, 0, 'Wilfried Bony (Swansea City) wins a free kick in the attacking half.'),
+(11813, 114, 85, 0, 0, 'Foul by Yaya Touré (Manchester City).'),
+(11814, 114, 83, 0, 0, 'Attempt saved. Jesús Navas (Manchester City) right footed shot from the right side of the box is saved in the centre of the goal. Assisted by Sergio Agüero.'),
+(11815, 114, 88, 0, 0, 'Substitution, Manchester City. Fernando replaces Fernandinho.'),
+(11816, 118, 90, 0, 0, 'Foul by Adam Armstrong (Newcastle United).'),
+(11817, 118, 90, 0, 0, 'Nedum Onuoha (Queens Park Rangers) wins a free kick in the defensive half.'),
+(11818, 115, 90, 0, 0, 'Foul by Chris Wood (Leicester City).'),
+(11819, 115, 90, 0, 0, 'Hand ball by Connor Wickham (Sunderland).'),
+(11820, 115, 90, 0, 0, 'Liam Bridcutt (Sunderland) wins a free kick in the defensive half.'),
+(11821, 114, 90, 0, 0, 'Martín Demichelis (Manchester City) is shown the yellow card for a bad foul.'),
+(11822, 114, 90, 0, 0, 'Attempt blocked. Bafétimbi Gomis (Swansea City) left footed shot from outside the box is blocked. Assisted by Wilfried Bony.'),
+(11823, 114, 90, 0, 0, 'Foul by Gaël Clichy (Manchester City).'),
+(11824, 114, 90, 0, 0, 'Attempt saved. Yaya Touré (Manchester City) left footed shot from the right side of the box is saved in the centre of the goal. Assisted by Fernando.'),
+(11825, 114, 90, 0, 0, 'Foul by Martín Demichelis (Manchester City).'),
+(11826, 113, 86, 0, 0, 'Substitution, Burnley. Steven Reid replaces Danny Ings.'),
+(11827, 113, 88, 0, 0, 'Attempt missed. Peter Crouch (Stoke City) right footed shot from the left side of the six yard box misses to the left. Assisted by Marko Arnautovic with a cross.'),
+(11828, 117, 90, 0, 0, 'Foul by Chris Brunt (West Bromwich Albion).'),
+(11829, 117, 87, 0, 0, 'Corner,  Chelsea. Conceded by Andre Wisdom.'),
+(11830, 117, 90, 0, 0, 'Gary Cahill (Chelsea) wins a free kick in the defensive half.'),
+(11831, 116, 89, 0, 0, 'Foul by James Tomkins (West Ham United).'),
+(11832, 116, 89, 0, 0, 'Substitution, Everton. Christian Atsu replaces Steven Naismith because of an injury.'),
+(11833, 116, 88, 0, 0, 'Delay over. They are ready to continue.'),
+(11834, 116, 89, 0, 0, 'Samuel Eto''o (Everton) wins a free kick in the defensive half.'),
+(11835, 114, 90, 0, 0, 'Wilfried Bony (Swansea City) wins a free kick in the attacking half.'),
+(11836, 113, 90, 0, 0, 'Attempt saved. Lukas Jutkiewicz (Burnley) left footed shot from the left side of the box is saved in the bottom right corner. Assisted by Tom Heaton.'),
+(11837, 113, 90, 0, 0, 'Attempt blocked. Charlie Adam (Stoke City) right footed shot from outside the box is blocked.'),
+(11838, 113, 90, 0, 0, 'Attempt missed. Marc Muniesa (Stoke City) left footed shot from outside the box misses to the right.'),
+(11839, 116, 90, 0, 0, 'Corner,  Everton. Conceded by Aaron Cresswell.'),
+(11840, 116, 90, 0, 0, 'Attempt blocked. Seamus Coleman (Everton) left footed shot from the right side of the box is blocked. Assisted by Romelu Lukaku.'),
+(11841, 116, 90, 0, 0, 'Attempt missed. Samuel Eto''o (Everton) left footed shot from the centre of the box is close, but misses to the right. Assisted by Leon Osman.'),
+(11842, 114, 90, 0, 0, 'Attempt blocked. Jonjo Shelvey (Swansea City) right footed shot from outside the box is blocked.'),
+(11843, 114, 90, 0, 0, 'Corner,  Swansea City. Conceded by Frank Lampard.'),
+(11844, 116, 90, 0, 0, 'Foul by Romelu Lukaku (Everton).'),
+(11845, 116, 90, 0, 0, 'Winston Reid (West Ham United) wins a free kick in the defensive half.'),
+(11846, 113, 90, 0, 0, 'Corner,  Stoke City. Conceded by Ashley Barnes.'),
+(11847, 113, 90, 0, 0, 'Attempt blocked. Bojan (Stoke City) right footed shot from outside the box is blocked. Assisted by Ryan Shawcross.'),
+(11848, 113, 90, 0, 0, 'Attempt missed. Asmir Begovic (Stoke City) header from the centre of the box is high and wide to the right. Assisted by Charlie Adam with a cross following a corner.'),
+(11849, 119, 1, 0, 0, 'Wayne Rooney (Manchester United) wins a free kick in the defensive half.'),
+(11850, 119, 1, 0, 0, 'Foul by Mikel Arteta (Arsenal).'),
+(11851, 119, 0, 0, 0, 'First Half begins.'),
+(11852, 119, 3, 0, 0, 'Offside, Manchester United. Luke Shaw tries a through ball, but Robin van Persie is caught offside.'),
+(11853, 119, 5, 0, 0, 'Corner,  Arsenal. Conceded by Patrick McNair.'),
+(11854, 119, 5, 0, 0, 'Attempt missed. Danny Welbeck (Arsenal) right footed shot from a difficult angle on the right misses to the left. Assisted by Alex Oxlade-Chamberlain.'),
+(11855, 119, 6, 0, 0, 'Attempt missed. Per Mertesacker (Arsenal) header from the centre of the box misses to the left. Assisted by Alexis Sánchez with a cross following a corner.'),
+(11856, 119, 8, 0, 0, 'Delay in match Luke Shaw (Manchester United) because of an injury.'),
+(11857, 119, 8, 0, 0, 'Delay over. They are ready to continue.'),
+(11858, 119, 9, 0, 0, 'Attempt missed. Danny Welbeck (Arsenal) header from the centre of the box is too high. Assisted by Alex Oxlade-Chamberlain with a cross.'),
+(11859, 119, 10, 0, 0, 'Foul by Alexis Sánchez (Arsenal).'),
+(11860, 119, 10, 0, 0, 'Marouane Fellaini (Manchester United) wins a free kick in the defensive half.'),
+(11861, 119, 13, 0, 0, 'Attempt saved. Jack Wilshere (Arsenal) left footed shot from outside the box is saved in the centre of the goal. Assisted by Aaron Ramsey.'),
+(11862, 119, 13, 0, 0, 'Hand ball by Marouane Fellaini (Manchester United).'),
+(11863, 119, 13, 0, 0, 'Attempt saved. Danny Welbeck (Arsenal) right footed shot from outside the box is saved in the bottom right corner. Assisted by Alex Oxlade-Chamberlain.'),
+(11864, 119, 15, 0, 0, 'Delay in match Luke Shaw (Manchester United) because of an injury.'),
+(11865, 119, 16, 0, 0, 'Substitution, Manchester United. Ashley Young replaces Luke Shaw because of an injury.'),
+(11866, 119, 14, 0, 0, 'Attempt saved. Jack Wilshere (Arsenal) left footed shot from the centre of the box is saved in the bottom right corner. Assisted by Danny Welbeck with a through ball.'),
+(11867, 119, 16, 0, 0, 'Delay over. They are ready to continue.'),
+(11868, 119, 20, 0, 0, 'Ángel Di María (Manchester United) wins a free kick.'),
+(11869, 119, 20, 0, 0, 'Foul by Aaron Ramsey (Arsenal).'),
+(11870, 119, 20, 0, 0, 'Ángel Di María (Manchester United) wins a free kick in the attacking half.'),
+(11871, 119, 22, 0, 0, 'Foul by Robin van Persie (Manchester United).'),
+(11872, 119, 21, 0, 0, 'Attempt missed. Wayne Rooney (Manchester United) right footed shot from outside the box is high and wide to the left from a direct free kick.'),
+(11873, 119, 22, 0, 0, 'Mikel Arteta (Arsenal) wins a free kick on the left wing.'),
+(11874, 119, 22, 0, 0, 'Attempt saved. Alex Oxlade-Chamberlain (Arsenal) left footed shot from the left side of the box is saved in the bottom left corner. Assisted by Alexis Sánchez with a through ball.'),
+(11875, 119, 24, 0, 0, 'Danny Welbeck (Arsenal) wins a free kick in the defensive half.'),
+(11876, 119, 24, 0, 0, 'Foul by Chris Smalling (Manchester United).'),
+(11877, 119, 25, 0, 0, 'Corner,  Arsenal. Conceded by Tyler Blackett.'),
+(11878, 119, 27, 0, 0, 'Corner,  Arsenal. Conceded by Marouane Fellaini.'),
+(11879, 119, 29, 0, 0, 'Foul by Jack Wilshere (Arsenal).'),
+(11880, 119, 28, 0, 0, 'Foul by Calum Chambers (Arsenal).'),
+(11881, 119, 28, 0, 0, 'Ashley Young (Manchester United) wins a free kick in the defensive half.'),
+(11882, 119, 27, 0, 0, 'Attempt blocked. Alexis Sánchez (Arsenal) right footed shot from outside the box is blocked. Assisted by Danny Welbeck.'),
+(11883, 119, 29, 0, 0, 'Marouane Fellaini (Manchester United) wins a free kick in the defensive half.'),
+(11884, 119, 35, 0, 0, 'Foul by Alexis Sánchez (Arsenal).'),
+(11885, 119, 34, 0, 0, 'Attempt saved. Alexis Sánchez (Arsenal) right footed shot from outside the box is saved in the bottom left corner. Assisted by Kieran Gibbs.'),
+(11886, 119, 32, 0, 0, 'Hand ball by Aaron Ramsey (Arsenal).'),
+(11887, 119, 35, 0, 0, 'Patrick McNair (Manchester United) wins a free kick in the defensive half.'),
+(11888, 119, 35, 0, 0, 'Attempt missed. Ángel Di María (Manchester United) left footed shot from the right side of the box is close, but misses to the left. Assisted by Antonio Valencia.'),
+(11889, 119, 36, 0, 0, 'Attempt missed. Aaron Ramsey (Arsenal) right footed shot from outside the box is too high. Assisted by Alexis Sánchez.'),
+(11890, 119, 39, 0, 0, 'Corner,  Manchester United. Conceded by Mikel Arteta.'),
+(11891, 119, 39, 0, 0, 'Attempt blocked. Wayne Rooney (Manchester United) right footed shot from outside the box is blocked. Assisted by Ángel Di María.'),
+(11892, 119, 38, 0, 0, 'Corner,  Manchester United. Conceded by Calum Chambers.'),
+(11893, 119, 38, 0, 0, 'Attempt blocked. Wayne Rooney (Manchester United) right footed shot from the centre of the box is blocked. Assisted by Ángel Di María.'),
+(11894, 119, 40, 0, 0, 'Corner,  Manchester United. Conceded by Calum Chambers.'),
+(11895, 119, 40, 0, 0, 'Attempt blocked. Michael Carrick (Manchester United) header from the right side of the box is blocked. Assisted by Robin van Persie with a cross.'),
+(11896, 119, 40, 0, 0, 'Corner,  Manchester United. Conceded by Kieran Gibbs.'),
+(11897, 119, 40, 0, 0, 'Attempt blocked. Chris Smalling (Manchester United) header from the right side of the six yard box is blocked. Assisted by Robin van Persie with a cross.'),
+(11898, 119, 40, 0, 0, 'Attempt missed. Chris Smalling (Manchester United) right footed shot from the right side of the six yard box misses to the right following a corner.'),
+(11899, 119, 43, 0, 0, 'Corner,  Arsenal. Conceded by Patrick McNair.'),
+(11900, 119, 43, 0, 0, 'Attempt missed. Danny Welbeck (Arsenal) right footed shot from the centre of the box misses to the left. Assisted by Aaron Ramsey following a corner.'),
+(11901, 119, 45, 0, 0, 'First Half ends, Arsenal 0, Manchester United 0.'),
+(11902, 119, 45, 0, 0, 'Second Half begins Arsenal 0, Manchester United 0.'),
+(11903, 119, 48, 0, 0, 'Corner,  Arsenal. Conceded by Michael Carrick.'),
+(11904, 119, 48, 0, 0, 'Attempt blocked. Alex Oxlade-Chamberlain (Arsenal) right footed shot from the centre of the box is blocked.'),
+(11905, 119, 48, 0, 0, 'Corner,  Arsenal. Conceded by Marouane Fellaini.'),
+(11906, 119, 49, 0, 0, 'Attempt missed. Per Mertesacker (Arsenal) right footed shot from the centre of the box is too high. Assisted by Alexis Sánchez with a cross following a corner.'),
+(11907, 119, 50, 0, 0, 'Foul by Mikel Arteta (Arsenal).'),
+(11908, 119, 49, 0, 0, 'Corner,  Arsenal. Conceded by David de Gea.'),
+(11909, 119, 49, 0, 0, 'Attempt saved. Danny Welbeck (Arsenal) right footed shot from a difficult angle on the left is saved in the centre of the goal. Assisted by Alex Oxlade-Chamberlain.'),
+(11910, 119, 48, 0, 0, 'Attempt missed. Alex Oxlade-Chamberlain (Arsenal) right footed shot from outside the box misses to the left following a corner.'),
+(11911, 119, 50, 0, 0, 'Wayne Rooney (Manchester United) wins a free kick in the defensive half.'),
+(11912, 119, 51, 0, 0, 'Corner,  Arsenal. Conceded by Chris Smalling.'),
+(11913, 119, 51, 0, 0, 'Delay in match Jack Wilshere (Arsenal) because of an injury.'),
+(11914, 119, 53, 0, 0, 'Delay over. They are ready to continue.'),
+(11915, 119, 55, 0, 0, 'Substitution, Arsenal. Santiago Cazorla replaces Jack Wilshere because of an injury.'),
+(11916, 119, 56, 1, 0, 'Own Goal by Kieran Gibbs, Arsenal.  Arsenal 0, Manchester United 1.'),
+(11917, 119, 59, 0, 0, 'Delay over. They are ready to continue.'),
+(11918, 119, 57, 0, 0, 'Delay in match Wojciech Szczesny (Arsenal) because of an injury.'),
+(11919, 119, 56, 0, 0, 'Attempt missed. Antonio Valencia (Manchester United) right footed shot from the right side of the box misses to the left.'),
+(11920, 119, 59, 0, 0, 'Substitution, Arsenal. Damián Martinez replaces Wojciech Szczesny because of an injury.'),
+(11921, 119, 60, 0, 0, 'Offside, Manchester United. Ángel Di María tries a through ball, but Wayne Rooney is caught offside.'),
+(11922, 119, 65, 0, 0, 'Ashley Young (Manchester United) wins a free kick in the defensive half.');
+INSERT INTO `tbl_soccer_match_commentaries` (`id`, `match_id`, `minute`, `important`, `isgoal`, `comment`) VALUES
+(11923, 119, 62, 0, 0, 'Attempt saved. Alexis Sánchez (Arsenal) header from the centre of the box is saved in the centre of the goal. Assisted by Alex Oxlade-Chamberlain with a cross.'),
+(11924, 119, 65, 0, 0, 'Foul by Santiago Cazorla (Arsenal).'),
+(11925, 119, 64, 0, 0, 'Attempt blocked. Aaron Ramsey (Arsenal) right footed shot from outside the box is blocked. Assisted by Calum Chambers.'),
+(11926, 119, 65, 0, 0, 'Santiago Cazorla (Arsenal) is shown the yellow card for a bad foul.'),
+(11927, 119, 69, 0, 0, 'Foul by Alexis Sánchez (Arsenal).'),
+(11928, 119, 68, 0, 0, 'Attempt saved. Santiago Cazorla (Arsenal) right footed shot from outside the box is saved in the centre of the goal. Assisted by Danny Welbeck with a headed pass.'),
+(11929, 119, 68, 0, 0, 'Offside, Manchester United. Robin van Persie tries a through ball, but Ángel Di María is caught offside.'),
+(11930, 119, 69, 0, 0, 'Michael Carrick (Manchester United) wins a free kick in the defensive half.'),
+(11931, 119, 70, 0, 0, 'Attempt missed. Marouane Fellaini (Manchester United) header from the right side of the box misses to the right. Assisted by Wayne Rooney with a cross following a corner.'),
+(11932, 119, 69, 0, 0, 'Corner,  Manchester United. Conceded by Calum Chambers.'),
+(11933, 119, 71, 0, 0, 'Corner,  Arsenal. Conceded by Antonio Valencia.'),
+(11934, 119, 72, 0, 0, 'Attempt missed. Alexis Sánchez (Arsenal) right footed shot from outside the box is too high from a direct free kick.'),
+(11935, 119, 71, 0, 0, 'Foul by Patrick McNair (Manchester United).'),
+(11936, 119, 71, 0, 0, 'Aaron Ramsey (Arsenal) wins a free kick in the attacking half.'),
+(11937, 119, 75, 0, 0, 'Substitution, Manchester United. James Wilson replaces Robin van Persie.'),
+(11938, 119, 77, 0, 0, 'Substitution, Arsenal. Olivier Giroud replaces Aaron Ramsey.'),
+(11939, 119, 78, 0, 0, 'Foul by Marouane Fellaini (Manchester United).'),
+(11940, 119, 77, 0, 0, 'Attempt missed. Olivier Giroud (Arsenal) header from the centre of the box is too high. Assisted by Alexis Sánchez with a cross following a corner.'),
+(11941, 119, 77, 0, 0, 'Corner,  Arsenal. Conceded by Chris Smalling.'),
+(11942, 119, 78, 0, 0, 'Mikel Arteta (Arsenal) wins a free kick in the attacking half.'),
+(11943, 119, 80, 0, 0, 'Attempt blocked. Kieran Gibbs (Arsenal) left footed shot from the left side of the box is blocked. Assisted by Alexis Sánchez.'),
+(11944, 119, 80, 0, 0, 'Attempt blocked. Santiago Cazorla (Arsenal) right footed shot from the left side of the box is blocked. Assisted by Alexis Sánchez.'),
+(11945, 119, 82, 0, 0, 'Foul by Wayne Rooney (Manchester United).'),
+(11946, 119, 82, 0, 0, 'Alexis Sánchez (Arsenal) wins a free kick in the defensive half.'),
+(11947, 119, 81, 0, 0, 'Ángel Di María (Manchester United) wins a free kick in the defensive half.'),
+(11948, 119, 81, 0, 0, 'Foul by Mikel Arteta (Arsenal).'),
+(11949, 119, 85, 1, 1, 'Goal!  Arsenal 0, Manchester United 2. Wayne Rooney (Manchester United) left footed shot from the centre of the box to the bottom right corner. Assisted by Ángel Di María following a fast break.'),
+(11950, 119, 90, 0, 0, 'Mikel Arteta (Arsenal) wins a free kick in the defensive half.'),
+(11951, 119, 90, 0, 0, 'Foul by Marouane Fellaini (Manchester United).'),
+(11952, 119, 90, 0, 0, 'Attempt missed. Ángel Di María (Manchester United) left footed shot from the centre of the box is close, but misses to the right. Assisted by Wayne Rooney with a through ball following a fast break.'),
+(11953, 119, 90, 0, 0, 'Corner,  Arsenal. Conceded by Michael Carrick.'),
+(11954, 119, 90, 0, 0, 'Foul by Antonio Valencia (Manchester United).'),
+(11955, 119, 90, 0, 0, 'Alexis Sánchez (Arsenal) wins a free kick on the left wing.'),
+(11956, 119, 90, 0, 0, 'Offside, Manchester United. Patrick McNair tries a through ball, but Ángel Di María is caught offside.'),
+(11957, 119, 90, 0, 0, 'James Wilson (Manchester United) wins a free kick in the attacking half.'),
+(11958, 119, 90, 0, 0, 'Foul by Mikel Arteta (Arsenal).'),
+(11959, 119, 89, 0, 0, 'Substitution, Manchester United. Darren Fletcher replaces Ashley Young.'),
+(11960, 119, 88, 0, 0, 'Offside, Arsenal. Olivier Giroud tries a through ball, but Danny Welbeck is caught offside.'),
+(11961, 119, 90, 1, 1, 'Goal!  Arsenal 1, Manchester United 2. Olivier Giroud (Arsenal) left footed shot from the left side of the box to the top left corner. Assisted by Mikel Arteta.'),
+(11962, 120, 62, 0, 0, 'Foul by Mile Jedinak (Crystal Palace).'),
+(11963, 120, 62, 0, 0, 'Corner,  Crystal Palace. Conceded by Philippe Coutinho.'),
+(11964, 120, 62, 0, 0, 'Attempt blocked. Mile Jedinak (Crystal Palace) right footed shot from outside the box is blocked. Assisted by Marouane Chamakh.'),
+(11965, 120, 61, 0, 0, 'Javier Manquillo (Liverpool) is shown the yellow card for a bad foul.'),
+(11966, 120, 61, 0, 0, 'Marouane Chamakh (Crystal Palace) wins a free kick on the left wing.'),
+(11967, 120, 61, 0, 0, 'Foul by Javier Manquillo (Liverpool).'),
+(11968, 120, 59, 0, 0, 'Rickie Lambert (Liverpool) wins a free kick on the left wing.'),
+(11969, 120, 59, 0, 0, 'Foul by Mile Jedinak (Crystal Palace).'),
+(11970, 120, 57, 0, 0, 'Attempt missed. Steven Gerrard (Liverpool) right footed shot from outside the box misses to the right. Assisted by Raheem Sterling.'),
+(11971, 120, 56, 0, 0, 'Attempt missed. Martin Skrtel (Liverpool) left footed shot from the right side of the six yard box misses to the left following a corner.'),
+(11972, 120, 55, 0, 0, 'Corner,  Liverpool. Conceded by Martin Kelly.'),
+(11973, 120, 53, 0, 0, 'Joe Allen (Liverpool) wins a free kick in the defensive half.'),
+(11974, 120, 53, 0, 0, 'Foul by Jason Puncheon (Crystal Palace).'),
+(11975, 120, 53, 0, 0, 'Martin Skrtel (Liverpool) is shown the yellow card for a bad foul.'),
+(11976, 120, 52, 0, 0, 'Marouane Chamakh (Crystal Palace) wins a free kick in the attacking half.'),
+(11977, 120, 52, 0, 0, 'Foul by Martin Skrtel (Liverpool).'),
+(11978, 120, 52, 0, 0, 'Attempt blocked. Steven Gerrard (Liverpool) right footed shot from outside the box is blocked. Assisted by Adam Lallana.'),
+(11979, 120, 50, 0, 0, 'Mile Jedinak (Crystal Palace) wins a free kick in the attacking half.'),
+(11980, 120, 50, 0, 0, 'Foul by Philippe Coutinho (Liverpool).'),
+(11981, 120, 48, 0, 0, 'Attempt missed. Steven Gerrard (Liverpool) right footed shot from outside the box is high and wide to the right from a direct free kick.'),
+(11982, 120, 48, 0, 0, 'Raheem Sterling (Liverpool) wins a free kick in the attacking half.'),
+(11983, 120, 48, 0, 0, 'Foul by Martin Kelly (Crystal Palace).'),
+(11984, 120, 47, 0, 0, 'Foul by Dwight Gayle (Crystal Palace).'),
+(11985, 120, 47, 0, 0, 'Dejan Lovren (Liverpool) wins a free kick on the left wing.'),
+(11986, 120, 46, 0, 0, 'Offside, Crystal Palace. Jason Puncheon tries a through ball, but Dwight Gayle is caught offside.'),
+(11987, 120, 45, 0, 0, 'Second Half begins Crystal Palace 1, Liverpool 1.'),
+(11988, 120, 45, 0, 0, 'First Half ends, Crystal Palace 1, Liverpool 1.'),
+(11989, 120, 45, 0, 0, 'Attempt missed. Yannick Bolasie (Crystal Palace) left footed shot from the left side of the box is too high. Assisted by Jason Puncheon with a through ball.'),
+(11990, 120, 45, 0, 0, 'Attempt saved. Joel Ward (Crystal Palace) right footed shot from outside the box is saved in the centre of the goal. Assisted by Yannick Bolasie.'),
+(11991, 120, 44, 0, 0, 'Joe Allen (Liverpool) wins a free kick in the attacking half.'),
+(11992, 120, 44, 0, 0, 'Foul by Martin Kelly (Crystal Palace).'),
+(11993, 120, 44, 0, 0, 'Foul by Jason Puncheon (Crystal Palace).'),
+(11994, 120, 44, 0, 0, 'Adam Lallana (Liverpool) wins a free kick in the defensive half.'),
+(11995, 120, 42, 0, 0, 'Corner,  Crystal Palace. Conceded by Javier Manquillo.'),
+(11996, 120, 42, 0, 0, 'Attempt blocked. Yannick Bolasie (Crystal Palace) left footed shot from the left side of the box is blocked. Assisted by Jason Puncheon.'),
+(11997, 120, 41, 0, 0, 'Philippe Coutinho (Liverpool) wins a free kick in the attacking half.'),
+(11998, 120, 41, 0, 0, 'Foul by Jason Puncheon (Crystal Palace).'),
+(11999, 120, 40, 0, 0, 'Joe Allen (Liverpool) wins a free kick in the defensive half.'),
+(12000, 120, 40, 0, 0, 'Foul by Martin Kelly (Crystal Palace).'),
+(12001, 120, 38, 0, 0, 'Attempt missed. Steven Gerrard (Liverpool) right footed shot from outside the box is too high. Assisted by Joe Allen.'),
+(12002, 120, 36, 0, 0, 'Substitution, Crystal Palace. Brede Hangeland replaces Damien Delaney because of an injury.'),
+(12003, 120, 35, 0, 0, 'Delay over. They are ready to continue.'),
+(12004, 120, 35, 0, 0, 'Delay in match Damien Delaney (Crystal Palace) because of an injury.'),
+(12005, 120, 34, 0, 0, 'Attempt missed. Rickie Lambert (Liverpool) header from the centre of the box misses to the right. Assisted by Joe Allen with a cross.'),
+(12006, 120, 32, 0, 0, 'Rickie Lambert (Liverpool) wins a free kick in the defensive half.'),
+(12007, 120, 32, 0, 0, 'Foul by Mile Jedinak (Crystal Palace).'),
+(12008, 120, 30, 0, 0, 'Corner,  Crystal Palace. Conceded by Simon Mignolet.'),
+(12009, 120, 30, 0, 0, 'Attempt saved. Yannick Bolasie (Crystal Palace) right footed shot from outside the box is saved in the bottom right corner.'),
+(12010, 120, 28, 0, 0, 'Attempt missed. Rickie Lambert (Liverpool) header from the centre of the box is too high. Assisted by Steven Gerrard following a set piece situation.'),
+(12011, 120, 28, 0, 0, 'Foul by Joel Ward (Crystal Palace).'),
+(12012, 120, 28, 0, 0, 'Adam Lallana (Liverpool) wins a free kick in the attacking half.'),
+(12013, 120, 24, 0, 0, 'Yannick Bolasie (Crystal Palace) wins a free kick in the defensive half.'),
+(12014, 120, 24, 0, 0, 'Foul by Rickie Lambert (Liverpool).'),
+(12015, 120, 23, 0, 0, 'Philippe Coutinho (Liverpool) wins a free kick in the defensive half.'),
+(12016, 120, 23, 0, 0, 'Foul by Mile Jedinak (Crystal Palace).'),
+(12017, 120, 22, 0, 0, 'Hand ball by Glen Johnson (Liverpool).'),
+(12018, 120, 21, 0, 0, 'Offside, Crystal Palace. Jason Puncheon tries a through ball, but Dwight Gayle is caught offside.'),
+(12019, 120, 21, 0, 0, 'Rickie Lambert (Liverpool) wins a free kick in the defensive half.'),
+(12020, 120, 21, 0, 0, 'Foul by Scott Dann (Crystal Palace).'),
+(12021, 120, 20, 0, 0, 'Offside, Liverpool. Dejan Lovren tries a through ball, but Rickie Lambert is caught offside.'),
+(12022, 120, 17, 1, 1, 'Goal!  Crystal Palace 1, Liverpool 1. Dwight Gayle (Crystal Palace) right footed shot from the centre of the box to the centre of the goal.'),
+(12023, 120, 17, 0, 0, 'Yannick Bolasie (Crystal Palace) hits the left post with a right footed shot from outside the box. Assisted by Joe Ledley.'),
+(12024, 120, 15, 0, 0, 'Marouane Chamakh (Crystal Palace) wins a free kick in the defensive half.'),
+(12025, 120, 15, 0, 0, 'Foul by Adam Lallana (Liverpool).'),
+(12026, 120, 14, 0, 0, 'Martin Kelly (Crystal Palace) wins a free kick in the defensive half.'),
+(12027, 120, 14, 0, 0, 'Foul by Raheem Sterling (Liverpool).'),
+(12028, 120, 12, 0, 0, 'Javier Manquillo (Liverpool) wins a free kick in the defensive half.'),
+(12029, 120, 12, 0, 0, 'Foul by Yannick Bolasie (Crystal Palace).'),
+(12030, 120, 10, 0, 0, 'Attempt missed. Martin Kelly (Crystal Palace) left footed shot from outside the box is high and wide to the left. Assisted by Jason Puncheon.'),
+(12031, 120, 6, 0, 0, 'Joe Allen (Liverpool) wins a free kick in the defensive half.'),
+(12032, 120, 6, 0, 0, 'Foul by Yannick Bolasie (Crystal Palace).'),
+(12033, 120, 5, 0, 0, 'Corner,  Crystal Palace. Conceded by Javier Manquillo.'),
+(12034, 120, 3, 0, 0, 'Joe Ledley (Crystal Palace) wins a free kick in the attacking half.'),
+(12035, 120, 3, 0, 0, 'Foul by Adam Lallana (Liverpool).'),
+(12036, 120, 3, 0, 0, 'Attempt blocked. Dwight Gayle (Crystal Palace) left footed shot from the right side of the box is blocked.'),
+(12037, 120, 2, 1, 1, 'Goal!  Crystal Palace 0, Liverpool 1. Rickie Lambert (Liverpool) right footed shot from the centre of the box to the bottom left corner. Assisted by Adam Lallana with a through ball.'),
+(12038, 120, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(12039, 120, 0, 0, 0, 'First Half begins.'),
+(12040, 120, 63, 0, 0, 'Simon Mignolet (Liverpool) wins a free kick in the defensive half.'),
+(12041, 120, 65, 0, 0, 'Attempt blocked. Mile Jedinak (Crystal Palace) right footed shot from outside the box is blocked. Assisted by Marouane Chamakh.'),
+(12042, 120, 67, 0, 0, 'Attempt blocked. Marouane Chamakh (Crystal Palace) right footed shot from outside the box is blocked. Assisted by Yannick Bolasie with a headed pass.'),
+(12043, 120, 68, 0, 0, 'Foul by Marouane Chamakh (Crystal Palace).'),
+(12044, 120, 68, 0, 0, 'Adam Lallana (Liverpool) wins a free kick in the defensive half.'),
+(12045, 120, 69, 0, 0, 'Attempt blocked. Raheem Sterling (Liverpool) right footed shot from the left side of the box is blocked. Assisted by Joe Allen.'),
+(12046, 120, 71, 0, 0, 'Attempt missed. Javier Manquillo (Liverpool) right footed shot from the right side of the box misses to the left. Assisted by Raheem Sterling.'),
+(12047, 121, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(12048, 120, 72, 0, 0, 'Substitution, Liverpool. Fabio Borini replaces Adam Lallana.'),
+(12049, 120, 72, 0, 0, 'Corner,  Liverpool. Conceded by Joe Ledley.'),
+(12050, 120, 74, 0, 0, 'Substitution, Liverpool. Emre Can replaces Joe Allen.'),
+(12051, 120, 76, 0, 0, 'Foul by Martin Kelly (Crystal Palace).'),
+(12052, 120, 76, 0, 0, 'Philippe Coutinho (Liverpool) wins a free kick on the left wing.'),
+(12053, 120, 77, 0, 0, 'Glen Johnson (Liverpool) wins a free kick in the defensive half.'),
+(12054, 120, 77, 0, 0, 'Foul by Martin Kelly (Crystal Palace).'),
+(12055, 120, 76, 0, 0, 'Substitution, Crystal Palace. James McArthur replaces Jason Puncheon.'),
+(12056, 120, 78, 1, 1, 'Goal!  Crystal Palace 2, Liverpool 1. Joe Ledley (Crystal Palace) left footed shot from the centre of the box to the centre of the goal. Assisted by Yannick Bolasie with a cross.'),
+(12057, 120, 81, 0, 0, 'Foul by Martin Skrtel (Liverpool).'),
+(12058, 120, 81, 0, 0, 'Dwight Gayle (Crystal Palace) wins a free kick in the attacking half.'),
+(12059, 120, 81, 1, 1, 'Goal!  Crystal Palace 3, Liverpool 1. Mile Jedinak (Crystal Palace) from a free kick with a right footed shot to the top right corner.'),
+(12060, 120, 84, 0, 0, 'Raheem Sterling (Liverpool) wins a free kick in the attacking half.'),
+(12061, 120, 86, 0, 0, 'Foul by Joel Ward (Crystal Palace).'),
+(12062, 120, 86, 0, 0, 'Substitution, Crystal Palace. Barry Bannan replaces Yannick Bolasie.'),
+(12063, 120, 85, 0, 0, 'Attempt missed. Steven Gerrard (Liverpool) right footed shot from outside the box is just a bit too high from a direct free kick.'),
+(12064, 120, 84, 0, 0, 'Brede Hangeland (Crystal Palace) is shown the yellow card for a bad foul.'),
+(12065, 120, 84, 0, 0, 'Foul by Brede Hangeland (Crystal Palace).'),
+(12066, 120, 86, 0, 0, 'Raheem Sterling (Liverpool) wins a free kick on the right wing.'),
+(12067, 120, 87, 0, 0, 'Foul by Martin Kelly (Crystal Palace).'),
+(12068, 120, 87, 0, 0, 'Fabio Borini (Liverpool) wins a free kick on the left wing.'),
+(12069, 120, 87, 0, 0, 'Corner,  Liverpool. Conceded by Brede Hangeland.'),
+(12070, 121, 0, 0, 0, 'First Half begins.'),
+(12071, 121, 1, 0, 0, 'Offside, Hull City. Andrew Robertson tries a through ball, but Nikica Jelavic is caught offside.'),
+(12072, 121, 2, 0, 0, 'Erik Lamela (Tottenham Hotspur) wins a free kick in the defensive half.'),
+(12073, 121, 2, 0, 0, 'Foul by Robbie Brady (Hull City).'),
+(12074, 121, 3, 0, 0, 'Offside, Hull City. Ahmed Elmohamady tries a through ball, but Gastón Ramírez is caught offside.'),
+(12075, 121, 4, 0, 0, 'Foul by Harry Kane (Tottenham Hotspur).'),
+(12076, 121, 4, 0, 0, 'Jake Livermore (Hull City) wins a free kick in the defensive half.'),
+(12077, 121, 5, 0, 0, 'Attempt saved. Roberto Soldado (Tottenham Hotspur) right footed shot from outside the box is saved in the bottom left corner. Assisted by Erik Lamela.'),
+(12078, 121, 8, 0, 0, 'Foul by Roberto Soldado (Tottenham Hotspur).'),
+(12079, 121, 8, 0, 0, 'Gastón Ramírez (Hull City) wins a free kick in the defensive half.'),
+(12080, 121, 9, 0, 0, 'Erik Lamela (Tottenham Hotspur) wins a free kick in the attacking half.'),
+(12081, 121, 8, 1, 1, 'Goal!  Hull City 1, Tottenham Hotspur 0. Jake Livermore (Hull City) right footed shot from outside the box to the bottom left corner.'),
+(12082, 121, 9, 0, 0, 'Foul by Tom Huddlestone (Hull City).'),
+(12083, 121, 10, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Michael Dawson.'),
+(12084, 121, 15, 0, 0, 'Attempt saved. Harry Kane (Tottenham Hotspur) right footed shot from long range on the left is saved in the centre of the goal. Assisted by Mousa Dembélé.'),
+(12085, 121, 16, 0, 0, 'Attempt blocked. Erik Lamela (Tottenham Hotspur) left footed shot from outside the box is blocked. Assisted by Ryan Mason.'),
+(12086, 121, 18, 0, 0, 'Erik Lamela (Tottenham Hotspur) wins a free kick in the defensive half.'),
+(12087, 121, 18, 0, 0, 'Foul by Robbie Brady (Hull City).'),
+(12088, 121, 19, 0, 0, 'Attempt blocked. Gastón Ramírez (Hull City) right footed shot from the centre of the box is blocked.'),
+(12089, 121, 19, 0, 0, 'Tom Huddlestone (Hull City) wins a free kick in the defensive half.'),
+(12090, 121, 19, 0, 0, 'Foul by Harry Kane (Tottenham Hotspur).'),
+(12091, 121, 19, 0, 0, 'Corner,  Hull City. Conceded by Federico Fazio.'),
+(12092, 121, 21, 0, 0, 'Attempt missed. Hatem Ben Arfa (Hull City) left footed shot from the centre of the box is too high.'),
+(12093, 121, 21, 0, 0, 'Attempt missed. Gastón Ramírez (Hull City) left footed shot from the left side of the box is close, but misses to the right. Assisted by Andrew Robertson with a headed pass.'),
+(12094, 121, 21, 0, 0, 'Attempt saved. Robbie Brady (Hull City) right footed shot from the centre of the box is saved in the bottom right corner. Assisted by Nikica Jelavic.'),
+(12095, 121, 23, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Michael Dawson.'),
+(12096, 121, 21, 0, 0, 'Attempt blocked. Robbie Brady (Hull City) right footed shot from the centre of the box is blocked. Assisted by Ahmed Elmohamady with a cross.'),
+(12097, 121, 25, 0, 0, 'Attempt missed. Nikica Jelavic (Hull City) header from the centre of the box misses to the right. Assisted by Hatem Ben Arfa with a cross.'),
+(12098, 121, 26, 0, 0, 'Foul by Jake Livermore (Hull City).'),
+(12099, 121, 26, 0, 0, 'Harry Kane (Tottenham Hotspur) wins a free kick in the defensive half.'),
+(12100, 121, 26, 0, 0, 'Foul by Tom Huddlestone (Hull City).'),
+(12101, 121, 26, 0, 0, 'Harry Kane (Tottenham Hotspur) wins a free kick in the attacking half.'),
+(12102, 121, 28, 0, 0, 'Ben Davies (Tottenham Hotspur) wins a free kick on the left wing.'),
+(12103, 121, 28, 0, 0, 'Foul by Hatem Ben Arfa (Hull City).'),
+(12104, 121, 30, 0, 0, 'Erik Lamela (Tottenham Hotspur) wins a free kick in the attacking half.'),
+(12105, 121, 29, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Curtis Davies.'),
+(12106, 121, 29, 0, 0, 'Attempt blocked. Christian Eriksen (Tottenham Hotspur) right footed shot from outside the box is blocked.'),
+(12107, 121, 29, 0, 0, 'Attempt blocked. Ryan Mason (Tottenham Hotspur) left footed shot from outside the box is blocked. Assisted by Roberto Soldado.'),
+(12108, 121, 30, 0, 0, 'Foul by Tom Huddlestone (Hull City).'),
+(12109, 121, 33, 0, 0, 'Eric Dier (Tottenham Hotspur) is shown the yellow card for a bad foul.'),
+(12110, 121, 33, 0, 0, 'Robbie Brady (Hull City) wins a free kick on the left wing.'),
+(12111, 121, 33, 0, 0, 'Foul by Eric Dier (Tottenham Hotspur).'),
+(12112, 121, 32, 0, 0, 'Attempt blocked. Harry Kane (Tottenham Hotspur) right footed shot from outside the box is blocked.'),
+(12113, 121, 34, 0, 0, 'Corner,  Hull City. Conceded by Christian Eriksen.'),
+(12114, 121, 37, 0, 0, 'Delay in match Robbie Brady (Hull City) because of an injury.'),
+(12115, 121, 35, 0, 0, 'Offside, Hull City. Michael Dawson tries a through ball, but Nikica Jelavic is caught offside.'),
+(12116, 121, 37, 0, 0, 'Delay over. They are ready to continue.'),
+(12117, 121, 38, 0, 0, 'Attempt saved. Erik Lamela (Tottenham Hotspur) left footed shot from the left side of the box is saved in the bottom left corner. Assisted by Christian Eriksen.'),
+(12118, 121, 40, 0, 0, 'Erik Lamela (Tottenham Hotspur) wins a free kick in the defensive half.'),
+(12119, 121, 40, 0, 0, 'Foul by Ahmed Elmohamady (Hull City).'),
+(12120, 121, 43, 0, 0, 'Corner,  Hull City. Conceded by Federico Fazio.'),
+(12121, 121, 45, 0, 0, 'Attempt blocked. Eric Dier (Tottenham Hotspur) right footed shot from outside the box is blocked. Assisted by Ryan Mason.'),
+(12122, 121, 45, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Robbie Brady.'),
+(12123, 121, 45, 0, 0, 'Gastón Ramírez (Hull City) wins a free kick in the defensive half.'),
+(12124, 121, 45, 0, 0, 'Foul by Ryan Mason (Tottenham Hotspur).'),
+(12125, 121, 45, 0, 0, 'First Half ends, Hull City 1, Tottenham Hotspur 0.'),
+(12126, 121, 45, 0, 0, 'Second Half begins Hull City 1, Tottenham Hotspur 0.'),
+(12127, 121, 45, 0, 0, 'Substitution, Tottenham Hotspur. Vlad Chiriches replaces Eric Dier.'),
+(12128, 121, 46, 0, 0, 'Attempt missed. Jake Livermore (Hull City) right footed shot from outside the box misses to the right.'),
+(12129, 121, 47, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Curtis Davies.'),
+(12130, 121, 48, 0, 0, 'Attempt blocked. Christian Eriksen (Tottenham Hotspur) left footed shot from outside the box is blocked. Assisted by Ryan Mason.'),
+(12131, 121, 49, 0, 0, 'Attempt blocked. Harry Kane (Tottenham Hotspur) left footed shot from outside the box is blocked. Assisted by Christian Eriksen.'),
+(12132, 121, 50, 0, 0, 'Gastón Ramírez (Hull City) is shown the red card for fighting.'),
+(12133, 121, 51, 0, 0, 'Jan Vertonghen (Tottenham Hotspur) wins a free kick in the defensive half.'),
+(12134, 121, 50, 0, 0, 'Foul by Gastón Ramírez (Hull City).'),
+(12135, 121, 52, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Michael Dawson.'),
+(12136, 121, 54, 0, 0, 'Foul by Michael Dawson (Hull City).'),
+(12137, 121, 53, 0, 0, 'Attempt blocked. Mousa Dembélé (Tottenham Hotspur) left footed shot from outside the box is blocked. Assisted by Ryan Mason.'),
+(12138, 121, 54, 0, 0, 'Roberto Soldado (Tottenham Hotspur) wins a free kick in the attacking half.'),
+(12139, 121, 55, 0, 0, 'Nikica Jelavic (Hull City) wins a free kick on the right wing.'),
+(12140, 121, 56, 0, 0, 'Erik Lamela (Tottenham Hotspur) wins a free kick in the defensive half.'),
+(12141, 121, 55, 0, 0, 'Foul by Jan Vertonghen (Tottenham Hotspur).'),
+(12142, 121, 53, 0, 0, 'Attempt missed. Federico Fazio (Tottenham Hotspur) right footed shot from the right side of the box is close, but misses to the right. Assisted by Erik Lamela.'),
+(12143, 121, 56, 0, 0, 'Foul by Jake Livermore (Hull City).'),
+(12144, 121, 58, 0, 0, 'David Meyler (Hull City) wins a free kick in the defensive half.'),
+(12145, 121, 57, 0, 0, 'Substitution, Hull City. David Meyler replaces Hatem Ben Arfa.'),
+(12146, 121, 56, 0, 0, 'Attempt missed. Christian Eriksen (Tottenham Hotspur) right footed shot from outside the box misses to the left. Assisted by Ben Davies.'),
+(12147, 121, 58, 0, 0, 'Foul by Mousa Dembélé (Tottenham Hotspur).'),
+(12148, 121, 58, 0, 0, 'Attempt missed. Roberto Soldado (Tottenham Hotspur) left footed shot from the right side of the six yard box misses to the right. Assisted by Ryan Mason with a cross.'),
+(12149, 121, 59, 0, 0, 'Substitution, Tottenham Hotspur. Aaron Lennon replaces Mousa Dembélé.'),
+(12150, 121, 60, 0, 0, 'Roberto Soldado (Tottenham Hotspur) wins a free kick in the attacking half.'),
+(12151, 121, 60, 0, 0, 'Foul by Curtis Davies (Hull City).'),
+(12152, 121, 60, 0, 0, 'Vlad Chiriches (Tottenham Hotspur) wins a free kick in the defensive half.'),
+(12153, 121, 60, 0, 0, 'Foul by Robbie Brady (Hull City).'),
+(12154, 121, 61, 1, 1, 'Goal!  Hull City 1, Tottenham Hotspur 1. Harry Kane (Tottenham Hotspur) left footed shot from the centre of the box to the bottom left corner following a set piece situation.'),
+(12155, 121, 63, 0, 0, 'Tom Huddlestone (Hull City) is shown the yellow card for a bad foul.'),
+(12156, 121, 63, 0, 0, 'Ryan Mason (Tottenham Hotspur) wins a free kick in the attacking half.'),
+(12157, 121, 63, 0, 0, 'Foul by Tom Huddlestone (Hull City).'),
+(12158, 121, 62, 0, 0, 'Offside, Hull City. Tom Huddlestone tries a through ball, but Nikica Jelavic is caught offside.'),
+(12159, 121, 61, 0, 0, 'Christian Eriksen (Tottenham Hotspur) hits the left post with a right footed shot from outside the box from a direct free kick.'),
+(12160, 121, 63, 0, 0, 'Jake Livermore (Hull City) is shown the yellow card.'),
+(12161, 121, 64, 0, 0, 'Attempt missed. Jan Vertonghen (Tottenham Hotspur) right footed shot from the right side of the box misses to the right. Assisted by Christian Eriksen.'),
+(12162, 121, 62, 0, 0, 'Offside, Hull City. Curtis Davies tries a through ball, but Nikica Jelavic is caught offside.'),
+(12163, 121, 64, 0, 0, 'Substitution, Hull City. Liam Rosenior replaces Tom Huddlestone.'),
+(12164, 121, 66, 0, 0, 'Attempt missed. Roberto Soldado (Tottenham Hotspur) right footed shot from the centre of the box is close, but misses to the left. Assisted by Vlad Chiriches with a cross.'),
+(12165, 121, 68, 0, 0, 'Attempt missed. Harry Kane (Tottenham Hotspur) header from very close range is close, but misses to the left. Assisted by Aaron Lennon with a cross.'),
+(12166, 121, 70, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Ahmed Elmohamady.'),
+(12167, 121, 70, 0, 0, 'Attempt saved. Ryan Mason (Tottenham Hotspur) right footed shot from outside the box is saved in the top left corner. Assisted by Aaron Lennon.'),
+(12168, 121, 70, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Curtis Davies.'),
+(12169, 121, 72, 0, 0, 'Offside, Tottenham Hotspur. Christian Eriksen tries a through ball, but Vlad Chiriches is caught offside.'),
+(12170, 121, 73, 0, 0, 'Attempt missed. Erik Lamela (Tottenham Hotspur) right footed shot from the centre of the box is too high. Assisted by Christian Eriksen.'),
+(12171, 121, 75, 0, 0, 'David Meyler (Hull City) wins a free kick in the attacking half.'),
+(12172, 121, 75, 0, 0, 'Foul by Ryan Mason (Tottenham Hotspur).'),
+(12173, 121, 76, 0, 0, 'Attempt missed. Nikica Jelavic (Hull City) right footed shot from the centre of the box is too high.'),
+(12174, 121, 76, 0, 0, 'Attempt missed. Nikica Jelavic (Hull City) right footed shot from the centre of the box is high and wide to the right.'),
+(12175, 121, 79, 0, 0, 'Substitution, Tottenham Hotspur. Paulinho replaces Roberto Soldado because of an injury.'),
+(12176, 121, 81, 0, 0, 'Delay in match Ryan Mason (Tottenham Hotspur) because of an injury.'),
+(12177, 121, 82, 0, 0, 'Delay over. They are ready to continue.'),
+(12178, 121, 85, 0, 0, 'Foul by Nikica Jelavic (Hull City).'),
+(12179, 121, 85, 0, 0, 'Christian Eriksen (Tottenham Hotspur) wins a free kick in the attacking half.'),
+(12180, 121, 87, 0, 0, 'Substitution, Hull City. Stephen Quinn replaces Robbie Brady.'),
+(12181, 121, 87, 0, 0, 'Hand ball by Erik Lamela (Tottenham Hotspur).'),
+(12182, 121, 90, 1, 1, 'Goal!  Hull City 1, Tottenham Hotspur 2. Christian Eriksen (Tottenham Hotspur) right footed shot from outside the box to the bottom left corner. Assisted by Aaron Lennon.'),
+(12183, 121, 90, 0, 0, 'Andrew Robertson (Hull City) is shown the yellow card.'),
+(12184, 121, 90, 0, 0, 'Attempt missed. Curtis Davies (Hull City) header from the centre of the box is high and wide to the right. Assisted by Ahmed Elmohamady with a cross.'),
+(12185, 121, 90, 0, 0, 'Attempt blocked. Erik Lamela (Tottenham Hotspur) left footed shot from outside the box is blocked. Assisted by Christian Eriksen.'),
+(12186, 121, 90, 0, 0, 'Corner,  Tottenham Hotspur. Conceded by Michael Dawson.'),
+(12187, 122, 0, 0, 0, 'Lineups are announced and players are warming up.'),
+(12188, 122, 0, 0, 0, 'First Half begins.'),
+(12189, 122, 1, 0, 0, 'Aly Cissokho (Aston Villa) wins a free kick in the defensive half.'),
+(12190, 122, 1, 0, 0, 'Foul by Dusan Tadic (Southampton).'),
+(12191, 122, 2, 0, 0, 'Attempt blocked. Gabriel Agbonlahor (Aston Villa) right footed shot from outside the box is blocked. Assisted by Tom Cleverley.'),
+(12192, 122, 5, 0, 0, 'Carlos Sánchez (Aston Villa) wins a free kick in the defensive half.'),
+(12193, 122, 5, 0, 0, 'Foul by Victor Wanyama (Southampton).'),
+(12194, 122, 7, 0, 0, 'Corner,  Southampton. Conceded by Brad Guzan.'),
+(12195, 122, 7, 0, 0, 'Attempt missed. Morgan Schneiderlin (Southampton) right footed shot from the centre of the box is close, but misses to the right. Assisted by Dusan Tadic with a cross following a corner.'),
+(12196, 122, 8, 0, 0, 'Ryan Bertrand (Southampton) wins a free kick in the defensive half.'),
+(12197, 122, 8, 0, 0, 'Foul by Charles N''Zogbia (Aston Villa).'),
+(12198, 122, 9, 0, 0, 'Corner,  Southampton. Conceded by Aly Cissokho.'),
+(12199, 122, 9, 0, 0, 'Attempt blocked. Dusan Tadic (Southampton) left footed shot from the right side of the box is blocked. Assisted by Sadio Mané.'),
+(12200, 122, 11, 0, 0, 'Nathaniel Clyne (Southampton) wins a free kick in the defensive half.'),
+(12201, 122, 11, 0, 0, 'Foul by Charles N''Zogbia (Aston Villa).'),
+(12202, 122, 10, 0, 0, 'Attempt missed. Victor Wanyama (Southampton) right footed shot from outside the box is too high. Assisted by Jose Fonte.'),
+(12203, 122, 12, 0, 0, 'Hand ball by Sadio Mané (Southampton).'),
+(12204, 122, 10, 0, 0, 'Attempt blocked. Graziano Pellè (Southampton) header from the centre of the box is blocked. Assisted by Dusan Tadic with a cross.'),
+(12205, 122, 12, 0, 0, 'Corner,  Aston Villa. Conceded by Jose Fonte.'),
+(12206, 122, 14, 0, 0, 'Offside, Southampton. Victor Wanyama tries a through ball, but Sadio Mané is caught offside.'),
+(12207, 122, 13, 0, 0, 'Shane Long (Southampton) wins a free kick on the left wing.'),
+(12208, 122, 13, 0, 0, 'Foul by Carlos Sánchez (Aston Villa).'),
+(12209, 122, 13, 0, 0, 'Attempt blocked. Tom Cleverley (Aston Villa) right footed shot from outside the box is blocked.'),
+(12210, 122, 17, 0, 0, 'Attempt missed. Sadio Mané (Southampton) right footed shot from the centre of the box misses to the right. Assisted by Ryan Bertrand.'),
+(12211, 122, 20, 0, 0, 'Corner,  Southampton. Conceded by Ciaran Clark.'),
+(12212, 122, 24, 0, 0, 'Foul by Jose Fonte (Southampton).'),
+(12213, 122, 24, 0, 0, 'Gabriel Agbonlahor (Aston Villa) wins a free kick in the attacking half.'),
+(12214, 122, 25, 0, 0, 'Attempt blocked. Ashley Westwood (Aston Villa) right footed shot from outside the box is blocked.'),
+(12215, 122, 23, 0, 0, 'Attempt blocked. Victor Wanyama (Southampton) right footed shot from the centre of the box is blocked. Assisted by Dusan Tadic.'),
+(12216, 122, 29, 1, 1, 'Goal!  Aston Villa 1, Southampton 0. Gabriel Agbonlahor (Aston Villa) right footed shot from the left side of the box to the bottom right corner. Assisted by Ciaran Clark.'),
+(12217, 122, 29, 1, 1, 'Goal!  Aston Villa 1, Southampton 0. Gabriel Agbonlahor (Aston Villa) left footed shot from the left side of the box to the bottom right corner. Assisted by Ciaran Clark.');
 
 -- --------------------------------------------------------
 
@@ -12132,7 +13262,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_event` (
   `team` int(11) DEFAULT NULL,
   `player_id` int(11) DEFAULT NULL,
   `result` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=717 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=770 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_event`
@@ -12844,7 +13974,90 @@ INSERT INTO `tbl_soccer_match_event` (`id`, `match_id`, `type`, `minute`, `team`
 (713, 112, '4', '62', 2, 494, ''),
 (714, 112, '4', '45', 2, 491, ''),
 (715, 112, '4', '63', 2, 503, ''),
-(716, 112, '4', '74', 2, 480, '');
+(716, 112, '4', '74', 2, 480, ''),
+(717, 117, '1', '11', 1, 25, ''),
+(718, 113, '1', '12', 2, 135, ''),
+(719, 114, '1', '9', 2, 471, ''),
+(720, 113, '1', '13', 2, 135, ''),
+(721, 113, '4', '25', 1, 560, ''),
+(722, 117, '1', '25', 1, 15, ''),
+(723, 116, '1', '26', 1, 360, ''),
+(724, 114, '1', '19', 1, 418, ''),
+(725, 114, '4', '24', 2, 455, ''),
+(726, 117, '5', '29', 2, 260, ''),
+(727, 113, '1', '32', 1, 561, ''),
+(728, 114, '4', '31', 1, 397, ''),
+(729, 115, '4', '42', 2, 235, ''),
+(730, 116, '4', '41', 1, 158, ''),
+(731, 116, '4', '41', 2, 422, ''),
+(732, 113, '4', '12', 2, 135, ''),
+(733, 118, '4', '41', 2, 33, ''),
+(734, 115, '4', '53', 1, 120, ''),
+(735, 118, '4', '58', 1, 520, ''),
+(736, 116, '1', '56', 2, 442, ''),
+(737, 115, '4', '61', 2, 234, ''),
+(738, 113, '4', '59', 1, 555, ''),
+(739, 116, '4', '60', 1, 361, ''),
+(740, 116, '4', '60', 2, 424, ''),
+(741, 114, '1', '62', 1, 414, ''),
+(742, 115, '4', '68', 2, 243, ''),
+(743, 118, '4', '73', 2, 34, ''),
+(744, 113, '4', '70', 2, 85, ''),
+(745, 117, '4', '75', 1, 18, ''),
+(746, 118, '1', '78', 1, 520, ''),
+(747, 115, '4', '85', 1, 103, ''),
+(748, 116, '1', '73', 1, 354, ''),
+(749, 116, '4', '74', 2, 428, ''),
+(750, 118, '4', '90', 2, 51, ''),
+(751, 114, '4', '90', 1, 402, ''),
+(752, 119, '2', 'og 56', 2, 480, ''),
+(753, 119, '1', '85', 2, 80, ''),
+(754, 119, '1', '90 + 5', 1, 500, ''),
+(755, 120, '1', '17', 1, 168, ''),
+(756, 120, '1', '2', 2, 327, ''),
+(757, 120, '4', '53', 2, 310, ''),
+(758, 120, '4', '61', 2, 309, ''),
+(759, 120, '1', '78', 1, 160, ''),
+(760, 120, '1', '81', 1, 157, ''),
+(761, 121, '1', '8', 1, 213, ''),
+(762, 121, '4', '33', 2, 281, ''),
+(763, 121, '5', '50', 1, 216, ''),
+(764, 121, '1', '61', 2, 300, ''),
+(765, 121, '4', '8', 1, 213, ''),
+(766, 121, '4', '63', 1, 210, ''),
+(767, 121, '1', '90', 2, 293, ''),
+(768, 121, '4', '90', 1, 208, ''),
+(769, 122, '1', '29', 1, 193, '');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tbl_soccer_match_online`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_soccer_match_online` (
+`id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `hid` int(11) NOT NULL,
+  `aid` int(11) NOT NULL,
+  `status` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Дамп данных таблицы `tbl_soccer_match_online`
+--
+
+INSERT INTO `tbl_soccer_match_online` (`id`, `match_id`, `hid`, `aid`, `status`) VALUES
+(8, 117, 1, 10, 'FT'),
+(9, 116, 13, 16, 'FT'),
+(10, 115, 5, 9, 'FT'),
+(11, 114, 15, 17, 'FT'),
+(12, 118, 19, 2, 'FT'),
+(13, 113, 20, 4, 'FT'),
+(14, 119, 18, 3, 'FT'),
+(15, 120, 6, 12, 'FT'),
+(16, 121, 8, 11, 'FT'),
+(17, 122, 7, 14, '34');
 
 -- --------------------------------------------------------
 
@@ -12870,7 +14083,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_player_stats` (
   `pen_score` int(11) DEFAULT NULL,
   `pen_miss` int(11) DEFAULT NULL,
   `team` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3943 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4300 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_player_stats`
@@ -16825,7 +18038,364 @@ INSERT INTO `tbl_soccer_match_player_stats` (`id`, `match_id`, `player_id`, `pos
 (3939, 112, 501, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (3940, 112, 499, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (3941, 112, 504, 'F', NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 2),
-(3942, 112, 476, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, 2);
+(3942, 112, 476, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, 2),
+(3943, 117, 4, 'RB', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(3944, 117, 8, 'CD-R', 1, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3945, 117, 9, 'CD-L', 1, 1, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(3946, 117, 10, 'LB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3947, 117, 12, 'LM', 1, NULL, NULL, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(3948, 117, 14, 'AM', 4, 1, NULL, 1, 1, 1, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(3949, 117, 15, 'AM-L', 4, 2, 1, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3950, 117, 595, 'RM', 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3951, 117, 18, 'AM-R', 2, NULL, NULL, NULL, NULL, NULL, 2, NULL, 1, NULL, NULL, NULL, 1),
+(3952, 117, 25, 'F', 4, 3, 1, NULL, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3953, 117, 1, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3954, 117, 5, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3955, 117, 7, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3956, 117, 13, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3957, 117, 23, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3958, 117, 22, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3959, 117, 24, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3960, 117, 2, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 1),
+(3961, 117, 250, 'RB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3962, 117, 252, 'LB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3963, 117, 253, 'CD-L', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(3964, 117, 258, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3965, 117, 260, 'RM', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, NULL, NULL, 2),
+(3966, 117, 262, 'LM', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3967, 117, 263, 'AM-L', 2, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(3968, 117, 264, 'AM-R', NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(3969, 117, 267, 'AM', 1, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3970, 117, 270, 'F', 1, NULL, NULL, NULL, 2, 1, 3, NULL, NULL, NULL, NULL, NULL, 2),
+(3971, 117, 579, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3972, 117, 256, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3973, 117, 257, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3974, 117, 261, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3975, 117, 268, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3976, 117, 269, 'F', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(3977, 117, 272, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3978, 117, 247, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 6, NULL, NULL, NULL, NULL, 2),
+(3979, 116, 336, 'LB', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3980, 116, 338, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(3981, 116, 340, 'CD-L', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3982, 116, 342, 'RB', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3983, 116, 361, 'AM-R', 1, NULL, NULL, NULL, 2, NULL, 1, NULL, 1, NULL, NULL, NULL, 1),
+(3984, 116, 362, 'AM', 1, NULL, NULL, NULL, NULL, 3, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(3985, 116, 158, 'RM', 1, NULL, NULL, NULL, NULL, 5, 1, NULL, 1, NULL, NULL, NULL, 1),
+(3986, 116, 353, 'AM-L', 2, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(3987, 116, 354, 'LM', 1, 1, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3988, 116, 360, 'F', 4, 2, 1, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(3989, 116, 334, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3990, 116, 341, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3991, 116, 344, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3992, 116, 345, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3993, 116, 363, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3994, 116, 348, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3995, 116, 358, 'F', 2, 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3996, 116, 335, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, 1),
+(3997, 116, 422, 'CD-L', 1, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, NULL, NULL, NULL, 2),
+(3998, 116, 423, 'LB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(3999, 116, 424, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, 2),
+(4000, 116, 428, 'CD', 1, 1, NULL, NULL, NULL, NULL, 2, NULL, 1, NULL, NULL, NULL, 2),
+(4001, 116, 435, 'CM', NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(4002, 116, 438, 'CM-L', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4003, 116, 427, 'RB', 1, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4004, 116, 439, 'CM-R', 2, NULL, NULL, 1, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4005, 116, 612, 'CF-R', 6, 1, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, 2),
+(4006, 116, 445, 'CF-L', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4007, 116, 582, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4008, 116, 426, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4009, 116, 429, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4010, 116, 610, 'M', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4011, 116, 614, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4012, 116, 442, 'F', 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4013, 116, 443, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4014, 116, 419, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, 2),
+(4015, 115, 103, 'RB', NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 1, NULL, NULL, NULL, 1),
+(4016, 115, 104, 'LB', NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4017, 115, 105, 'CD-L', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4018, 115, 109, 'CD-R', 1, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4019, 115, 114, 'CM-L', 3, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4020, 115, 121, 'LM', 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4021, 115, 117, 'CM-R', NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4022, 115, 124, 'RM', 4, 2, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4023, 115, 120, 'CF-L', NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, 1, NULL, NULL, NULL, 1),
+(4024, 115, 123, 'CF-R', 3, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4025, 115, 100, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4026, 115, 108, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4027, 115, 112, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4028, 115, 115, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4029, 115, 118, 'F', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4030, 115, 125, 'F', 1, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4031, 115, 126, 'F', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4032, 115, 99, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 5, NULL, NULL, NULL, NULL, 1),
+(4033, 115, 226, 'CD-L', NULL, NULL, NULL, NULL, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4034, 115, 227, 'LB', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4035, 115, 228, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4036, 115, 230, 'RB', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4037, 115, 234, 'CM', NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, 1, NULL, NULL, NULL, 2),
+(4038, 115, 235, 'RM', 2, 1, NULL, NULL, 1, NULL, 2, NULL, 1, NULL, NULL, NULL, 2),
+(4039, 115, 244, 'LF', 1, 1, NULL, NULL, 1, 6, 4, NULL, NULL, NULL, NULL, NULL, 2),
+(4040, 115, 237, 'RF', 2, 1, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4041, 115, 238, 'LM', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4042, 115, 243, 'F', 3, 2, NULL, NULL, NULL, 2, 1, NULL, 1, NULL, NULL, NULL, 2),
+(4043, 115, 223, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4044, 115, 229, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4045, 115, 613, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4046, 115, 233, 'M', NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4047, 115, 236, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4048, 115, 580, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4049, 115, 245, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4050, 115, 222, 'G', NULL, NULL, NULL, NULL, NULL, 1, NULL, 4, NULL, NULL, NULL, NULL, 2),
+(4051, 114, 397, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, 1, NULL, NULL, NULL, 1),
+(4052, 114, 398, 'RB', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4053, 114, 401, 'LB', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4054, 114, 402, 'CD-L', NULL, NULL, NULL, NULL, NULL, 2, 2, NULL, 1, NULL, NULL, NULL, 1),
+(4055, 114, 408, 'LM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4056, 114, 410, 'RM', 2, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4057, 114, 592, 'CM-R', NULL, NULL, NULL, 1, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4058, 114, 414, 'CM-L', 4, 4, 1, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4059, 114, 417, 'F', 6, 1, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4060, 114, 418, 'RCF', 5, 3, 1, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4061, 114, 394, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4062, 114, 396, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4063, 114, 400, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4064, 114, 406, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4065, 114, 407, 'M', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4066, 114, 411, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4067, 114, 393, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, 1),
+(4068, 114, 451, 'LB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4069, 114, 452, 'CD-L', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4070, 114, 454, 'RB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4071, 114, 455, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, 1, NULL, NULL, NULL, 2),
+(4072, 114, 460, 'RM', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4073, 114, 463, 'AM-R', NULL, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4074, 114, 603, 'LM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4075, 114, 474, 'AM-L', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4076, 114, 466, 'AM', 2, 1, NULL, NULL, 1, 2, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4077, 114, 471, 'F', 2, 1, 1, NULL, NULL, 5, 5, NULL, NULL, NULL, NULL, NULL, 2),
+(4078, 114, 449, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4079, 114, 450, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4080, 114, 453, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4081, 114, 461, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4082, 114, 462, 'M', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4083, 114, 473, 'F', 1, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4084, 114, 459, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4085, 114, 447, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, 2),
+(4086, 118, 590, 'CD-R', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4087, 118, 515, 'LB', 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4088, 118, 516, 'RB', 1, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4089, 118, 518, 'CD-L', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4090, 118, 513, 'RM', 3, 2, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4091, 118, 520, 'AM', 1, 1, 1, NULL, NULL, NULL, 3, NULL, 1, NULL, NULL, NULL, 1),
+(4092, 118, 523, 'LM', NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4093, 118, 525, 'AM-R', 2, 1, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4094, 118, 535, 'AM-L', 2, NULL, NULL, 1, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4095, 118, 533, 'F', 2, 2, NULL, NULL, 1, 1, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4096, 118, 591, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4097, 118, 521, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4098, 118, 615, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4099, 118, 530, 'F', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4100, 118, 531, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4101, 118, 532, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4102, 118, 537, 'F', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4103, 118, 508, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, 1),
+(4104, 118, 30, 'CD-L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4105, 118, 32, 'LB', NULL, NULL, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, 2),
+(4106, 118, 33, 'RB', NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, 1, NULL, NULL, NULL, 2),
+(4107, 118, 34, 'CD-R', 1, 1, NULL, NULL, NULL, 1, 1, NULL, 1, NULL, NULL, NULL, 2),
+(4108, 118, 37, 'RM', NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4109, 118, 38, 'LM', NULL, NULL, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4110, 118, 44, 'CM-L', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4111, 118, 42, 'CM-R', 2, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4112, 118, 48, 'CF-L', 6, 3, NULL, NULL, 1, 2, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4113, 118, 51, 'CF-R', 1, NULL, NULL, NULL, 2, NULL, 4, NULL, 1, NULL, NULL, NULL, 2),
+(4114, 118, 27, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4115, 118, 29, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4116, 118, 573, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4117, 118, 40, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4118, 118, 41, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4119, 118, 43, 'M', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4120, 118, 49, 'F', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4121, 118, 26, 'G', NULL, NULL, NULL, NULL, NULL, 1, NULL, 5, NULL, NULL, NULL, NULL, 2),
+(4122, 113, 576, 'RB', 2, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4123, 113, 544, 'LB', 1, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4124, 113, 546, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4125, 113, 547, 'CD-L', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4126, 113, 552, 'AM-L', 3, 2, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4127, 113, 553, 'LM', 2, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4128, 113, 561, 'AM-R', 1, 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4129, 113, 555, 'RM', 3, NULL, NULL, NULL, NULL, NULL, 4, NULL, 1, NULL, NULL, NULL, 1),
+(4130, 113, 564, 'AM', 4, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4131, 113, 560, 'F', 1, NULL, NULL, NULL, 1, NULL, 3, NULL, 1, NULL, NULL, NULL, 1),
+(4132, 113, 540, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4133, 113, 549, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4134, 113, 550, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4135, 113, 554, 'M', 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4136, 113, 559, 'F', 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4137, 113, 562, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4138, 113, 563, 'F', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4139, 113, 539, 'G', 1, NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, 1),
+(4140, 113, 87, 'RB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4141, 113, 593, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4142, 113, 90, 'CD-L', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4143, 113, 94, 'LB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4144, 113, 127, 'CM-R', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, 2),
+(4145, 113, 130, 'LM', NULL, NULL, NULL, 1, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(4146, 113, 128, 'CM-L', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4147, 113, 138, 'RM', 1, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4148, 113, 135, 'F', 2, 2, 2, NULL, NULL, 3, 1, NULL, 1, NULL, NULL, NULL, 2),
+(4149, 113, 139, 'RCF', 1, NULL, NULL, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(4150, 113, 596, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4151, 113, 594, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4152, 113, 98, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4153, 113, 92, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4154, 113, 95, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4155, 113, 136, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4156, 113, 137, 'F', 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4157, 113, 85, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, 2),
+(4158, 119, 480, 'LB', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4159, 119, 481, 'CD-R', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4160, 119, 483, 'CD-L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4161, 119, 494, 'RB', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4162, 119, 488, 'LM', NULL, NULL, NULL, 1, NULL, 3, 4, NULL, NULL, NULL, NULL, NULL, 1),
+(4163, 119, 489, 'AM', 2, 2, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4164, 119, 502, 'AM-R', 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4165, 119, 491, 'RM', 2, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4166, 119, 503, 'AM-L', 4, 2, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4167, 119, 602, 'F', 5, 2, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4168, 119, 478, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4169, 119, 485, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4170, 119, 487, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4171, 119, 492, 'M', 2, 1, NULL, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, 1),
+(4172, 119, 493, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4173, 119, 499, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4174, 119, 500, 'F', 2, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4175, 119, 476, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4176, 119, 56, 'LM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4177, 119, 60, 'CD', 2, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4178, 119, 76, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4179, 119, 66, 'CD-L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4180, 119, 67, 'CF-L', 2, NULL, NULL, 1, 2, 2, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4181, 119, 80, 'AM', 4, 1, 1, NULL, 1, 2, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4182, 119, 69, 'CM-L', 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4183, 119, 73, 'RM', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4184, 119, 75, 'CM-R', 1, NULL, NULL, NULL, NULL, 2, 3, NULL, NULL, NULL, NULL, NULL, 2),
+(4185, 119, 81, 'CF-R', NULL, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4186, 119, 53, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4187, 119, 78, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4188, 119, 68, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4189, 119, 70, 'M', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4190, 119, 71, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4191, 119, 72, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4192, 119, 84, 'F', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 1, NULL, NULL, NULL, 2),
+(4193, 119, 52, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 8, NULL, NULL, NULL, NULL, 2),
+(4194, 120, 145, 'LB', 1, 1, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4195, 120, 148, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4196, 120, 150, 'CD-L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4197, 120, 151, 'RB', 1, NULL, NULL, NULL, NULL, 1, 6, NULL, NULL, NULL, NULL, NULL, 1),
+(4198, 120, 153, 'LM', 4, 1, NULL, 1, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4199, 120, 157, 'CM-R', 3, 1, 1, NULL, NULL, 1, 4, NULL, NULL, NULL, NULL, NULL, 1),
+(4200, 120, 160, 'CM-L', 1, 1, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4201, 120, 164, 'RM', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4202, 120, 168, 'F', 2, 1, 1, NULL, 2, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4203, 120, 170, 'RCF', 1, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4204, 120, 141, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4205, 120, 147, 'D', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, 1),
+(4206, 120, 159, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4207, 120, 167, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4208, 120, 158, 'M', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4209, 120, 166, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4210, 120, 140, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4211, 120, 303, 'LB', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4212, 120, 306, 'CD-L', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4213, 120, 309, 'RB', 1, NULL, NULL, NULL, NULL, 1, 1, NULL, 1, NULL, NULL, NULL, 2),
+(4214, 120, 310, 'CD-R', 1, NULL, NULL, NULL, NULL, NULL, 2, NULL, 1, NULL, NULL, NULL, 2),
+(4215, 120, 316, 'CM', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4216, 120, 319, 'RM', NULL, NULL, NULL, 1, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(4217, 120, 322, 'LM', NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4218, 120, 327, 'F', 3, 1, 1, NULL, 1, 3, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4219, 120, 317, 'LF', NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4220, 120, 324, 'RF', 1, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(4221, 120, 301, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4222, 120, 305, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4223, 120, 189, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4224, 120, 320, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4225, 120, 321, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4226, 120, 333, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4227, 120, 329, 'F', 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4228, 120, 302, 'G', NULL, NULL, NULL, NULL, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, 2),
+(4229, 121, 204, 'CD-L', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4230, 121, 206, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4231, 121, 208, 'LB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, 1),
+(4232, 121, 217, 'RB', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4233, 121, 210, 'RM', NULL, NULL, NULL, NULL, NULL, 1, 4, NULL, 1, NULL, NULL, NULL, 1),
+(4234, 121, 575, 'AM-L', 2, 1, NULL, NULL, NULL, 1, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4235, 121, 213, 'LM', 2, 1, 1, NULL, NULL, 1, 2, NULL, 1, NULL, NULL, NULL, 1),
+(4236, 121, 216, 'AM', 2, NULL, NULL, NULL, 1, 2, 1, NULL, NULL, 1, NULL, NULL, 1),
+(4237, 121, 219, 'AM-R', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4238, 121, 221, 'F', 2, NULL, NULL, NULL, 3, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4239, 121, 200, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4240, 121, 203, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4241, 121, 201, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4242, 121, 209, 'M', NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4243, 121, 218, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4244, 121, 67, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4245, 121, 604, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4246, 121, 198, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, 1),
+(4247, 121, 279, 'CD-L', 1, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4248, 121, 281, 'RB', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, 2),
+(4249, 121, 283, 'CD-R', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4250, 121, 286, 'LB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4251, 121, 299, 'AM-R', 4, 1, NULL, NULL, NULL, 6, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4252, 121, 291, 'RM', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4253, 121, 293, 'AM-L', 5, 1, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4254, 121, 607, 'LM', 2, 1, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(4255, 121, 297, 'F', 3, 1, NULL, NULL, NULL, 2, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4256, 121, 300, 'AM', 5, 2, 1, NULL, NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 2),
+(4257, 121, 275, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4258, 121, 280, 'D', NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4259, 121, 284, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4260, 121, 617, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4261, 121, 288, 'M', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4262, 121, 605, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4263, 121, 274, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 2),
+(4264, 122, 176, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4265, 122, 177, 'CD-L', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4266, 122, 179, 'RB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4267, 122, 180, 'LB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4268, 122, 183, 'RM', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4269, 122, 185, 'CM', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4270, 122, 189, 'LM', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4271, 122, 192, 'LF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4272, 122, 193, 'F', 2, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4273, 122, 190, 'RF', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4274, 122, 173, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4275, 122, 181, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4276, 122, 184, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4277, 122, 188, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4278, 122, 191, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4279, 122, 182, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4280, 122, 197, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4281, 122, 172, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4282, 122, 370, 'RB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4283, 122, 373, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4284, 122, 374, 'CD-L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4285, 122, 375, 'LB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4286, 122, 378, 'LM', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4287, 122, 389, 'AM-R', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4288, 122, 381, 'RM', 2, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4289, 122, 387, 'AM', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4290, 122, 380, 'AM-L', 1, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4291, 122, 390, 'F', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4292, 122, 366, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4293, 122, 371, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4294, 122, 372, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4295, 122, 377, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4296, 122, 383, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4297, 122, 385, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4298, 122, 391, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4299, 122, 367, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -16839,7 +18409,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_stats` (
   `type` varchar(255) NOT NULL,
   `valuee` int(11) DEFAULT NULL,
   `team` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1979 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2159 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_stats`
@@ -18808,7 +20378,187 @@ INSERT INTO `tbl_soccer_match_stats` (`id`, `match_id`, `type`, `valuee`, `team`
 (1975, 112, 'possestiontime', 52, 2),
 (1976, 112, 'yellowcards', 5, 2),
 (1977, 112, 'redcards', 0, 2),
-(1978, 112, 'saves', 3, 2);
+(1978, 112, 'saves', 3, 2),
+(1979, 114, 'ongoal', 10, 1),
+(1980, 114, 'shots', 22, 1),
+(1981, 114, 'fouls', 13, 1),
+(1982, 114, 'corners', 7, 1),
+(1983, 114, 'offsides', 0, 1),
+(1984, 114, 'possestiontime', 60, 1),
+(1985, 114, 'yellowcards', 2, 1),
+(1986, 114, 'redcards', 0, 1),
+(1987, 114, 'saves', 2, 1),
+(1988, 114, 'ongoal', 3, 2),
+(1989, 114, 'shots', 8, 2),
+(1990, 114, 'fouls', 9, 2),
+(1991, 114, 'corners', 3, 2),
+(1992, 114, 'offsides', 2, 2),
+(1993, 114, 'possestiontime', 40, 2),
+(1994, 114, 'yellowcards', 1, 2),
+(1995, 114, 'redcards', 0, 2),
+(1996, 114, 'saves', 8, 2),
+(1997, 113, 'ongoal', 4, 1),
+(1998, 113, 'shots', 24, 1),
+(1999, 113, 'fouls', 10, 1),
+(2000, 113, 'corners', 13, 1),
+(2001, 113, 'offsides', 2, 1),
+(2002, 113, 'possestiontime', 73, 1),
+(2003, 113, 'yellowcards', 2, 1),
+(2004, 113, 'redcards', 0, 1),
+(2005, 113, 'saves', 2, 1),
+(2006, 113, 'ongoal', 4, 2),
+(2007, 113, 'shots', 5, 2),
+(2008, 113, 'fouls', 9, 2),
+(2009, 113, 'corners', 0, 2),
+(2010, 113, 'offsides', 0, 2),
+(2011, 113, 'possestiontime', 27, 2),
+(2012, 113, 'yellowcards', 2, 2),
+(2013, 113, 'redcards', 0, 2),
+(2014, 113, 'saves', 3, 2),
+(2015, 115, 'ongoal', 4, 1),
+(2016, 115, 'shots', 13, 1),
+(2017, 115, 'fouls', 18, 1),
+(2018, 115, 'corners', 6, 1),
+(2019, 115, 'offsides', 0, 1),
+(2020, 115, 'possestiontime', 40, 1),
+(2021, 115, 'yellowcards', 2, 1),
+(2022, 115, 'redcards', 0, 1),
+(2023, 115, 'saves', 5, 1),
+(2024, 115, 'ongoal', 5, 2),
+(2025, 115, 'shots', 10, 2),
+(2026, 115, 'fouls', 12, 2),
+(2027, 115, 'corners', 9, 2),
+(2028, 115, 'offsides', 4, 2),
+(2029, 115, 'possestiontime', 60, 2),
+(2030, 115, 'yellowcards', 3, 2),
+(2031, 115, 'redcards', 0, 2),
+(2032, 115, 'saves', 4, 2),
+(2033, 117, 'ongoal', 8, 1),
+(2034, 117, 'shots', 21, 1),
+(2035, 117, 'fouls', 7, 1),
+(2036, 117, 'corners', 15, 1),
+(2037, 117, 'offsides', 5, 1),
+(2038, 117, 'possestiontime', 74, 1),
+(2039, 117, 'yellowcards', 1, 1),
+(2040, 117, 'redcards', 0, 1),
+(2041, 117, 'saves', 1, 1),
+(2042, 117, 'ongoal', 1, 2),
+(2043, 117, 'shots', 5, 2),
+(2044, 117, 'fouls', 9, 2),
+(2045, 117, 'corners', 0, 2),
+(2046, 117, 'offsides', 2, 2),
+(2047, 117, 'possestiontime', 26, 2),
+(2048, 117, 'yellowcards', 0, 2),
+(2049, 117, 'redcards', 1, 2),
+(2050, 117, 'saves', 6, 2),
+(2051, 118, 'ongoal', 6, 1),
+(2052, 118, 'shots', 13, 1),
+(2053, 118, 'fouls', 12, 1),
+(2054, 118, 'corners', 15, 1),
+(2055, 118, 'offsides', 2, 1),
+(2056, 118, 'possestiontime', 55, 1),
+(2057, 118, 'yellowcards', 1, 1),
+(2058, 118, 'redcards', 0, 1),
+(2059, 118, 'saves', 4, 1),
+(2060, 118, 'ongoal', 4, 2),
+(2061, 118, 'shots', 12, 2),
+(2062, 118, 'fouls', 15, 2),
+(2063, 118, 'corners', 7, 2),
+(2064, 118, 'offsides', 3, 2),
+(2065, 118, 'possestiontime', 45, 2),
+(2066, 118, 'yellowcards', 3, 2),
+(2067, 118, 'redcards', 0, 2),
+(2068, 118, 'saves', 5, 2),
+(2069, 116, 'ongoal', 4, 1),
+(2070, 116, 'shots', 14, 1),
+(2071, 116, 'fouls', 10, 1),
+(2072, 116, 'corners', 1, 1),
+(2073, 116, 'offsides', 3, 1),
+(2074, 116, 'possestiontime', 56, 1),
+(2075, 116, 'yellowcards', 2, 1),
+(2076, 116, 'redcards', 0, 1),
+(2077, 116, 'saves', 2, 1),
+(2078, 116, 'ongoal', 3, 2),
+(2079, 116, 'shots', 14, 2),
+(2080, 116, 'fouls', 13, 2),
+(2081, 116, 'corners', 5, 2),
+(2082, 116, 'offsides', 0, 2),
+(2083, 116, 'possestiontime', 44, 2),
+(2084, 116, 'yellowcards', 3, 2),
+(2085, 116, 'redcards', 0, 2),
+(2086, 116, 'saves', 2, 2),
+(2087, 119, 'ongoal', 9, 1),
+(2088, 119, 'shots', 22, 1),
+(2089, 119, 'fouls', 12, 1),
+(2090, 119, 'corners', 11, 1),
+(2091, 119, 'offsides', 1, 1),
+(2092, 119, 'possestiontime', 62, 1),
+(2093, 119, 'yellowcards', 1, 1),
+(2094, 119, 'redcards', 0, 1),
+(2095, 119, 'saves', 0, 1),
+(2096, 119, 'ongoal', 1, 2),
+(2097, 119, 'shots', 11, 2),
+(2098, 119, 'fouls', 8, 2),
+(2099, 119, 'corners', 5, 2),
+(2100, 119, 'offsides', 4, 2),
+(2101, 119, 'possestiontime', 38, 2),
+(2102, 119, 'yellowcards', 1, 2),
+(2103, 119, 'redcards', 0, 2),
+(2104, 119, 'saves', 8, 2),
+(2105, 120, 'ongoal', 5, 1),
+(2106, 120, 'shots', 13, 1),
+(2107, 120, 'fouls', 21, 1),
+(2108, 120, 'corners', 4, 1),
+(2109, 120, 'offsides', 2, 1),
+(2110, 120, 'possestiontime', 36, 1),
+(2111, 120, 'yellowcards', 1, 1),
+(2112, 120, 'redcards', 0, 1),
+(2113, 120, 'saves', 0, 1),
+(2114, 120, 'ongoal', 1, 2),
+(2115, 120, 'shots', 12, 2),
+(2116, 120, 'fouls', 10, 2),
+(2117, 120, 'corners', 3, 2),
+(2118, 120, 'offsides', 1, 2),
+(2119, 120, 'possestiontime', 64, 2),
+(2120, 120, 'yellowcards', 2, 2),
+(2121, 120, 'redcards', 0, 2),
+(2122, 120, 'saves', 2, 2),
+(2123, 121, 'ongoal', 2, 1),
+(2124, 121, 'shots', 10, 1),
+(2125, 121, 'fouls', 15, 1),
+(2126, 121, 'corners', 3, 1),
+(2127, 121, 'offsides', 4, 1),
+(2128, 121, 'possestiontime', 27, 1),
+(2129, 121, 'yellowcards', 3, 1),
+(2130, 121, 'redcards', 1, 1),
+(2131, 121, 'saves', 4, 1),
+(2132, 121, 'ongoal', 6, 2),
+(2133, 121, 'shots', 23, 2),
+(2134, 121, 'fouls', 9, 2),
+(2135, 121, 'corners', 9, 2),
+(2136, 121, 'offsides', 1, 2),
+(2137, 121, 'possestiontime', 73, 2),
+(2138, 121, 'yellowcards', 1, 2),
+(2139, 121, 'redcards', 0, 2),
+(2140, 121, 'saves', 1, 2),
+(2141, 122, 'ongoal', 1, 1),
+(2142, 122, 'shots', 4, 1),
+(2143, 122, 'fouls', 5, 1),
+(2144, 122, 'corners', 1, 1),
+(2145, 122, 'offsides', 0, 1),
+(2146, 122, 'possestiontime', 35, 1),
+(2147, 122, 'yellowcards', 0, 1),
+(2148, 122, 'redcards', 0, 1),
+(2149, 122, 'saves', 0, 1),
+(2150, 122, 'ongoal', 0, 2),
+(2151, 122, 'shots', 6, 2),
+(2152, 122, 'fouls', 4, 2),
+(2153, 122, 'corners', 3, 2),
+(2154, 122, 'offsides', 1, 2),
+(2155, 122, 'possestiontime', 65, 2),
+(2156, 122, 'yellowcards', 0, 2),
+(2157, 122, 'redcards', 0, 2),
+(2158, 122, 'saves', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -18823,7 +20573,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_sub` (
   `pos` varchar(255) NOT NULL,
   `player_id` int(11) NOT NULL,
   `team` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1541 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1681 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_sub`
@@ -20369,7 +22119,147 @@ INSERT INTO `tbl_soccer_match_sub` (`id`, `match_id`, `number`, `pos`, `player_i
 (1537, 112, 14, 'M', 501, 2),
 (1538, 112, 9, 'F', 499, 2),
 (1539, 112, 22, 'F', 504, 2),
-(1540, 112, 26, 'G', 478, 2);
+(1540, 112, 26, 'G', 478, 2),
+(1541, 117, 3, 'D', 5, 1),
+(1542, 117, 5, 'D', 7, 1),
+(1543, 117, 7, 'M', 13, 1),
+(1544, 117, 14, 'M', 23, 1),
+(1545, 117, 11, 'F', 22, 1),
+(1546, 117, 18, 'F', 24, 1),
+(1547, 117, 1, 'G', 1, 1),
+(1548, 117, 16, 'D', 256, 2),
+(1549, 117, 23, 'D', 257, 2),
+(1550, 117, 7, 'M', 261, 2),
+(1551, 117, 9, 'F', 268, 2),
+(1552, 117, 10, 'F', 269, 2),
+(1553, 117, 30, 'F', 272, 2),
+(1554, 117, 13, 'G', 579, 2),
+(1555, 116, 17, 'D', 341, 1),
+(1556, 116, 27, 'D', 344, 1),
+(1557, 116, 29, 'D', 345, 1),
+(1558, 116, 19, 'M', 363, 1),
+(1559, 116, 42, 'M', 348, 1),
+(1560, 116, 5, 'F', 358, 1),
+(1561, 116, 1, 'G', 334, 1),
+(1562, 116, 17, 'D', 426, 2),
+(1563, 116, 20, 'D', 429, 2),
+(1564, 116, 7, 'M', 610, 2),
+(1565, 116, 41, 'M', 614, 2),
+(1566, 116, 10, 'F', 442, 2),
+(1567, 116, 12, 'F', 443, 2),
+(1568, 116, 22, 'G', 582, 2),
+(1569, 115, 18, 'D', 108, 1),
+(1570, 115, 4, 'M', 112, 1),
+(1571, 115, 10, 'M', 115, 1),
+(1572, 115, 24, 'F', 118, 1),
+(1573, 115, 35, 'F', 125, 1),
+(1574, 115, 39, 'F', 126, 1),
+(1575, 115, 12, 'G', 100, 1),
+(1576, 115, 22, 'D', 229, 2),
+(1577, 115, 34, 'D', 613, 2),
+(1578, 115, 4, 'M', 233, 2),
+(1579, 115, 8, 'M', 236, 2),
+(1580, 115, 30, 'M', 580, 2),
+(1581, 115, 17, 'F', 245, 2),
+(1582, 115, 25, 'G', 223, 2),
+(1583, 114, 3, 'D', 396, 1),
+(1584, 114, 20, 'D', 400, 1),
+(1585, 114, 6, 'M', 406, 1),
+(1586, 114, 7, 'M', 407, 1),
+(1587, 114, 18, 'M', 411, 1),
+(1588, 114, 78, 'M', 405, 1),
+(1589, 114, 13, 'G', 394, 1),
+(1590, 114, 2, 'D', 450, 2),
+(1591, 114, 19, 'D', 453, 2),
+(1592, 114, 7, 'M', 461, 2),
+(1593, 114, 8, 'M', 462, 2),
+(1594, 114, 18, 'F', 473, 2),
+(1595, 114, 58, 'F', 459, 2),
+(1596, 114, 25, 'G', 449, 2),
+(1597, 118, 8, 'D', 521, 1),
+(1598, 118, 34, 'D', 615, 1),
+(1599, 118, 9, 'F', 530, 1),
+(1600, 118, 11, 'F', 531, 1),
+(1601, 118, 15, 'F', 532, 1),
+(1602, 118, 32, 'F', 537, 1),
+(1603, 118, 21, 'G', 591, 1),
+(1604, 118, 3, 'D', 29, 2),
+(1605, 118, 7, 'M', 573, 2),
+(1606, 118, 14, 'M', 40, 2),
+(1607, 118, 17, 'M', 41, 2),
+(1608, 118, 19, 'M', 43, 2),
+(1609, 118, 23, 'F', 49, 2),
+(1610, 118, 12, 'G', 27, 2),
+(1611, 113, 6, 'M', 549, 1),
+(1612, 113, 7, 'M', 550, 1),
+(1613, 113, 16, 'M', 554, 1),
+(1614, 113, 10, 'F', 559, 1),
+(1615, 113, 24, 'F', 562, 1),
+(1616, 113, 25, 'F', 563, 1),
+(1617, 113, 29, 'G', 540, 1),
+(1618, 113, 6, 'D', 594, 2),
+(1619, 113, 7, 'M', 98, 2),
+(1620, 113, 18, 'M', 92, 2),
+(1621, 113, 25, 'M', 95, 2),
+(1622, 113, 17, 'F', 136, 2),
+(1623, 113, 19, 'F', 137, 2),
+(1624, 113, 22, 'G', 596, 2),
+(1625, 119, 39, 'D', 485, 1),
+(1626, 119, 7, 'M', 487, 1),
+(1627, 119, 19, 'M', 492, 1),
+(1628, 119, 20, 'M', 493, 1),
+(1629, 119, 9, 'F', 499, 1),
+(1630, 119, 12, 'F', 500, 1),
+(1631, 119, 26, 'G', 478, 1),
+(1632, 119, 8, 'M', 78, 2),
+(1633, 119, 11, 'M', 68, 2),
+(1634, 119, 18, 'M', 70, 2),
+(1635, 119, 21, 'M', 71, 2),
+(1636, 119, 24, 'M', 72, 2),
+(1637, 119, 49, 'F', 84, 2),
+(1638, 119, 13, 'G', 53, 2),
+(1639, 120, 4, 'D', 147, 1),
+(1640, 120, 25, 'D', 159, 1),
+(1641, 120, 11, 'M', 167, 1),
+(1642, 120, 18, 'M', 158, 1),
+(1643, 120, 10, 'F', 166, 1),
+(1644, 120, 17, 'F', 616, 1),
+(1645, 120, 13, 'G', 141, 1),
+(1646, 120, 4, 'D', 305, 2),
+(1647, 120, 18, 'D', 189, 2),
+(1648, 120, 21, 'M', 320, 2),
+(1649, 120, 23, 'M', 321, 2),
+(1650, 120, 50, 'M', 333, 2),
+(1651, 120, 29, 'F', 329, 2),
+(1652, 120, 1, 'G', 301, 2),
+(1653, 121, 5, 'D', 203, 1),
+(1654, 121, 2, 'M', 201, 1),
+(1655, 121, 7, 'M', 209, 1),
+(1656, 121, 29, 'M', 218, 1),
+(1657, 121, 9, 'F', 67, 1),
+(1658, 121, 20, 'F', 604, 1),
+(1659, 121, 22, 'G', 200, 1),
+(1660, 121, 6, 'D', 280, 2),
+(1661, 121, 25, 'D', 284, 2),
+(1662, 121, 46, 'D', 617, 2),
+(1663, 121, 7, 'M', 288, 2),
+(1664, 121, 8, 'M', 605, 2),
+(1665, 121, 39, 'M', 618, 2),
+(1666, 121, 13, 'G', 275, 2),
+(1667, 122, 34, 'D', 181, 1),
+(1668, 122, 12, 'M', 184, 1),
+(1669, 122, 18, 'M', 188, 1),
+(1670, 122, 40, 'M', 191, 1),
+(1671, 122, 7, 'F', 182, 1),
+(1672, 122, 19, 'F', 197, 1),
+(1673, 122, 31, 'G', 173, 1),
+(1674, 122, 3, 'D', 371, 2),
+(1675, 122, 5, 'D', 372, 2),
+(1676, 122, 33, 'D', 377, 2),
+(1677, 122, 18, 'M', 383, 2),
+(1678, 122, 28, 'M', 385, 2),
+(1679, 122, 24, 'F', 391, 2),
+(1680, 122, 1, 'G', 366, 2);
 
 -- --------------------------------------------------------
 
@@ -20384,7 +22274,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_substitution` (
   `off_id` int(11) NOT NULL,
   `minute` int(11) NOT NULL,
   `team` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=617 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=667 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_substitution`
@@ -21003,7 +22893,57 @@ INSERT INTO `tbl_soccer_match_substitution` (`id`, `match_id`, `on_id`, `off_id`
 (613, 112, 461, 603, 87, 1),
 (614, 112, 501, 491, 79, 2),
 (615, 112, 504, 494, 90, 2),
-(616, 112, 489, 493, 79, 2);
+(616, 112, 489, 493, 79, 2),
+(617, 116, 442, 445, 51, 2),
+(618, 116, 610, 438, 52, 2),
+(619, 113, 559, 552, 56, 1),
+(620, 118, 43, 42, 61, 2),
+(621, 113, 563, 560, 60, 1),
+(622, 113, 137, 130, 60, 2),
+(623, 117, 256, 252, 68, 2),
+(624, 118, 530, 525, 68, 1),
+(625, 116, 358, 361, 66, 1),
+(626, 114, 411, 418, 70, 1),
+(627, 114, 462, 603, 67, 2),
+(628, 115, 125, 120, 72, 1),
+(629, 115, 233, 235, 75, 2),
+(630, 113, 95, 593, 76, 2),
+(631, 117, 24, 14, 79, 1),
+(632, 117, 269, 270, 78, 2),
+(633, 114, 407, 408, 79, 1),
+(634, 114, 459, 463, 77, 2),
+(635, 113, 554, 555, 78, 1),
+(636, 114, 473, 466, 79, 2),
+(637, 117, 22, 25, 84, 1),
+(638, 117, 261, 264, 84, 2),
+(639, 115, 118, 121, 79, 1),
+(640, 117, 13, 18, 86, 1),
+(641, 118, 49, 44, 82, 2),
+(642, 116, 341, 353, 80, 1),
+(643, 116, 443, 439, 82, 2),
+(644, 115, 580, 238, 86, 2),
+(645, 115, 126, 123, 88, 1),
+(646, 118, 537, 533, 89, 1),
+(647, 114, 406, 592, 88, 1),
+(648, 113, 92, 135, 86, 2),
+(649, 116, 363, 362, 89, 1),
+(650, 119, 70, 56, 16, 2),
+(651, 119, 492, 489, 55, 1),
+(652, 119, 478, 476, 59, 1),
+(653, 119, 84, 81, 75, 2),
+(654, 119, 500, 491, 77, 1),
+(655, 119, 72, 70, 89, 2),
+(656, 120, 147, 150, 36, 1),
+(657, 120, 329, 319, 72, 2),
+(658, 120, 321, 322, 74, 2),
+(659, 120, 158, 164, 76, 1),
+(660, 120, 159, 153, 86, 1),
+(661, 121, 280, 281, 45, 2),
+(662, 121, 209, 219, 57, 1),
+(663, 121, 288, 291, 59, 2),
+(664, 121, 201, 210, 64, 1),
+(665, 121, 605, 297, 79, 2),
+(666, 121, 218, 575, 87, 1);
 
 -- --------------------------------------------------------
 
@@ -21018,7 +22958,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_team` (
   `pos` varchar(255) NOT NULL,
   `player_id` int(11) NOT NULL,
   `team` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2421 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2650 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_team`
@@ -23445,7 +25385,235 @@ INSERT INTO `tbl_soccer_match_team` (`id`, `match_id`, `number`, `pos`, `player_
 (2417, 112, 19, 'M', 492, 2),
 (2418, 112, 20, 'M', 493, 2),
 (2419, 112, 23, 'F', 602, 2),
-(2420, 112, 1, 'G', 476, 2);
+(2420, 112, 1, 'G', 476, 2),
+(2421, 117, 2, 'D', 4, 1),
+(2422, 117, 24, 'D', 8, 1),
+(2423, 117, 26, 'D', 9, 1),
+(2424, 117, 28, 'D', 10, 1),
+(2425, 117, 4, 'M', 12, 1),
+(2426, 117, 8, 'M', 14, 1),
+(2427, 117, 10, 'M', 15, 1),
+(2428, 117, 21, 'M', 595, 1),
+(2429, 117, 22, 'M', 18, 1),
+(2430, 117, 19, 'F', 25, 1),
+(2431, 117, 13, 'G', 2, 1),
+(2432, 117, 2, 'D', 250, 2),
+(2433, 117, 4, 'D', 252, 2),
+(2434, 117, 6, 'D', 253, 2),
+(2435, 117, 25, 'D', 258, 2),
+(2436, 117, 5, 'M', 260, 2),
+(2437, 117, 8, 'M', 262, 2),
+(2438, 117, 11, 'M', 263, 2),
+(2439, 117, 17, 'M', 264, 2),
+(2440, 117, 29, 'M', 267, 2),
+(2441, 117, 18, 'F', 270, 2),
+(2442, 117, 1, 'G', 247, 2),
+(2443, 116, 2, 'D', 336, 1),
+(2444, 116, 6, 'D', 338, 1),
+(2445, 116, 15, 'D', 340, 1),
+(2446, 116, 23, 'D', 342, 1),
+(2447, 116, 11, 'M', 361, 1),
+(2448, 116, 14, 'M', 362, 1),
+(2449, 116, 16, 'M', 158, 1),
+(2450, 116, 20, 'M', 353, 1),
+(2451, 116, 21, 'M', 354, 1),
+(2452, 116, 10, 'F', 360, 1),
+(2453, 116, 24, 'G', 335, 1),
+(2454, 116, 2, 'D', 422, 2),
+(2455, 116, 3, 'D', 423, 2),
+(2456, 116, 5, 'D', 424, 2),
+(2457, 116, 19, 'D', 428, 2),
+(2458, 116, 4, 'M', 435, 2),
+(2459, 116, 16, 'M', 438, 2),
+(2460, 116, 18, 'M', 427, 2),
+(2461, 116, 21, 'M', 439, 2),
+(2462, 116, 9, 'F', 612, 2),
+(2463, 116, 24, 'F', 445, 2),
+(2464, 116, 13, 'G', 419, 2),
+(2465, 115, 2, 'D', 103, 1),
+(2466, 115, 3, 'D', 104, 1),
+(2467, 115, 5, 'D', 105, 1),
+(2468, 115, 27, 'D', 109, 1),
+(2469, 115, 8, 'M', 114, 1),
+(2470, 115, 15, 'M', 121, 1),
+(2471, 115, 19, 'M', 117, 1),
+(2472, 115, 26, 'M', 124, 1),
+(2473, 115, 9, 'F', 120, 1),
+(2474, 115, 23, 'F', 123, 1),
+(2475, 115, 1, 'G', 99, 1),
+(2476, 115, 5, 'D', 226, 2),
+(2477, 115, 15, 'D', 227, 2),
+(2478, 115, 16, 'D', 228, 2),
+(2479, 115, 27, 'D', 230, 2),
+(2480, 115, 6, 'M', 234, 2),
+(2481, 115, 7, 'M', 235, 2),
+(2482, 115, 10, 'M', 244, 2),
+(2483, 115, 11, 'M', 237, 2),
+(2484, 115, 14, 'M', 238, 2),
+(2485, 115, 9, 'F', 243, 2),
+(2486, 115, 1, 'G', 222, 2),
+(2487, 114, 4, 'D', 397, 1),
+(2488, 114, 5, 'D', 398, 1),
+(2489, 114, 22, 'D', 401, 1),
+(2490, 114, 26, 'D', 402, 1),
+(2491, 114, 8, 'M', 408, 1),
+(2492, 114, 15, 'M', 410, 1),
+(2493, 114, 25, 'M', 592, 1),
+(2494, 114, 42, 'M', 414, 1),
+(2495, 114, 16, 'F', 417, 1),
+(2496, 114, 35, 'F', 418, 1),
+(2497, 114, 1, 'G', 393, 1),
+(2498, 114, 3, 'D', 451, 2),
+(2499, 114, 6, 'D', 452, 2),
+(2500, 114, 22, 'D', 454, 2),
+(2501, 114, 27, 'D', 455, 2),
+(2502, 114, 4, 'M', 460, 2),
+(2503, 114, 12, 'M', 463, 2),
+(2504, 114, 14, 'M', 603, 2),
+(2505, 114, 20, 'M', 474, 2),
+(2506, 114, 23, 'M', 466, 2),
+(2507, 114, 10, 'F', 471, 2),
+(2508, 114, 1, 'G', 447, 2),
+(2509, 118, 6, 'D', 590, 1),
+(2510, 118, 19, 'D', 515, 1),
+(2511, 118, 22, 'D', 516, 1),
+(2512, 118, 36, 'D', 518, 1),
+(2513, 118, 4, 'M', 513, 1),
+(2514, 118, 7, 'M', 520, 1),
+(2515, 118, 14, 'M', 523, 1),
+(2516, 118, 20, 'M', 525, 1),
+(2517, 118, 28, 'M', 535, 1),
+(2518, 118, 17, 'F', 533, 1),
+(2519, 118, 1, 'G', 508, 1),
+(2520, 118, 4, 'D', 30, 2),
+(2521, 118, 13, 'D', 32, 2),
+(2522, 118, 15, 'D', 33, 2),
+(2523, 118, 22, 'D', 34, 2),
+(2524, 118, 8, 'M', 37, 2),
+(2525, 118, 10, 'M', 38, 2),
+(2526, 118, 20, 'M', 44, 2),
+(2527, 118, 30, 'M', 42, 2),
+(2528, 118, 9, 'F', 48, 2),
+(2529, 118, 25, 'F', 51, 2),
+(2530, 118, 1, 'G', 26, 2),
+(2531, 113, 2, 'D', 576, 1),
+(2532, 113, 5, 'D', 544, 1),
+(2533, 113, 17, 'D', 546, 1),
+(2534, 113, 20, 'D', 547, 1),
+(2535, 113, 13, 'M', 552, 1),
+(2536, 113, 15, 'M', 553, 1),
+(2537, 113, 19, 'M', 561, 1),
+(2538, 113, 21, 'M', 555, 1),
+(2539, 113, 27, 'M', 564, 1),
+(2540, 113, 18, 'F', 560, 1),
+(2541, 113, 1, 'G', 539, 1),
+(2542, 113, 2, 'D', 87, 2),
+(2543, 113, 4, 'D', 593, 2),
+(2544, 113, 5, 'D', 90, 2),
+(2545, 113, 23, 'D', 94, 2),
+(2546, 113, 8, 'M', 127, 2),
+(2547, 113, 11, 'M', 130, 2),
+(2548, 113, 14, 'M', 128, 2),
+(2549, 113, 21, 'M', 138, 2),
+(2550, 113, 10, 'F', 135, 2),
+(2551, 113, 30, 'F', 139, 2),
+(2552, 113, 1, 'G', 85, 2),
+(2554, 119, 3, 'D', 480, 1),
+(2555, 119, 4, 'D', 481, 1),
+(2556, 119, 18, 'D', 483, 1),
+(2557, 119, 21, 'D', 494, 1),
+(2558, 119, 8, 'M', 488, 1),
+(2559, 119, 10, 'M', 489, 1),
+(2560, 119, 15, 'M', 502, 1),
+(2561, 119, 16, 'M', 491, 1),
+(2562, 119, 17, 'M', 503, 1),
+(2563, 119, 23, 'F', 602, 1),
+(2564, 119, 1, 'G', 476, 1),
+(2565, 119, 3, 'D', 56, 2),
+(2566, 119, 12, 'D', 60, 2),
+(2567, 119, 33, 'D', 76, 2),
+(2568, 119, 42, 'D', 66, 2),
+(2569, 119, 7, 'M', 67, 2),
+(2570, 119, 10, 'M', 80, 2),
+(2571, 119, 16, 'M', 69, 2),
+(2572, 119, 25, 'M', 73, 2),
+(2573, 119, 31, 'M', 75, 2),
+(2574, 119, 20, 'F', 81, 2),
+(2575, 119, 1, 'G', 52, 2),
+(2576, 116, 18, 'D', 427, 2),
+(2577, 115, 10, 'F', 244, 2),
+(2578, 115, 11, 'F', 237, 2),
+(2579, 119, 3, 'M', 56, 2),
+(2580, 119, 7, 'F', 67, 2),
+(2581, 120, 2, 'D', 145, 1),
+(2582, 120, 6, 'D', 148, 1),
+(2583, 120, 27, 'D', 150, 1),
+(2584, 120, 34, 'D', 151, 1),
+(2585, 120, 7, 'M', 153, 1),
+(2586, 120, 15, 'M', 157, 1),
+(2587, 120, 28, 'M', 160, 1),
+(2588, 120, 42, 'M', 164, 1),
+(2589, 120, 16, 'F', 168, 1),
+(2590, 120, 29, 'F', 170, 1),
+(2591, 120, 1, 'G', 140, 1),
+(2592, 120, 2, 'D', 303, 2),
+(2593, 120, 6, 'D', 306, 2),
+(2594, 120, 19, 'D', 309, 2),
+(2595, 120, 37, 'D', 310, 2),
+(2596, 120, 8, 'M', 316, 2),
+(2597, 120, 20, 'M', 319, 2),
+(2598, 120, 24, 'M', 322, 2),
+(2599, 120, 9, 'F', 327, 2),
+(2600, 120, 10, 'F', 317, 2),
+(2601, 120, 31, 'F', 324, 2),
+(2602, 120, 22, 'G', 302, 2),
+(2603, 121, 6, 'D', 204, 1),
+(2604, 121, 21, 'D', 206, 1),
+(2605, 121, 26, 'D', 208, 1),
+(2606, 121, 27, 'D', 217, 1),
+(2607, 121, 8, 'M', 210, 1),
+(2608, 121, 11, 'M', 575, 1),
+(2609, 121, 14, 'M', 213, 1),
+(2610, 121, 25, 'M', 216, 1),
+(2611, 121, 34, 'M', 219, 1),
+(2612, 121, 18, 'F', 221, 1),
+(2613, 121, 1, 'G', 198, 1),
+(2614, 121, 5, 'D', 279, 2),
+(2615, 121, 15, 'D', 281, 2),
+(2616, 121, 21, 'D', 283, 2),
+(2617, 121, 33, 'D', 286, 2),
+(2618, 121, 11, 'M', 299, 2),
+(2619, 121, 19, 'M', 291, 2),
+(2620, 121, 23, 'M', 293, 2),
+(2621, 121, 38, 'M', 607, 2),
+(2622, 121, 9, 'F', 297, 2),
+(2623, 121, 18, 'F', 300, 2),
+(2624, 121, 1, 'G', 274, 2),
+(2625, 121, 18, 'M', 300, 2),
+(2626, 122, 5, 'D', 176, 1),
+(2627, 122, 6, 'D', 177, 1),
+(2628, 122, 21, 'D', 179, 1),
+(2629, 122, 23, 'D', 180, 1),
+(2630, 122, 8, 'M', 183, 1),
+(2631, 122, 15, 'M', 185, 1),
+(2632, 122, 24, 'M', 189, 1),
+(2633, 122, 10, 'F', 192, 1),
+(2634, 122, 11, 'F', 193, 1),
+(2635, 122, 28, 'F', 190, 1),
+(2636, 122, 1, 'G', 172, 1),
+(2637, 122, 2, 'D', 370, 2),
+(2638, 122, 6, 'D', 373, 2),
+(2639, 122, 17, 'D', 374, 2),
+(2640, 122, 21, 'D', 375, 2),
+(2641, 122, 4, 'M', 378, 2),
+(2642, 122, 11, 'M', 389, 2),
+(2643, 122, 12, 'M', 381, 2),
+(2644, 122, 7, 'F', 387, 2),
+(2645, 122, 10, 'F', 380, 2),
+(2646, 122, 19, 'F', 390, 2),
+(2647, 122, 23, 'G', 367, 2),
+(2648, 122, 7, 'M', 387, 2),
+(2649, 122, 10, 'M', 380, 2);
 
 -- --------------------------------------------------------
 
@@ -23470,7 +25638,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_player` (
   `weight` int(255) DEFAULT NULL,
   `price` int(255) DEFAULT NULL,
   `f_api_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=614 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=619 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_player`
@@ -23543,7 +25711,7 @@ INSERT INTO `tbl_soccer_player` (`id`, `name`, `rusname`, `country_id`, `city`, 
 (64, 'Tom Thorpe', 'T. Thorpe', 1, 'Manchester', 'f0804d.png', '1993-01-13', NULL, 39, 'защитник', NULL, 'правая', 0, 0, 200000, 209639),
 (65, 'Reece James', 'R. James', 0, '', '3d7bb5.png', '1993-11-07', NULL, 41, 'защитник', NULL, 'левая', 0, 0, NULL, 301885),
 (66, 'Tyler Blackett', 'Тайлер Блэкетт', 1, '', '7fdf43.png', '1994-04-02', NULL, 42, 'защитник', NULL, 'левая', 0, 0, 500000, 321310),
-(67, 'Ángel Fabián di María Hernández', 'Анхель Ди Мария', 23, 'Rosario', '56c6c2.png', '1988-02-14', NULL, 7, 'полузащитник', NULL, 'левая', 0, 0, 65000000, 16579),
+(67, 'Ángel Fabián di María Hernández', 'Анхель Ди Мария', 23, 'Rosario', '56c6c2.png', '1988-02-14', NULL, 7, 'полузащитник', NULL, 'левая', 0, 0, 65000000, 57168),
 (68, 'Adnan Januzaj', 'Аднан Янузай', 9, 'Brussels', 'd5602c.png', '1995-02-05', NULL, 11, 'полузащитник', NULL, 'левая', 0, 0, 10000000, 294439),
 (69, 'Michael Carrick', 'Майкл Каррик', 1, 'Wallsend', '685976.png', '1981-07-28', NULL, 16, 'полузащитник', NULL, 'обе (сильная правая)', 0, 0, 6000000, 183),
 (70, 'Ashley Young', 'Эшли Янг', 1, 'Stevenage', 'cd2945.png', '1985-07-09', NULL, 18, 'полузащитник', NULL, 'правая', 0, 0, 11000000, 2553),
@@ -23634,7 +25802,7 @@ INSERT INTO `tbl_soccer_player` (`id`, `name`, `rusname`, `country_id`, `city`, 
 (155, 'Stuart O''Keefe', 'Стюарт О''Киф', 1, 'Norwich', '4fa5be.jpg', '1991-03-04', NULL, 12, 'полузащитник', NULL, '0', 0, 0, NULL, 51114),
 (156, 'Jerome Thomas', 'Джером Томас', 1, 'London', 'd8cf37.jpg', '1983-03-23', NULL, 14, 'полузащитник', NULL, '0', 0, 0, NULL, NULL),
 (157, 'Mile Jedinak', 'Миле Единак', 10, 'Sydney', '2c66fb.png', '1984-08-03', NULL, 15, 'полузащитник', NULL, 'правая', 0, 0, NULL, 17515),
-(158, 'James McArthur', 'J. McArthur', 17, 'Glasgow', '3f7c97.png', '1987-10-07', NULL, 18, 'полузащитник', NULL, 'правая', 0, 0, NULL, 46512),
+(158, 'James McArthur', 'J. McArthur', 17, 'Glasgow', '3f7c97.png', '1987-10-07', NULL, 18, 'полузащитник', NULL, 'правая', 0, 0, NULL, 46511),
 (159, 'Barry Bannan', 'Барри Бэннан', 17, 'Airdrie', 'ecf78e.png', '1989-12-01', NULL, 25, 'полузащитник', NULL, 'левая', 0, 0, 3000000, 47910),
 (160, 'Joe Ledley', 'Джо Ледли', 2, 'Cardiff', '0ab1a1.jpg', '1987-01-23', NULL, 28, 'полузащитник', NULL, 'левая', 0, 0, NULL, 45944),
 (161, 'Kyle De Silva', 'K. De Silva', 1, 'Croydon', 'f8bab0.jpg', '1993-11-29', NULL, 35, 'полузащитник', NULL, '0', 0, 0, NULL, NULL),
@@ -23703,9 +25871,9 @@ INSERT INTO `tbl_soccer_player` (`id`, `name`, `rusname`, `country_id`, `city`, 
 (224, 'Billy Jones', 'Билли Джонс', 1, 'Shrewsbury', 'ec447d.png', '1987-03-24', NULL, 2, 'защитник', NULL, 'правая', 0, 0, NULL, 15631),
 (225, 'Patrick van Aanholt', 'Патрик ван Анхолт', 29, '''s-Hertogenbosch', 'c0703b.png', '1990-08-29', NULL, 3, 'защитник', NULL, 'левая', 0, 0, 3000000, 88136),
 (226, 'Wes Brown', 'Уэс Браун', 1, 'Longsight', 'cadb29.png', '1979-10-13', NULL, 5, 'защитник', NULL, 'правая', 0, 0, 500000, 2910),
-(227, 'Anthony Réveillère', 'Антони Ревейер', 4, 'Doué-la-Fontaine', '9b8bb3.png', '1979-11-10', NULL, 15, 'защитник', NULL, 'правая', 0, 0, 300000, NULL),
+(227, 'Anthony Réveillère', 'Антони Ревейер', 4, 'Doué-la-Fontaine', '9b8bb3.png', '1979-11-10', NULL, 15, 'защитник', NULL, 'правая', 0, 0, 300000, 1580),
 (228, 'John O''Shea', 'Джон О''Ши', 18, 'Waterford', '2a2651.jpg', '1981-04-30', NULL, 16, 'защитник', NULL, 'правая', 0, 0, 1500000, 2916),
-(229, 'Sebastián Coates Nión', 'Себастьян Коатес', 33, 'Montevideo', '6c8a64.jpg', '1990-10-07', NULL, 22, 'защитник', NULL, 'правая', 0, 0, 2500000, NULL),
+(229, 'Sebastián Coates Nión', 'Себастьян Коатес', 33, 'Montevideo', '6c8a64.jpg', '1990-10-07', NULL, 22, 'защитник', NULL, 'правая', 0, 0, 2500000, 77863),
 (230, 'Santiago Vergini', 'Сантьяго Вергини', 23, 'Máximo Paz', 'be9137.png', '1988-08-03', NULL, 27, 'защитник', NULL, 'правая', 0, 0, 1000000, 104745),
 (231, 'Duncan Watmore', 'D. Watmore', 1, '', '2f80b3.png', '1994-03-08', NULL, 41, '0', NULL, 'правая', 0, 0, NULL, NULL),
 (232, 'Adilson Tavares Varela', 'Cabral', 30, 'Praia', 'b0d7f1.png', '1988-10-22', NULL, 0, 'полузащитник', NULL, 'правая', 0, 0, 1000000, NULL),
@@ -23825,7 +25993,7 @@ INSERT INTO `tbl_soccer_player` (`id`, `name`, `rusname`, `country_id`, `city`, 
 (345, 'Luke Garbutt', 'Люк Гарбатт', 1, 'Harrogate', 'e78e17.png', '1993-05-21', NULL, 29, 'защитник', NULL, 'левая', 180, NULL, NULL, 96307),
 (346, 'Antolín Alcáraz Viveros', 'Антолин Алькарас', 0, 'San Roque González de Santacruz', '5271bc.png', '1982-07-30', NULL, 30, 'защитник', NULL, 'правая', 187, 78, 2000000, 13589),
 (347, 'Matthew Pennington', 'M. Pennington', 1, 'Warrington', '6272ef.jpg', '1994-10-06', NULL, 38, 'защитник', NULL, '0', 185, NULL, NULL, NULL),
-(348, 'Ryan Ledson', 'R. Ledson', 1, 'Liverpool', '3b0064.png', '1997-08-19', NULL, 46, '0', NULL, 'правая', 0, 0, NULL, NULL),
+(348, 'Ryan Ledson', 'R. Ledson', 1, 'Liverpool', '3b0064.png', '1997-08-19', NULL, 46, '0', NULL, 'правая', 0, 0, NULL, 320275),
 (349, 'Darron Gibson', 'Даррон Гибсон', 18, 'Derry', '4a13e7.png', '1987-10-25', NULL, 4, 'полузащитник', NULL, 'правая', 183, 90, NULL, 20491),
 (350, 'Aiden McGeady', 'Эйден Макгиди', 18, 'Glasgow', 'c53244.png', '1986-04-04', NULL, 7, 'полузащитник', NULL, 'правая', 178, 72, 4500000, 808),
 (351, 'James McCarthy', 'Джеймс Маккарти', 18, 'Glasgow', 'bf4685.png', '1990-11-12', NULL, 16, 'полузащитник', NULL, 'правая', 180, 72, 13000000, NULL),
@@ -24090,7 +26258,12 @@ INSERT INTO `tbl_soccer_player` (`id`, `name`, `rusname`, `country_id`, `city`, 
 (610, 'Matthew Jarvis', 'Matthew Jarvis', 0, '', 'none.png', '0000-00-00', NULL, 7, 'M', NULL, '0', NULL, NULL, NULL, 15415),
 (611, 'Cabral', 'Cabral', 0, '', 'none.png', '0000-00-00', NULL, 12, 'M', NULL, '0', NULL, NULL, NULL, 11537),
 (612, 'Andrew Carroll', 'Andrew Carroll', 0, '', 'none.png', '0000-00-00', NULL, 9, 'F', NULL, '0', NULL, NULL, NULL, 5310),
-(613, 'Thomas Robson', 'Thomas Robson', 0, '', 'none.png', '0000-00-00', NULL, 34, 'D', NULL, '0', NULL, NULL, NULL, NULL);
+(613, 'Thomas Robson', 'Thomas Robson', 0, '', 'none.png', '0000-00-00', NULL, 34, 'D', NULL, '0', NULL, NULL, NULL, 389391),
+(614, 'Sebastian Lletget', 'Sebastian Lletget', 0, '', 'none.png', '0000-00-00', NULL, 41, 'M', NULL, '0', NULL, NULL, NULL, 180650),
+(615, 'Remie Streete', 'Remie Streete', 0, '', 'none.png', '0000-00-00', NULL, 34, 'D', NULL, '0', NULL, NULL, NULL, 277713),
+(616, 'Andrew Johnson', 'Andrew Johnson', 0, '', 'none.png', '0000-00-00', NULL, 17, 'F', NULL, '0', NULL, NULL, NULL, NULL),
+(617, 'Dominic Ball', 'Dominic Ball', 0, '', 'none.png', '0000-00-00', NULL, 46, 'D', NULL, '0', NULL, NULL, NULL, 183085),
+(618, 'Cristian Ceballos', 'Cristian Ceballos', 0, '', 'none.png', '0000-00-00', NULL, 39, 'M', NULL, '0', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -24103,7 +26276,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_player_team` (
   `pid` int(11) NOT NULL,
   `tid` int(11) NOT NULL,
   `date_to` date NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=615 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=620 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_player_team`
@@ -24721,7 +26894,12 @@ INSERT INTO `tbl_soccer_player_team` (`id`, `pid`, `tid`, `date_to`) VALUES
 (611, 610, 16, '0000-00-00'),
 (612, 611, 9, '0000-00-00'),
 (613, 612, 16, '0000-00-00'),
-(614, 613, 9, '0000-00-00');
+(614, 613, 9, '0000-00-00'),
+(615, 614, 16, '0000-00-00'),
+(616, 615, 19, '0000-00-00'),
+(617, 616, 6, '0000-00-00'),
+(618, 617, 11, '0000-00-00'),
+(619, 618, 11, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -24891,6 +27069,69 @@ INSERT INTO `tbl_soccer_tournament` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `tbl_soccer_tournament_team`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_soccer_tournament_team` (
+`id` int(11) NOT NULL,
+  `tmid` int(255) NOT NULL,
+  `tid` int(255) NOT NULL,
+  `sid` int(255) NOT NULL
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+
+--
+-- Дамп данных таблицы `tbl_soccer_tournament_team`
+--
+
+INSERT INTO `tbl_soccer_tournament_team` (`id`, `tmid`, `tid`, `sid`) VALUES
+(1, 1, 1, 1),
+(2, 2, 1, 1),
+(3, 3, 1, 1),
+(4, 4, 1, 1),
+(5, 5, 1, 1),
+(6, 6, 1, 1),
+(7, 7, 1, 1),
+(8, 8, 1, 1),
+(9, 9, 1, 1),
+(10, 10, 1, 1),
+(11, 11, 1, 1),
+(12, 12, 1, 1),
+(13, 13, 1, 1),
+(14, 14, 1, 1),
+(15, 15, 1, 1),
+(16, 16, 1, 1),
+(17, 17, 1, 1),
+(18, 18, 1, 1),
+(19, 19, 1, 1),
+(20, 20, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tbl_tag`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_tag` (
+`id` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `frequency` int(11) DEFAULT '1'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `tbl_tag`
+--
+
+INSERT INTO `tbl_tag` (`id`, `name`, `frequency`) VALUES
+(1, 'ddd', 1),
+(2, 'sdfsd', 1),
+(3, 'fdgdfgdf', 1),
+(4, 'dsfds', 1),
+(5, 'dsfsd', 1),
+(6, 'dsfdfs', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `tbl_users`
 --
 
@@ -24906,7 +27147,7 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   `status` int(1) NOT NULL DEFAULT '0',
   `service` varchar(255) DEFAULT NULL,
   `identity` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
 
 --
 -- Дамп данных таблицы `tbl_users`
@@ -24920,10 +27161,11 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `activkey`, `cre
 (5, 'suarez3', 'cfac9b4e242b1fab9624151fd92d1359', 'suarez3@mail.ru', 'd2098d1128a451e8d32b87b1897b0ede', '2014-10-30 13:38:20', '0000-00-00 00:00:00', 0, 1, NULL, NULL),
 (6, 'suarezsuarez', 'db1153c8e789c238b63a021271a2a118', 'fxl@List2.ru', 'e45174c006f0b4ffdc891346b3a19ea7', '2014-10-30 13:40:41', '2014-11-20 14:19:43', 0, 1, NULL, NULL),
 (7, 'Alexey', '3fd20d5e334d343b05102be6af58cbf2', 'suarezsuarez2@mail.ru', 'd2b6acaf2bd6761850da4099cd034004', '2014-10-30 14:15:45', '2014-11-03 11:01:46', 0, 1, NULL, NULL),
-(8, 'julia', '24991bea13cdec9759e0db813306fe5f', 'julia@mail.ru', 'bf9683a2e3a6717cb95fd062eb540e05', '2014-11-05 19:12:32', '2014-11-20 14:20:44', 0, 1, NULL, NULL),
+(8, 'julia', '24991bea13cdec9759e0db813306fe5f', 'julia@mail.ru', 'bf9683a2e3a6717cb95fd062eb540e05', '2014-11-05 19:12:32', '2014-11-23 01:22:23', 0, 1, NULL, NULL),
 (9, 'Gerrard93', 'be4035277651b12e1fa08b9b7d55bd35', 'Gerrard93@mail.ru', '5da5db2ecb0fa4b628703085fd19b502', '2014-11-05 19:15:25', '2014-11-05 14:16:06', 0, 1, NULL, NULL),
 (38, 'userauth3406c1a01c', '0b2c8b7368983cd2b2973a98c562db56', '3406c@mail.ru', '', '2014-11-16 23:47:12', '2014-11-16 23:47:12', 0, 1, 'facebook', '651453191642567'),
-(41, 'userautha723572696', 'eb7b0efe18e4a319490b88e1007bdf8a', 'emmalahana@yandex.ru', '', '2014-11-17 20:01:13', '2014-11-17 20:01:13', 0, 1, NULL, NULL);
+(41, 'userautha723572696', 'eb7b0efe18e4a319490b88e1007bdf8a', 'emmalahana@yandex.ru', '', '2014-11-17 20:01:13', '2014-11-17 20:01:13', 0, 1, NULL, NULL),
+(42, 'sasha', '66b5201f54463fe96169f2ce19ec6450', 'sasha@mail.ru', '2bd87eeb69fb606de2e0e69b210b0d7c', '2014-11-23 05:46:02', '2014-11-24 04:52:49', 0, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -24948,6 +27190,30 @@ INSERT INTO `tbl_user_service` (`id`, `uid`, `service`, `identity`) VALUES
 (3, 1, 'facebook', '651453191642567'),
 (6, 1, 'vkontakte', '18770763'),
 (7, 41, 'vkontakte', '170023094');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `tbl_video`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_video` (
+`id` int(11) NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `text` text NOT NULL,
+  `path` text NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `create_time` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `tbl_video`
+--
+
+INSERT INTO `tbl_video` (`id`, `title`, `text`, `path`, `author_id`, `create_time`) VALUES
+(1, 'Бесплатная игра', 'Игры для компьютера уже давно завоевали значительное место в жизни людей, которые любят отстраниться от своих проблем и оказаться в другом, увлекательном мире. Для некоторых компьютерные игры превращаются во что-то более существенное, а не просто в развлечение.', '2015-1.mp4', 1, 1416380836),
+(2, 'Зачётный препод', 'Зеки Мюллер известен как невероятно ловкий грабитель офисов и банков. Но последнее из его ограблений становится для героя прямой дорожкой в тюрьму. Мюллера осудили на заключение сроком один год и один месяц. Вернувшись на свободу, он желает отыскать тайник с награбленным.', '2015.mp4', 1, 1416375337),
+(3, 'Самый опасный человек', 'В работе спецслужб, наверное, не было бы столько эффективности, если бы в ней руководствовались соображениями морали, и Гюнтеру Бахманну, трудящемуся в спецслужбе ФРГ, великолепно об этом известно. Работа, выполняемая им и его сотрудниками, вполне заслуживает названия «аморальной». В их обязанности входит поиск людей, имеющих для спецслужбы полезную информацию, а потом с помощью методов давления агенты должны выуживать ее.', 'tur.mp4', 1, 1416375276);
 
 --
 -- Indexes for dumped tables
@@ -24978,10 +27244,28 @@ ALTER TABLE `rights`
  ADD PRIMARY KEY (`itemname`);
 
 --
+-- Indexes for table `tbl_comments`
+--
+ALTER TABLE `tbl_comments`
+ ADD PRIMARY KEY (`comment_id`), ADD KEY `owner_name` (`owner_name`,`owner_id`), ADD KEY `creator_id` (`creator_id`), ADD KEY `owner_id` (`owner_id`);
+
+--
 -- Indexes for table `tbl_friend`
 --
 ALTER TABLE `tbl_friend`
  ADD PRIMARY KEY (`id`), ADD KEY `user1` (`user1`), ADD KEY `user2` (`user2`);
+
+--
+-- Indexes for table `tbl_likes`
+--
+ALTER TABLE `tbl_likes`
+ ADD PRIMARY KEY (`id`), ADD KEY `post_id` (`owner_id`);
+
+--
+-- Indexes for table `tbl_lookup`
+--
+ALTER TABLE `tbl_lookup`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_mchat`
@@ -24994,6 +27278,12 @@ ALTER TABLE `tbl_mchat`
 --
 ALTER TABLE `tbl_messages`
  ADD PRIMARY KEY (`id`), ADD KEY `sender` (`sender_id`), ADD KEY `reciever` (`receiver_id`);
+
+--
+-- Indexes for table `tbl_post`
+--
+ALTER TABLE `tbl_post`
+ ADD PRIMARY KEY (`id`), ADD KEY `autor_id` (`author_id`);
 
 --
 -- Indexes for table `tbl_profiles`
@@ -25041,6 +27331,12 @@ ALTER TABLE `tbl_soccer_match_commentaries`
 -- Indexes for table `tbl_soccer_match_event`
 --
 ALTER TABLE `tbl_soccer_match_event`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_soccer_match_online`
+--
+ALTER TABLE `tbl_soccer_match_online`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -25116,6 +27412,18 @@ ALTER TABLE `tbl_soccer_tournament`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_soccer_tournament_team`
+--
+ALTER TABLE `tbl_soccer_tournament_team`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_tag`
+--
+ALTER TABLE `tbl_tag`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
@@ -25128,29 +27436,55 @@ ALTER TABLE `tbl_user_service`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_video`
+--
+ALTER TABLE `tbl_video`
+ ADD PRIMARY KEY (`id`), ADD KEY `author_id` (`author_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_comments`
+--
+ALTER TABLE `tbl_comments`
+MODIFY `comment_id` int(12) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT for table `tbl_friend`
 --
 ALTER TABLE `tbl_friend`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=209;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=251;
+--
+-- AUTO_INCREMENT for table `tbl_likes`
+--
+ALTER TABLE `tbl_likes`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
+--
+-- AUTO_INCREMENT for table `tbl_lookup`
+--
+ALTER TABLE `tbl_lookup`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tbl_mchat`
 --
 ALTER TABLE `tbl_mchat`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `tbl_messages`
 --
 ALTER TABLE `tbl_messages`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
+-- AUTO_INCREMENT for table `tbl_post`
+--
+ALTER TABLE `tbl_post`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
 -- AUTO_INCREMENT for table `tbl_profiles`
 --
 ALTER TABLE `tbl_profiles`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `tbl_profiles_fields`
 --
@@ -25170,7 +27504,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `tbl_soccer_country`
 --
 ALTER TABLE `tbl_soccer_country`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match`
 --
@@ -25180,47 +27514,52 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=383;
 -- AUTO_INCREMENT for table `tbl_soccer_match_commentaries`
 --
 ALTER TABLE `tbl_soccer_match_commentaries`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11218;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12218;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_event`
 --
 ALTER TABLE `tbl_soccer_match_event`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=717;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=770;
+--
+-- AUTO_INCREMENT for table `tbl_soccer_match_online`
+--
+ALTER TABLE `tbl_soccer_match_online`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_player_stats`
 --
 ALTER TABLE `tbl_soccer_match_player_stats`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3943;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4300;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_stats`
 --
 ALTER TABLE `tbl_soccer_match_stats`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1979;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2159;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_sub`
 --
 ALTER TABLE `tbl_soccer_match_sub`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1541;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1681;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_substitution`
 --
 ALTER TABLE `tbl_soccer_match_substitution`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=617;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=667;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_team`
 --
 ALTER TABLE `tbl_soccer_match_team`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2421;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2650;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_player`
 --
 ALTER TABLE `tbl_soccer_player`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=614;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=619;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_player_team`
 --
 ALTER TABLE `tbl_soccer_player_team`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=615;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=620;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_season`
 --
@@ -25247,15 +27586,30 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 ALTER TABLE `tbl_soccer_tournament`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `tbl_soccer_tournament_team`
+--
+ALTER TABLE `tbl_soccer_tournament_team`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `tbl_tag`
+--
+ALTER TABLE `tbl_tag`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
 --
 -- AUTO_INCREMENT for table `tbl_user_service`
 --
 ALTER TABLE `tbl_user_service`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `tbl_video`
+--
+ALTER TABLE `tbl_video`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
@@ -25280,6 +27634,12 @@ ALTER TABLE `rights`
 ADD CONSTRAINT `rights_ibfk_1` FOREIGN KEY (`itemname`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Ограничения внешнего ключа таблицы `tbl_comments`
+--
+ALTER TABLE `tbl_comments`
+ADD CONSTRAINT `tbl_comments_ibfk_1` FOREIGN KEY (`creator_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `tbl_friend`
 --
 ALTER TABLE `tbl_friend`
@@ -25293,10 +27653,22 @@ ALTER TABLE `tbl_mchat`
 ADD CONSTRAINT `tbl_mchat_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`id`);
 
 --
+-- Ограничения внешнего ключа таблицы `tbl_post`
+--
+ALTER TABLE `tbl_post`
+ADD CONSTRAINT `tbl_post_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `tbl_profiles`
 --
 ALTER TABLE `tbl_profiles`
 ADD CONSTRAINT `user_profile_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `tbl_video`
+--
+ALTER TABLE `tbl_video`
+ADD CONSTRAINT `tbl_video_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

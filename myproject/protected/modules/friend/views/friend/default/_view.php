@@ -1,8 +1,8 @@
 
 <li class="user">
     <!--<img src="<?php //echo $data->profile->avatar; ?>">-->
-    <div class="useravatar"><?php echo CHtml::link(($data->profile->avatar)?CHtml::image($data->profile->avatar):CHtml::image('images/noavatar.gif'),array("/user/view","id"=>$data->id)); ?></div>
-    <div class="userlogin"><?php echo CHtml::link("@".CHtml::encode($data->username),array("/user/view","id"=>$data->id)) ?></div>
+    <div class="useravatar"><?php echo CHtml::link(($data->profile->avatar)?CHtml::image(Yii::app()->baseUrl.'/'.$data->profile->avatar):CHtml::image(Yii::app()->baseUrl.'/images/noavatar.gif'),array("/user/user/view","id"=>$data->id)); ?></div>
+    <div class="userlogin"><?php echo CHtml::link("@".CHtml::encode($data->username),array("/user/user/view","id"=>$data->id)) ?></div>
     <div class="username">
         <?php
         echo CHtml::encode(Text::cutText($data->profile->firstname." ".$data->profile->lastname,23));?>

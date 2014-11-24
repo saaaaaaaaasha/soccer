@@ -69,15 +69,18 @@ class AddController extends Controller
                 $model->user2=$user2;
                 $model->user1=$user1;
                 $model->relation=Friend::SUBSCRIBER;
+                $model->isread=Friend::ISNOTREAD;
                 if($model->validate())
                     $model->save();
 
                 $model=new Friend;
                 $model->user2=$user1;
                 $model->user1=$user2;
+                $model->isread=Friend::ISNOTREAD;
                 $model->relation=Friend::FOLLOWED;
                 if($model->validate())
-                    $model->save();
+                    if (!$model->save())
+                    { print_r($model->getErrors()); exit();}
 
                 echo "I follower to you!";
             }

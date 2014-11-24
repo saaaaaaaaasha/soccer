@@ -54,12 +54,28 @@ class FriendModule extends CWebModule
         return Friend::model()->checkFriends($user_id,$friend_id);
     }
 
+    public function isUnread($friend_id,$user_id,$ajax=false) {
+        return Friend::model()->checkUnread($user_id,$friend_id);
+    }
+
     public function isFollower($friend_id,$user_id,$ajax=false) {
         return Friend::model()->checkFollower($user_id,$friend_id);
     }
 
     public function getCountFollowers($userId) {
         return Friend::model()->getCountUnfriends($userId);
+    }
+
+    public function getCountFriends($userId) {
+        return Friend::model()->getCountFriends($userId);
+    }
+
+    public function getCountFollowed($userId) {
+        return Friend::model()->getCountFollowed($userId);
+    }
+
+    public function getCountNewFollowed($userId) {
+        return Friend::model()->getCountNewFollowed($userId);
     }
 
 }
