@@ -1,13 +1,16 @@
 .post{
+    margin-top: 5px;
    font-family:Verdana,sans-serif; 
 }
-.mainnews img{
-    max-width: 500px;
-    height:auto;
+
+.post img{
+       max-width: 530px;
+       height: auto;
 }
 
 .post h1, .post h3{
    margin:5px 0px 2px 0px;
+     font-family: Verdana;
    
 }
 
@@ -41,7 +44,8 @@
 }
 
 .post p{
-    margin: 0px;
+    margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 .newsline img, .newsline video {
@@ -52,45 +56,147 @@
     margin: 7px 7px 7px 0; 
 }
 .mainnews img{
-    max-width: 500px;
-    height:auto;
-    margin-bottom: 7px;
+    width: auto;
+    height: auto;
+    overflow: hidden; 
+
 }
 .comment{
     margin-bottom:15px    
 }
 
 .pic_comments{
-    background-image: url(../images/design/pic_comments.png);
+    background-image:  url(../images/design/pic_comments.png);
     background-repeat: no-repeat;
-    background-position: 0 0;
     display: inline-block; 
     height: 13px; 
     padding-left: 18px;
 }
-.pic_comments:hover{
-    opacity: 0.8;
-    background-position: 1px 1px;
-}
-
-/*.pic_like{
-    background-image: url(../images/design/pic_like.png);
-    background-repeat: no-repeat;
-    display: inline-block; 
-    height: 13px; 
-    padding-left: 13px;
-}*/
 
 .pic_like{
-    background-image: url(../images/design/icon-heard.png);
+    background-image:  url(../images/design/pic_like.png);
+    background-position:0px -12px;
+    
     background-repeat: no-repeat;
     display: inline-block; 
-    background-position: 0 0;
     height: 13px; 
     padding-left: 13px;
 }
-
 .pic_like:hover{
-    background-position: 0 -33px;
+    background-image:  url(../images/design/pic_like.png);
+    background-repeat: no-repeat;
+    background-position:0 0px;
 }
+
 .clear {clear:both;}
+
+.layer_main{
+    width: 530px;
+    height: 318px;
+    position: relative;
+    margin-top: 0px; 
+    margin-bottom: 0px;
+}
+
+.layer_main:after{
+content: "";
+display: table;
+clear: both;
+}
+
+.layer1_pic{
+    position:absolute;
+    top: 0px;
+}
+
+
+.layer2_title{
+    position:absolute;
+    bottom: 0px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 520px;
+    background-color: rgba(0, 0,0, 0.5);
+}
+
+.layer_main  h1{
+   color:white; 
+   font-family: Verdana;
+   font-weight: bold; 
+   font-size: 22px;
+}
+
+
+.layer_main h1 a{   
+    color:white;
+    text-decoration:none
+}
+
+.layer_main h1 a:hover{ 
+    color:white;
+    text-decoration:underline;
+}
+
+.layer_main h1 a:visited{
+    color:white;
+
+}
+
+.layer_main_video{
+    width: 200px;
+    height: 120px;
+    position: relative;
+   float: left;
+   margin-right: 10px;
+}
+.layer1_video{
+     position: absolute;
+}
+.layer2_video{
+      width: 200px;
+    height: 120px;
+    opacity: 0.6;
+    position: absolute;
+    background-image: url(../images/design/play_v.png); 
+    background-repeat: no-repeat;
+        
+}
+.layer2_video:hover{
+    opacity: 0.9;
+}
+
+.video h1{
+    margin-top: 5px;
+}
+
+.forecast h1{
+    margin-top: 5px; 
+}
+
+.forecast .items{
+    margin-bottom: 0px;
+ 
+}
+
+.table{
+    clear:both; text-align:right;   
+}
+
+
+.statistics{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.statistics hr{
+    width: 150px;
+}
+
+.statistics table{
+    width: 250px;
+}
+
+.statistics_player{
+
+    float: left;
+}

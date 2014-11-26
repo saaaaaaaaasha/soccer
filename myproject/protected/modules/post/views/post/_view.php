@@ -1,5 +1,5 @@
 <div class="post newsline">
-	<?php echo CHtml::image($data->image); ?>       
+	<?php echo CHtml::image(Yii::app()->request->baseUrl."/upload/".CHtml::encode($data->image)); ?>       
         <div class="title">
             
             <h3>                
@@ -19,7 +19,7 @@
 		?>
         </div>
 	<div class="nav">
-            <span class="pic_comments"><?php echo CHtml::link("{$data->commentCount}",$data->url.'#comments'); ?></span> | 
+            <span class="pic_comments"><?php echo $data->commentCount; ?></span> | 
                 
                 <?php
                     $this->widget('likes.widgets.LikeWidget', array('model'=>$data, ));                    

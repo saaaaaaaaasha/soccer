@@ -1,11 +1,15 @@
 <?php
-$this->breadcrumbs=array(
-	//UserModule::t('Users')
-    "Игроки"=>array('index'),
-    $model->rusname,
-);
 $this->layout='//layouts/column1';
+$this->setPageTitle($model->rusname);
 ?>
+
+<?php $this->widget('application.components.BreadCrumb', array(
+    'crumbs' => array(
+        array('name' => 'Главная', 'url' => array('')),
+        array('name' => 'Игроки', 'url' => array('/player/')),
+        array('name' => $model->rusname),
+    )
+)); ?>
 
 <h1 class="h1content"><?php echo 'Игрок <strong>«'.$model->rusname.'» </strong>'; ?></h1>
 
@@ -29,7 +33,8 @@ $this->layout='//layouts/column1';
 
             <?php if (isset($model->name)): ?><div class="info_team_field"><div class="spanup width100">Имя</div> <div class="info_team_value spanup"><?php echo $model->name; ?></div></div><?php endif; ?>
             <?php if (isset($model->city) && $model->city!=""): ?><div class="info_team_field"><div class="spanup width100">Город</div> <div class="info_team_value spanup"><?php echo $model->city; ?></div></div><?php endif; ?>
-            <?php if (isset($model->birth_day) && $model->birth_day!="0000-00-00"): ?><div class="info_team_field"><div class="spanup width100">Родился</div> <div class="info_team_value spanup"><?php echo $model->birth_day; ?></div></div><?php endif; ?>
+            <?php if (isset($model->birth_day) && $model->birth_day!="0000-00-00"): ?><div class="info_team_field"><div class="spanup width100">Родился</div> <div class="info_team_value spanup"><?php echo "".Date("d.m.Y",strtotime($model->birth_day))." (".Date::getAge($model->birth_day)." ".Yii::t('yii','год|года|лет',Date::getAge($model->birth_day)).")"; ?></div></div><?php endif; ?>
+
             <?php if (isset($model->number)): ?><div class="info_team_field"><div class="spanup width100">Номер</div> <div class="info_team_value spanup"><?php echo $model->number; ?></div></div><?php endif; ?>
             <?php if (isset($model->pos)): ?><div class="info_team_field"><div class="spanup width100">Позиция</div> <div class="info_team_value spanup"><?php echo $model->pos; ?></div></div><?php endif; ?>
             <?php if (isset($model->workingleg) && $model->workingleg!=0): ?><div class="info_team_field"><div class="spanup width100">Рабочая нога</div> <div class="info_team_value spanup"><?php echo $model->workingleg; ?></div></div><?php endif; ?>

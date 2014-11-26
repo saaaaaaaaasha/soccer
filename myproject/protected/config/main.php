@@ -10,8 +10,7 @@ return array(
 	'name'=>'Первое web-приложение!',
     'language'=>'ru',
 	// preloading 'log' component
-	'preload'=>array('log'),
-
+	'preload'=>array('log','EJSUrlManager'),
 
     /*'aliases' => array(
         'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'), // change this if necessary
@@ -24,6 +23,16 @@ return array(
         'application.modules.user.models.*',
         'application.modules.user.components.*',
         'application.modules.message.*',
+        //av
+        'application.modules.likes.models.*',
+        'application.modules.comments.models.*',
+        'application.modules.Lookup.models.*',
+        'application.modules.Post.models.*',
+        'application.modules.Tag.models.*',
+        'application.modules.Video.models.*',
+        'application.modules.forecast.models.*',
+        //av
+
         //'bootstrap.helpers.TbHtml',
         //'application.modules.messages.models.*',
         //'application.modules.messages.components.*',
@@ -35,8 +44,6 @@ return array(
         'ext.lightopenid.*',
         'ext.eauth.*',
         'ext.eauth.services.*',
-        'application.modules.likes.models.*',
-        'application.modules.comments.models.*',
 	),
 
 	'modules'=>array(
@@ -93,6 +100,7 @@ return array(
         'post',
         'likes',
         'video',
+        'forecast',
         'admin',
         'comments'=>array(
             //you may override default config for all connecting models
@@ -147,13 +155,16 @@ return array(
                 'emailProperty'=>'email',
             ),
         ),
+        //av
 
 
 	),
 
 	// application components
 	'components'=>array(
-
+        'EJSUrlManager' => array(
+            'class' => 'ext.JSUrlManager.src.EJSUrlManager'
+        ),
         'widgetFactory' => array(
             'widgets' => array(
                 'CLinkPager' => array(
@@ -317,9 +328,13 @@ return array(
                 'login/<service:(google|google-oauth|yandex|yandex-oauth|twitter|linkedin|vkontakte|facebook|steam|yahoo|mailru|moikrug|github|live|odnoklassniki)>' => 'user/login',
                 'login' => 'user/login',
                 'logout' => 'user/logout',
+                /*
+                'posts'=>'post/list',
+                'post/<id:\d+>'=>'post/read',
+                'post/<year:\d{4}>/<title>'=>'post/read',
+                */
 
-
-
+                'table/index/<macthday:\d+>' => 'table/macthday',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -328,6 +343,9 @@ return array(
 
 
 			),
+
+
+
 		),
 
         /*'db'=>array(

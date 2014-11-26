@@ -71,13 +71,43 @@ class VideoController extends Controller
 		{                    
 			$model->attributes=$_POST['Video'];                                             
                         $model->video=CUploadedFile::getInstance($model,'video');
-                        $model->path = $model->video->getName();   
+                        
+                        $model->image =CUploadedFile::getInstance($model,'image');
+                        
+                        $strImageName = uniqid().'.jpg';
+                        $strSource = uniqid().'.mp4';
+                        
+                        $model->path = $strSource;
+                        $model->image_name = $strImageName;
+                        
 			if($model->save()){
-                            $model->path = $model->video->getName();   
+                                $model->path =$strSource;   
+
+
+                                //$path=Yii::getPathOfAlias('webroot').'/upload/'.$model->video->getName();
+                                $path=Yii::getPathOfAlias('webroot').'/upload/'.$strSource; 
+                                $path_im=Yii::getPathOfAlias('webroot').'/upload/'.$strImageName;
+
+                                $model->video->saveAs($path);
+
+                                $model->image->saveAs($path_im);
+
+                                $img = AcImage::createImage($path_im);
+
+                                $img->cropCenter('4pr', '2pr');
+                                $img->resizeByWidth(200);
+
+                                if(file_exists($path_im)){
+                                   unlink($path_im);
+                                }                
+
+                                $img-> saveAsJPG($path_im);
+
+                            
+                                
                            
-                            $path=Yii::getPathOfAlias('webroot').'/upload/'.$model->video->getName();
-                                             
-                            $model->video->saveAs($path);
+                            
+                            
                             $this->redirect(array('view','id'=>$model->id));
                         }
 		}

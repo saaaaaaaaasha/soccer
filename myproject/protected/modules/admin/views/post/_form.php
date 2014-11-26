@@ -23,6 +23,7 @@
                            'language'=>'ru', 
                            'editorTemplate'=>'advanced',
                            'plugins' => array('pagecut'),
+
                            'toolbar'=>array(
                                         array( 'Source','-', 'Pagecut'),
                                         array( 'Image', 'Link', 'Unlink', 'Anchor' ),

@@ -17,6 +17,7 @@
 class Video extends CActiveRecord
 {
         public $video;
+        public $image;
     /**
 	 * @return string the associated database table name
 	 */
@@ -34,12 +35,13 @@ class Video extends CActiveRecord
 		// will receive user inputs.
 		return array(                        
                         array('video','file', 'types'=>'mp4','maxSize' => 100000000,'on'=>'create'),
-			array('title, text', 'required'),
+			array('image', 'file', 'types'=>'jpg, gif, png','maxSize' => 10000000,'on'=>'create'),
+                        array('title, text', 'required'),
 			array('author_id, create_time', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>128),
+			array('title', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, text, path, author_id, create_time', 'safe', 'on'=>'search'),
+			array('id, title, text, path, image_name, author_id, create_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +73,8 @@ class Video extends CActiveRecord
 			'create_time' => 'Создан',
                         'author' => 'Автор',
                         'video' => 'Видео',
+                        'image' => 'Изображение',
+                        'image_name' => 'Имя изображения',
 		);
 	}
 

@@ -25,7 +25,7 @@ Yii::app()->clientScript->scriptMap['jquery.js'] = false;
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/cookie.js"></script>
 
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<title><?php echo CHtml::encode($this->pageTitle)." - ".Text::getSiteName(); ?></title>
 </head>
 <body>
 

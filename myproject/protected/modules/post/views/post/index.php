@@ -1,5 +1,5 @@
 <?php if(!empty($_GET['tag'])): ?>
-<h1>Сообщения с тегом <i><?php echo CHtml::encode($_GET['tag']); ?></i></h1>
+<h2><?php echo CHtml::encode($_GET['tag']); ?></h2>
 <?php endif; ?>
 
  <?php
@@ -12,4 +12,5 @@
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 	'template'=>"{items}\n{pager}",
+    'pagerCssClass'=>'custom-pager',
 )); 

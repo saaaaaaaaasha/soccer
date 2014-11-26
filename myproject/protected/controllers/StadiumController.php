@@ -22,10 +22,13 @@ class StadiumController extends Controller
 
         $teams = SoccerStadiumTeam::model()->find('sid=:stadium',array('stadium'=>$model->id));
         $team = SoccerTeam::model()->find('id=:id',array('id'=>$teams->tid));
+        $lastgames = SoccerMatch::getLastMatch($model->id,10,38,$model->id);
+
 
         $this->render('view',array(
             'model'=>$model,
             'team'=>$team,
+            'lastgames'=>$lastgames,
         ));
     }
 }

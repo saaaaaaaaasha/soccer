@@ -1,11 +1,18 @@
 <?php
-$this->breadcrumbs=array(
-	//UserModule::t('Users')
-    "Информация о команде"=>array('index'),
-	$model->rusname,
-);
 $this->layout='//layouts/column2';
+$this->setPageTitle($model->rusname);
 ?>
+
+<?php $this->widget('application.components.BreadCrumb', array(
+    'crumbs' => array(
+        array('name' => 'Главная', 'url' => array('')),
+        array('name' => 'Информация о команде', 'url' => array('/team/')),
+        array('name' => $model->rusname),
+    )
+)); ?>
+
+
+
 
 <h1 class="h1content"><?php echo 'Клуб <strong>«'.$model->rusname.'» </strong>'; ?></h1>
 
@@ -14,9 +21,9 @@ $this->layout='//layouts/column2';
         <div class="teampalyers_title"><strong>Состав команды</strong></div>
         <div class="teampalyers_body">
             <?php foreach($players as $player): ?>
-
-                <div id="p_<?php echo $player->player->id; ?>"style="height:10px; width: 230px;" data-number="<?php echo $player->player->number; ?>" class="event_at">
-                    <span class="event_time"><?php echo $player->player->number; ?></span>
+            <?php if (isset($player->player->id)): ?>
+                <div id="p_<?php echo $player->player->id; ?>"style="height:10px; width: 230px;" data-number="<?php echo (isset($player->player->number))?$player->player->number:""; ?>" class="event_at">
+                    <span class="event_time"><?php echo (isset($player->player->number))?$player->player->number:""; ?></span>
                     <span class="flag16" style="background-image:url('<?php echo Yii::app()->baseUrl.'/images/soccer/player/'.$player->player->photo_img; ?>')">
                         <a href="<?php echo Yii::app()->baseUrl."/player/".$player->player->id; ?>"><?php echo $player->player->rusname; ?></a>
                     </span>
@@ -25,9 +32,9 @@ $this->layout='//layouts/column2';
                     </span>
                     <?php endif; ?>
                 </div>
-
-
+            <?php endif; ?>
             <?php endforeach; ?>
+
         <div style="clear: both;"></div>
         </div>
     </div>
@@ -47,14 +54,16 @@ $this->layout='//layouts/column2';
     </div>
     <div class="right_soccer_content">
 
-        <div class="nameblock_userspage">
+        <!--<div class="nameblock_userspage">
             <div class="name_userspage">
-                <?php echo "ФК ".$model->rusname;?>
+                <?php //echo "ФК ".$model->rusname;?>
             </div>
         </div>
-        <div class="spanup"><span><?php echo "".$model->name; ?></span></div>
+        <div class="spanup"><span><?php //echo "".$model->name; ?></span></div>-->
 
         <div class="info_team">
+            <?php if (isset($model->name)): ?><div class="info_team_field"><div class="spanup width100">Название</div> <div class="info_team_value spanup"><?php echo $model->name; ?></div></div><?php endif; ?>
+
             <div class="info_team_field"><div class="spanup width100">Стадион</div> <div style="background: url('<?php if (isset($stadium->stadium->country->image))echo Yii::app()->baseUrl.'/images/soccer/country/'.$stadium->stadium->country->image; ?>') no-repeat 0 0; padding-left:20px;" class="info_team_value spanup"> <?php echo CHtml::link($stadium->stadium->name,array("/stadium/view","id"=>$stadium->stadium->id)); // ?></div></div>
             <div class="info_team_field"><div class="spanup width100">Тренер</div> <div style="background: url('<?php if (isset($coach->coach->country->image)) echo Yii::app()->baseUrl.'/images/soccer/country/'.$coach->coach->country->image; ?>') no-repeat 0 0; padding-left:20px;" class="info_team_value spanup">  <?php echo CHtml::link($coach->coach->rusname,array("/coach/view","id"=>$coach->coach->id)); // ?></div></div>
             <!--<div style="background: url('<?php //echo Yii::app()->baseUrl.'/images/soccer/coach/'.$coach->coach->photo_img; ?>') no-repeat 0 0; background-size:14px 14px; padding-left:20px;" class="info_team_value spanup">-->
@@ -104,42 +113,61 @@ $this->layout='//layouts/column2';
             'model'=>$game,
         )); ?>
         <?php endforeach; ?>
-
-        <?php //foreach($nextgames as $game): ?>
-            <?php /*$this->renderPartial('_view',array(
+        <?php foreach($nextgames as $game): ?>
+            <?php $this->renderPartial('_view',array(
                 'model'=>$game,
-            )); */?>
-        <?php //endforeach; ?>
+            )); ?>
+        <?php endforeach; ?>
         </ul>
     </div>
 
-    <style>
-        .game-container {overflow:hidden; margin:20px 0 12px;}
-        .game {width: 100%; float:left; height:20px; line-height:20px; background:#e8e8e0; border-radius:3px; font-size:11px; color:#000; margin:2px 10px 0 0;}
-        .game:hover {background: rgba(18, 158, 248, 0.14)
-        }
-        .game .item {padding:0 6px; float:left; border-left:0px solid #c8c8c3;}
-        .game .item:first-child {border-left:0;}
-        .game .width50 {width:50px}
-        .game .width30 {width:30px}
-        .game .width70 {width:70px}
-        .game .teamhome {width:130px;}
-        .game .teamhome .line-td {float:right;}
-        .game .teamhome a, .game .teamaway a{text-decoration: none; color: #222}
-        .game .teamhome a:hover, .game .teamaway a:hover{color: #444}
-        .game .teamaway {width:130px; text-align:left;}
-        .game .score a{text-decoration:none; background: #fe444b; color:white; padding: 0 10px; border-radius: 2px;}
-        .game .score a:hover{background: #888}
-        .game .line-th {float:left; margin:0px 0px 0 0;}
-        .game .line-th span {color: #888;}
-        .game .line-td {font-size:13px; font-weight:bold; float:left;}
-        .game .line-td span {font-size:17px; color: #555;}
-        .short-statistic-descr {color:#a1a1a1; overflow:hidden;margin:5px;}
-    </style>
+
 
 </div>
 
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.sparkline.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.sparkline.css" />
+
+<!--<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
+
+<script type="text/javascript">
+    $(function() {
+        /** This code runs when everything has been loaded on the page */
+        /* Inline sparklines take their values from the contents of the tag */
+        $('.inlinesparkline').sparkline();
+
+        /* Sparklines can also take their values from the first argument
+         passed to the sparkline() function */
+        var myvalues = [8,1,1,3,5,1,4,5,4,6,13,4,1,1,1];
+        $('.dynamicsparkline').sparkline(myvalues, {type: 'line',width: '100px',height: '80px',chartRangeMin: '1', chartRangeMax: '20'});
+        var myvalues2 = [0,0,1,-1,-1,-1,4,5,4,6,13,4,1,1,1];
+
+        var myvalues = <?php echo json_encode(array_values($statsforchars['place'])); ?>;
+        var myvalues2 = <?php echo json_encode(array_values($statsforchars['res'])); ?>;
+
+        $('.dynamictri').sparkline(myvalues2, {type: 'tristate', barWidth: '7',height: '20',posBarColor: '#1294ef'} );
 
 
+        /* The second argument gives options such as chart type */
+        $('.dynamicbar').sparkline(myvalues, {type: 'bar', width: '100',  barWidth: '7', height: '20', barColor: '#1294ef',chartRangeMin: '1', chartRangeMax: '20'} );
+
+        /* Use 'html' instead of an array of values to pass options
+         to a sparkline with data in the tag */
+        $('.inlinebar').sparkline('html', {type: 'bar', barColor: 'red'} );
+    });
+</script>
+
+
+
+
+<div class="navig">
+    <div class="item">
+        <div class="line-th"><div style="margin-bottom: 12px;">Результаты команды:</div><span class="dynamictri">Loading..</span></div>
+    </div>
+    <div class="item">
+
+        <div class="line-th"><div style="padding-bottom: 12px;">Место после каждого тура:</div><span class="dynamicbar">Loading..</span></div>
+    </div>
+</div>
 
 

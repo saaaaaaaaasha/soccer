@@ -1,8 +1,13 @@
 <div class="post newsline">
-	<video width="350" height="250" controls="controls">
-                 <source src="<?php echo Yii::app()->request->baseUrl; ?>/upload/<?php echo CHtml::encode($data->path); ?>" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-            </video>       
-    
+	
+        <div class="layer_main_video">
+            <div class="layer1_video">
+               <?php echo CHtml::image(Yii::app()->request->baseUrl."/upload/".CHtml::encode($data->image_name)); ?> 
+            </div>            
+           <a href="video/view/id/<?php echo $data->id; ?>">  <div class="layer2_video"> </div>    </a>
+            
+        </div>
+      
         <div class="title">
             
             <h3>                

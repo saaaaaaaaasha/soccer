@@ -14,7 +14,10 @@ class TeamController extends Controller
         }
         return $this->_model;
     }
+    public function actionIndex(){
 
+        $this->render('index');
+    }
     public function actionView(){
         $model = $this->loadModel();
 
@@ -26,6 +29,8 @@ class TeamController extends Controller
         $lastgames = SoccerMatch::getLastMatch($model->id);
         $nextgames = SoccerMatch::getNextMatch($model->id);
 
+        $statsforchars = SoccerMatch::getStatsForChars($model->id);
+
         $this->render('view',array(
             'model'=>$model,
             'players'=>$players,
@@ -35,6 +40,7 @@ class TeamController extends Controller
             'place'=>$place,
             'lastgames'=>$lastgames,
             'nextgames'=>$nextgames,
+            'statsforchars'=>$statsforchars,
         ));
     }
 

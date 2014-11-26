@@ -18,7 +18,7 @@ class Parser
         $json = "http://football-api.com/api/?Action=fixtures&APIKey=".self::$key."&comp_id=".self::$comp."&&match_date=".$date;
         $info = json_decode(file_get_contents($json),true);
         if (!isset($info["matches"])) {
-            echo "No match today..";
+            echo "No match today..3";
             Yii::app()->end();
         }
         $result=$info["matches"];//[0];
@@ -155,15 +155,16 @@ class Parser
     }
 
 
-    static function UpdateMatch($api_match_id,$home_team,$away_team){
+    static function UpdateMatch($api_match_id,$home_team,$away_team,$today=true){
         //echo $api_match_id." ".$home_team." ".$away_team;
 
         $json = "http://football-api.com/api/?Action=commentaries&APIKey=".self::$key."&match_id=".$api_match_id;
+        //echo '\n'.$json.'\n';
         $info = json_decode(file_get_contents($json),true);
         //echo "<pre>"; print_r($info); echo "</pre>"; exit();
         if (!isset($info["commentaries"][0]))
         {
-            //self::Logging(" no information of match (".$api_match_id.")",false);
+            self::Logging(" no information of match (".$api_match_id.")",false);
             return false;
         }
         $result=$info["commentaries"][0];
@@ -181,7 +182,7 @@ class Parser
         $match_id=$match->id;
         //echo $match_id;
         //exit();
-        self::Today();
+        if ($today==true) self::Today();
         /*$g1=($result[$i]['match_localteam_score']!="?")?$result[$i]['match_localteam_score']:-1;
         $g2=($result[$i]['match_visitorteam_score']!="?")?$result[$i]['match_visitorteam_score']:-1;
 
@@ -568,5 +569,112 @@ class Parser
         //self::Logging(" parsing inf. about match (".$api_match_id.")",false," end");
 
     }
+
+
+
+
+
+
+//$json = "http://football-api.com/api/?Action=commentaries&APIKey=81ff7420-f592-b39e-ed4f909fcc11&match_id=1933858";
+//$json = "http://football-api.com/api/?Action=fixtures&APIKey=".$key."&comp_id=1204&&match_date=22.11.2014";
+
+    static function UpdateDate($date){
+
+        //$format = 'Y-m-d H:i:s';
+        //$date=date("d.m.Y",strtotime(gmdate($format)));//20.11.2014
+
+        echo $date;
+        //$json = "http://football-api.com/api/?Action=fixtures&APIKey=".self::$key."&comp_id=".self::$comp."&&match_date=".$date;
+
+        $json = "http://football-api.com/api/?Action=fixtures&APIKey=".self::$key."&comp_id=".self::$comp."&&match_date=".$date;
+        //echo $json;
+        $info = json_decode(file_get_contents($json),true);
+        if (!isset($info["matches"])) {
+            echo "No match today2..";
+            self::Logging("--- No match in this date.. (".$date.")",false);
+            Yii::app()->end();
+        }
+        $result=$info["matches"];//[0];
+
+        $N=count($result);
+        echo $N."\n";
+        for($i=0;$i<$N;$i++){
+
+            $api_match_id=$result[$i]['match_id'];
+            $team1=$result[$i]['match_localteam_name'];
+            $team2=$result[$i]['match_visitorteam_name'];
+            $team1_id=$result[$i]['match_localteam_id'];
+            $team2_id=$result[$i]['match_visitorteam_id'];
+
+            $home_team=null;
+            $away_team=null;
+            $match_id=null;
+
+            $match= SoccerMatch::model()->find('f_api_id=:id',array(
+                ':id'=>$api_match_id,
+            ));
+
+            if ($match) {
+                $match_id=$match->id;
+                $home_team=$match->hometeam_id;
+                $away_team=$match->awayteam_id;
+            } else {
+
+                $home_team=SoccerTeam::model()->find('f_api_id=:id',array(':id'=>$team1_id,));
+                $away_team=SoccerTeam::model()->find('f_api_id=:id',array(':id'=>$team2_id,));
+
+                $home_team=$home_team->id;
+                $away_team=$away_team->id;
+
+                $match = SoccerMatch::model()->find('hometeam_id=:hid AND awayteam_id=:aid',array(
+                    ':hid'=>$home_team,
+                    ':aid'=>$away_team,
+                ));
+
+                //print_r($match);
+
+                $match->f_api_id=$api_match_id;
+                $match->save();
+                $match_id=$match->id;
+            }
+            $g1=($result[$i]['match_localteam_score']!="?")?$result[$i]['match_localteam_score']:-1;
+            $g2=($result[$i]['match_visitorteam_score']!="?")?$result[$i]['match_visitorteam_score']:-1;
+
+            $match->homegoals=$g1;
+            $match->awaygoals=$g2;
+            $match->status=$result[$i]['match_status'];
+            if (!$match->save()){
+                print_r($match->getErrors());
+            };
+
+
+            //echo $match->f_api_id."\n";
+            self::Logging("--- updating match with id: ".$match->id." (".$match->f_api_id.")",false,"start");
+            self::UpdateMatch($match->f_api_id,$match->hometeam_id,$match->awayteam_id,false);
+            //self::Logging("--- updating match with id: ".$match->id." (".$match->f_api_id.")",false,"end");
+
+        }
+
+
+        self::Logging("--- updating list of matchs (".$date.")",false);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

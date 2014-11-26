@@ -229,6 +229,35 @@ class SoccerMatch extends CActiveRecord
         return 5;
     }
 
+    public static function getCurrentMatchDay() {
+        $date=date("Y-m-d H:i:s",strtotime("now"));
+        $matches=SoccerMatch::model()->Find('date>:date',array('date'=>$date));
+        return $matches['matchday'];
+
+    }
+
+    public static function getStatsForChars($id) {
+        $N=self::getCurrentMatchDay();
+        for($i=1;$i<$N;$i++){
+            $result['place'][$i]=self::getTable($id,$i,true);
+            $result['res'][$i]=self::getResultMatchJS($id,$i);
+        }
+        return $result;
+    }
+
+    public static function getResultMatchJS($id,$matchday) {
+        $match=SoccerMatch::model()->Find('(hometeam_id=:hid OR awayteam_id=:hid) AND matchday=:mday',array('hid'=>$id,'mday'=>$matchday));
+        $result=0;
+        if ($id==$match->hometeam_id){
+            if ($match->homegoals>$match->awaygoals) $result=1;
+            elseif ($match->homegoals<$match->awaygoals) $result=-1;
+        } else {
+            if ($match->homegoals>$match->awaygoals) $result=-1;
+            elseif ($match->homegoals<$match->awaygoals) $result=1;
+        }
+        return $result;
+    }
+
     public static function getTable($id,$matchday=38,$count=false){
         $teams=SoccerTeam::model()->FindAll(); // find team in tournament (current season)
         for($i=0;$i<count($teams);$i++) {
@@ -248,35 +277,56 @@ class SoccerMatch extends CActiveRecord
                 if ($id==$teams[$i]->id) return ($i+1);
             }
         }
+
+        $matches=SoccerMatch::model()->FindAll('status = "FT"');
+        //print_r($matches);
+
         $result['teams']=$teams;
         $result['stats']=$stats;
+        $result['current']=$matches[count($matches)-1]->matchday;
         return $result;
     }
 
-    public static function getLastMatch($id,$count=5,$matchday=38){
+    public static function getLastMatch($id,$count=5,$matchday=38,$stadium=false){
+        if (!$stadium) {
         $matches=SoccerMatch::model()->FindAll('(hometeam_id=:hid OR awayteam_id=:hid) AND status="FT"',array('hid'=>$id));
+        } else {
+            $matches=SoccerMatch::model()->FindAll('(hometeam_id=:hid OR awayteam_id=:hid) AND status="FT" AND stadium_id=:st',array('hid'=>$id,'st'=>$stadium));
+        }
         //print_r($matches);
         $games=array(); $k=$count-1;
         for ($i=count($matches)-1;$i>=0;$i--) {
             if ($k==-1) break;
             $games[$k--]=$matches[$i];
         }
+        $games=array_reverse($games);
         return $games;
     }
 
     public static function getNextMatch($id,$count=5,$matchday=38){
-        $matches=SoccerMatch::model()->FindAll('(hometeam_id=:hid OR awayteam_id=:hid)',array('hid'=>$id));
+        $date=date("Y-m-d 00:00:00",strtotime("now"));
+        $matches=SoccerMatch::model()->FindAll('(hometeam_id=:hid OR awayteam_id=:hid) AND date>:date',array('hid'=>$id,'date'=>$date));
         //print_r($matches);
-        $games=array(); $k=$count-1;
+        $games=array(); $k=0;
+        for ($i=0;$i<count($matches);$i++) {
+            if ($k==$count) break;
+            $games[$k++]=$matches[$i];
+        }
+
+        /*$games=array(); $k=$count-1;
         for ($i=count($matches)-1;$i>=0;$i--) {
             if ($k==-1) break;
             $games[$k--]=$matches[$i];
-        }
+        }*/
         return $games;
     }
 
+
     public static function getTeamStats($id,$matchday=38){
         //$teams=SoccerTeam::model()->FindAll();//'',array(''=>''));
+        //$matchday++;
+        //$matchday=38;
+        //echo $matchday." ";
         $stats['score']=0;
         $stats['game']=0;
         $stats['goal1']=0;
@@ -285,7 +335,7 @@ class SoccerMatch extends CActiveRecord
         $stats['loses']=0;
         $stats['draws']=0;
 
-        $matches=SoccerMatch::model()->FindAll('hometeam_id=:hid AND status="FT"',array('hid'=>$id));
+        $matches=SoccerMatch::model()->FindAll('hometeam_id=:hid AND status="FT" AND matchday<=:matchday',array('hid'=>$id,'matchday'=>$matchday));
         for($i=0;$i<count($matches);$i++) {
             $stats['goal1']+=$matches[$i]->homegoals;
             $stats['goal2']+=$matches[$i]->awaygoals;
@@ -303,7 +353,7 @@ class SoccerMatch extends CActiveRecord
                 $stats['loses']++;
             }
         }
-        $matches=SoccerMatch::model()->FindAll('awayteam_id=:aid AND status="FT"',array('aid'=>$id));
+        $matches=SoccerMatch::model()->FindAll('awayteam_id=:aid AND status="FT" AND matchday<=:matchday',array('aid'=>$id,'matchday'=>$matchday));
 
         for($i=0;$i<count($matches);$i++) {
             $stats['goal2']+=$matches[$i]->homegoals;

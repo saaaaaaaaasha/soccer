@@ -2,6 +2,10 @@
 
 class Text
 {
+
+    static function getSiteName(){
+        return 'LIONSHOT.ru';
+    }
     static function GetShotName2($str,$russian=true){
         if ($str=="Манчестер Юнайтед") return "МЮ";
         elseif ($str=="Манчестер Сити") return "МС";

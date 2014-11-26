@@ -22,7 +22,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
  
@@ -33,6 +33,12 @@
 		<?php echo $form->error($model,'video'); ?>
 	</div>
 
+        <div class="row">
+		<?php echo $form->labelEx($model,'image'); ?>
+                <?php echo $form->fileField($model, 'image');?>
+		<?php echo $form->error($model,'image'); ?>
+	</div>
+        
 	<div class="row">
 		<?php echo $form->labelEx($model,'text'); ?>
 		<?php echo $form->textArea($model,'text',array('rows'=>6, 'cols'=>50)); ?>              

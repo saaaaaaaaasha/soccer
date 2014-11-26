@@ -1,0 +1,54 @@
+.post{
+   font-family:Verdana,sans-serif; 
+   margin-bottom:40px
+}
+
+.post img{
+       max-width: 530px;
+       height: auto;
+}
+
+.newsline img, .newsline video {
+    max-width: 200px;
+    height:auto;
+    
+    float:left; 
+    margin: 7px 7px 7px 0; 
+}
+.mainnews img{
+    max-width: 400px;
+    height:auto;
+    margin-bottom: 7px;
+}
+
+.post .title h1 a{
+    color:#666;
+    text-decoration:none
+ }
+.post .title h1 a:hover{ 
+    color:#a3a3a3;
+    text-decoration:underline;
+}
+
+.post .title h1 a:visited{
+    color:#b5b5b5
+}
+
+.post .author{
+    color:#7e7e7e;
+    font-size:11px;
+    padding-top:2px;
+    margin-bottom:15px    
+            
+}
+
+.post .nav a{
+
+}
+
+.comment{
+    margin-bottom:15px    
+}
+
+
+.clear {clear:both;}

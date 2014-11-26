@@ -18,6 +18,10 @@ class ParseCommand extends CConsoleCommand
         Parser::Today();
     }
 
+    public function actionDate($date){
+        Parser::UpdateDate($date);
+    }
+
     public function actionUpdate($args){
         Parser::Update();
     }

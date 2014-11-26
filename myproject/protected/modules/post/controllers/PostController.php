@@ -56,28 +56,28 @@ class PostController extends Controller
 	public function actionIndex()
 	{
             
-    
-           
-                             
-                
 		$criteria = new CDbCriteria(array(
                     'order'=>'update_time DESC',                    
                 ));
                 
-                if(isset($_GET['tag']))
+                if(isset($_GET['tag'])){
                     $criteria->addSearchCondition('tags',$_GET['tag']);
-                
+                 
+                }
                 $model = Post::model()->find($criteria);
-                           
+                               
                 $criteria=new CDbCriteria(array(
                     'condition'=>'status='.Post::STATUS_PUBLISHED.' AND id<>:id',
                     'order'=>'update_time DESC',
                     'with'=>'commentCount',
                     'params'=>array(':id'=>$model->id),
                 ));
-                if(isset($_GET['tag']))
+                if(isset($_GET['tag'])){
                     $criteria->addSearchCondition('tags',$_GET['tag']);
-
+                  
+                
+                }
+                
                 $dataProvider=new CActiveDataProvider('Post', array(
                     'pagination'=>array(
                         'pageSize'=>4
@@ -118,6 +118,8 @@ class PostController extends Controller
                     'criteria'=>$criteria,
                 ));
 
+                var_dump($dataProvider->data);
+                
                 $this->render('search',array(
                     'dataProvider'=>$dataProvider
                 ));

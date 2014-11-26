@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 24 2014 г., 21:34
+-- Время создания: Ноя 26 2014 г., 13:08
 -- Версия сервера: 5.6.20
 -- Версия PHP: 5.5.15
 
@@ -122,6 +122,44 @@ INSERT INTO `tbl_comments` (`owner_name`, `owner_id`, `comment_id`, `parent_comm
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `tbl_forecast`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_forecast` (
+`id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `homegoals` int(11) NOT NULL,
+  `awaygoals` int(11) NOT NULL,
+  `scores` int(11) DEFAULT '0'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+
+--
+-- Дамп данных таблицы `tbl_forecast`
+--
+
+INSERT INTO `tbl_forecast` (`id`, `user_id`, `match_id`, `homegoals`, `awaygoals`, `scores`) VALUES
+(1, 42, 113, 1, 2, 2),
+(2, 42, 114, 7, 7, 1),
+(3, 42, 115, 3, 4, 0),
+(4, 42, 116, 5, 6, 1),
+(5, 42, 8, 3, 3, 0),
+(6, 42, 15, 1, 3, 5),
+(7, 42, 17, 4, 5, 6),
+(8, 5, 20, 6, 7, 0),
+(9, 1, 113, 1, 2, 5),
+(10, 1, 114, 2, 2, 1),
+(11, 1, 115, 0, 0, 0),
+(12, 1, 116, 5, 5, 5),
+(13, 2, 113, 1, 2, 0),
+(14, 2, 114, 1, 1, 3),
+(15, 2, 116, 2, 0, 0),
+(16, 3, 117, 2, 0, 4),
+(17, 3, 118, 7, 7, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `tbl_friend`
 --
 
@@ -200,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `tbl_likes` (
   `owner_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `owner_name` varchar(100) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=145 ;
 
 --
 -- Дамп данных таблицы `tbl_likes`
@@ -208,8 +246,9 @@ CREATE TABLE IF NOT EXISTS `tbl_likes` (
 
 INSERT INTO `tbl_likes` (`id`, `owner_id`, `user_id`, `owner_name`) VALUES
 (119, 2, 42, 'Video'),
-(123, 7, 42, 'Post'),
-(124, 3, 42, 'Post');
+(139, 8, 42, 'Post'),
+(143, 17, 42, 'Video'),
+(144, 3, 42, 'Post');
 
 -- --------------------------------------------------------
 
@@ -247,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `tbl_mchat` (
   `user_id` int(11) NOT NULL,
   `text` text NOT NULL,
   `date` datetime NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Дамп данных таблицы `tbl_mchat`
@@ -284,7 +323,9 @@ INSERT INTO `tbl_mchat` (`id`, `user_id`, `text`, `date`) VALUES
 (28, 1, 'ееееее)))   получилось!', '2014-11-22 16:02:54'),
 (29, 42, 'сегодня играет Ливерпуль, надеюсь на легкую победу))', '2014-11-23 08:17:43'),
 (30, 1, 'проверка сообщений, отправленных,через вайфай', '2014-11-24 10:36:01'),
-(31, 42, ' :)  :D ', '2014-11-24 11:08:30');
+(31, 42, ' :)  :D ', '2014-11-24 11:08:30'),
+(32, 1, 'проверка скрипта UrlManager на JS :) ', '2014-11-25 07:41:15'),
+(33, 1, 'и ещё одна проверочка', '2014-11-25 07:41:50');
 
 -- --------------------------------------------------------
 
@@ -345,12 +386,12 @@ CREATE TABLE IF NOT EXISTS `tbl_post` (
 --
 
 INSERT INTO `tbl_post` (`id`, `title`, `content`, `tags`, `status`, `create_time`, `update_time`, `author_id`, `preview`, `image`) VALUES
-(3, 'Рыбатекст, встречайте!', '<p>\r\n	<img alt="" src="http://static.diary.ru/userdir/6/8/7/6/687665/29160535.jpg" style="height:258px; width:369px" /><br />\r\n	Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности способствует подготовки и реализации форм развития. <strong>Не следует, однако забывать, что постоянный&nbsp;</strong><strong>количественный рост и сфера нашей активности позволяет оценить значение систем массового участия.</strong><!--cut-->Равным образом сложившаяся структура организации позволяет выполнять важные задания по разработке существенных финансовых и административных условий. Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности способствует подготовки и реализации форм развития. <strong>Не следует, однако забывать, что<iktomi-cut><mooo></mooo></iktomi-cut> постоянный количественный рост и сфера нашей активности позволяет оценить значение систем массового участия.</strong> Равным образом сложившаяся структура организации позволяет выполн [cut]ять важные задания по разработке существенных финансовых и административных условий. Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение нашей деятельности способствует подготовки и реализации форм развития. <strong>Не следует, однако забывать, что постоянный количественн<iktomi-cut><cut></cut></iktomi-cut>ый рост и сфера нашей активности позволяет оценить значение систем массового участия.</strong> Равным образом сложившаяся структура организации позволяет выполнять важные задания по разработке существенных финансовых и административных условий.</p>\r\n', 'ddd', 2, 1415336475, 1416306880, 1, '<p>Задача организации, в особенности же постоянное\r\nинформационно-пропагандистское обеспечение нашей деятельности\r\nспособствует подготовки и реализации форм развития. Не следует,\r\nоднако забывать, что постоянный&nbsp;количественный рост и сфера\r\nнашей активности позволяет оценить значение систем массового\r\nучастия.</p>', 'http://static.diary.ru/userdir/6/8/7/6/687665/29160535.jpg'),
-(4, 'Самым известным «рыбным»', '<p>\r\n	<img alt="" height="313" src="http://www.aronsky.ru/wp-content/uploads/network-people.png" width="383" /></p>\r\n<p>\r\n	Каждый веб-разработчик знает, что такое текст-&laquo;рыба&raquo;.Текст этот, несмотря на название, не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для вставки на<strong> интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов и т.д. Так как цель применения такого текста исключительно демонстрационная, то и смысловую нагрузку ему нести совсем необязательно. Более того, нечитабельность текста сыграет на руку при оценке качества восприятия макета.<!--cut--><br />\r\n	Самым известным &laquo;рыбным&raquo; текстом является знаменитый Lorem ipsum. Считается, что впервые его применили в книгопечатании еще в </strong>XVI веке. Своим появлением Lorem ipsum обязан древнеримскому философу Цицерону, ведь именно из его трактата &laquo;О пределах добра и зла&raquo; средневековый книгопечатник вырвал отдельные фразы и слова, получив текст-&laquo;рыбу&raquo;, широко используемый и по сей день. Конечно, возникают некоторые вопросы, связанные с использованием Lorem ipsum на сайтах и проектах, ориентированных на кириллический контент &ndash; написание символов на латыни и на кириллице значительно различается.<br />\r\n	И даже с языками, использующими латинский алфавит, могут возникнуть небольшие проблемы: в различных языках те или иные буквы встречаются с разной частотой, имеется разница в длине наиболее распространенных слов. Отсюда напрашивается вывод, что все же лучше использовать в качестве &laquo;рыбы&raquo; текст на том языке, который планируется использовать при запуске проекта. Сегодня существует несколько вариантов Lorem ipsum, кроме того, есть специальные генераторы, создающие собственные варианты текста на основе оригинального трактата, благодаря чему появляется возможность получить более длинный неповторяющийся набор слов.</p>\r\n', 'sdfsd', 2, 1416195848, 1416307011, 1, '<p>Каждый веб-разработчик знает, что такое текст-«рыба».Текст этот,\r\nнесмотря на название, не имеет никакого отношения к обитателям\r\nводоемов. Используется он веб-дизайнерами для вставки на\r\nинтернет-страницы и демонстрации внешнего вида контента, просмотра\r\nшрифтов, абзацев, отступов и т.д. Так как цель применения такого\r\nтекста исключительно демонстрационная, то и смысловую нагрузку ему\r\nнести совсем необязательно. Более того, нечитабельность текста\r\nсыграет на руку при оценке качества восприятия макета.</p>', 'http://www.aronsky.ru/wp-content/uploads/network-people.png'),
-(5, 'Третий пост!', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="285" src="http://soft.mail.ru/Screens/news/2012/03/02/te_341496.jpg" width="350" /></p>\r\n	&quot;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.<!--cut--> Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?&quot;</div>\r\n', 'fdgdfgdf', 2, 1416196131, 1416304644, 1, '"But I must explain to you how all this mistaken idea of denouncing\r\npleasure and praising pain was born and I will give you a complete\r\naccount of the system, and expound the actual teachings of the\r\ngreat explorer of the truth, the master-builder of human happiness.\r\nNo one rejects, dislikes, or avoids pleasure itself, because it is\r\npleasure, but because those who do not know how to pursue pleasure\r\nrationally encounter consequences that are extremely painful.', 'http://soft.mail.ru/Screens/news/2012/03/02/te_341496.jpg'),
-(6, 'Четверный пост', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="250" src="http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg" width="500" /></p>\r\n	<p>\r\n		Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.<!--cut--></p>\r\n	<p>\r\n		Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.</p>\r\n	<p>\r\n		Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\r\n</div>\r\n', 'dsfds', 2, 1416196202, 1416304636, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>', 'http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg'),
-(7, 'Пятый пост', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="365" src="http://jelezyka.com/uploads/posts/2012-12/1354313188_kak-sozdat-i-nastroit-provodnuyu-lokalnuyu-set.jpg" width="567" /></p>\r\n	<p>\r\n		Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.<!--cut--></p>\r\n	<p>\r\n		Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.</p>\r\n	<p>\r\n		Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\r\n</div>\r\n', 'dsfsd', 2, 1416196323, 1416307476, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>', 'http://jelezyka.com/uploads/posts/2012-12/1354313188_kak-sozdat-i-nastroit-provodnuyu-lokalnuyu-set.jpg'),
-(8, 'Шестой пост', '<p>\n	<img alt="" height="250" src="http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg" width="500" /></p>\n<p>\n	Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.</p>\n<p>\n	Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.<!--cut--></p>\n<p>\n	Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\n', 'dsfdfs', 2, 1416196382, 1416304601, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>\r\n<p>Очевидно, имел успех и которого вронский был. Пажеском корпусе,\r\n– вроде того чтобы. Вслух, заметив: надо их придется отослать\r\nназад, если новый человек в провинции. Аркадьич, которому было у\r\nнего прозвище в повар вронского, привезенный из единомышленных.\r\nЩербацкой, который устраивала его жена, желающая с каким молодую\r\nженщину называют. Либеральной среде, в которой все было.\r\nКонфузившийся пред анной, и землевладельца. Прозвище в этот день у\r\nнего.</p>\r\n<p>Столом, празднуя выбор неведовского, он чувствовал сам, что,\r\nесли он. Найти представителя того положения дворянина и многие из\r\nединомышленных, либеральных новых. Восторга, не выразить восторга\r\nне. Назад, если он продиктовал ее вслух, заметив надо. Получив\r\nдепешу, только вздохнула о рубле за телеграмму. Madame и учредивший\r\nпроцветающий банк в этот день у себя под. Уступил ему кучу ни к\r\nневедовскому: лучше нельзя было.</p>', 'http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg');
+(3, '«Тоттенхэм» вырвал победу у «Халла»', '<p>\r\n	<img alt="" height="333" src="http://www.ftbl.ru/upload/medialibrary/640/640d29f51365289c6ce0b2b30f08581b.jpg" width="500" /></p>\r\n<div itemprop="description">\r\n	<p>\r\n		Международная федерация футбола (ФИФА) и&nbsp;Профсоюз футболистов (ФИФПро) определились со&nbsp;списком голкиперов, претендующих на попадание в&nbsp;команду года.<!--cut--></p>\r\n	<p>\r\n		Сообщается, что в&nbsp;шорт-лист вошли вратарь сборной Германии и&nbsp;мюнхенской &laquo;Баварии&raquo; <a href="http://news.sportbox.ru/Vidy_sporta/Futbol/Manueli-Noyer-Futbol-27031986">Мануэль Нойер</a>, страж ворот сборной Италии и&nbsp;туринского &laquo;Ювентуса&raquo; <a href="http://news.sportbox.ru/Vidy_sporta/Futbol/Dzhanluidzhi-Buffon-Futbol-28011978">Джанлуиджи Буффон</a>, голкипер &laquo;Челси&raquo; и&nbsp;сборной Бельгии <a href="http://news.sportbox.ru/Vidy_sporta/Futbol/Tibo-Kurtua-Futbol-11051992">Тибо Куртуа</a>, вратарь сборной Испании и&nbsp;&laquo;Реала&raquo; <a href="http://news.sportbox.ru/Vidy_sporta/Futbol/Iker-Kasiliyas-Futbol-20051981">Икер Касильяс</a>, а&nbsp;также <a href="http://news.sportbox.ru/Vidy_sporta/Futbol/Klaudio-Bravo-Futbol-13041983">Клаудио Браво</a>, защищающий цвета &laquo;Барселоны&raquo; и&nbsp;сборной Чили.</p>\r\n	<p>\r\n		<img alt="" /><img alt="" height="706" src="/upload/userfiles/images/b1ce4caa6153e1a7bc438130eaa3d7fc.png" width="1027" /></p>\r\n	<p>\r\n		Добавим, что список всех 55 претендентов на&nbsp;попадание в сборную года будет опубликован 1 декабря.</p>\r\n</div>\r\n', 'Футбол, Спорт', 2, 1415336475, 1416901456, 1, '<p>Международная федерация футбола (ФИФА) и&nbsp;Профсоюз\r\nфутболистов (ФИФПро) определились со&nbsp;списком голкиперов,\r\nпретендующих на попадание в&nbsp;команду года.</p>', '547322b742d00.jpg'),
+(4, 'Самым известным «рыбным»', '<p>\r\n	<img alt="" height="467" src="http://i.imgur.com/PiPlGRj.jpg" width="740" /></p>\r\n<p>\r\n	Каждый веб-разработчик знает, что такое текст-&laquo;рыба&raquo;.Текст этот, несмотря на название, не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для вставки на<strong> интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов, абзацев, отступов и т.д. Так как цель применения такого текста исключительно демонстрационная, то и смысловую нагрузку ему нести совсем необязательно. Более того, нечитабельность текста сыграет на руку при оценке качества восприятия макета.<!--cut--><br />\r\n	Самым известным &laquo;рыбным&raquo; текстом является знаменитый Lorem ipsum. Считается, что впервые его применили в книгопечатании еще в </strong>XVI веке. Своим появлением Lorem ipsum обязан древнеримскому философу Цицерону, ведь именно из его трактата &laquo;О пределах добра и зла&raquo; средневековый книгопечатник вырвал отдельные фразы и слова, получив текст-&laquo;рыбу&raquo;, широко используемый и по сей день. Конечно, возникают некоторые вопросы, связанные с использованием Lorem ipsum на сайтах и проектах, ориентированных на кириллический контент &ndash; написание символов на латыни и на кириллице значительно различается.<br />\r\n	И даже с языками, использующими латинский алфавит, могут возникнуть небольшие проблемы: в различных языках те или иные буквы встречаются с разной частотой, имеется разница в длине наиболее распространенных слов. Отсюда напрашивается вывод, что все же лучше использовать в качестве &laquo;рыбы&raquo; текст на том языке, который планируется использовать при запуске проекта. Сегодня существует несколько вариантов Lorem ipsum, кроме того, есть специальные генераторы, создающие собственные варианты текста на основе оригинального трактата, благодаря чему появляется возможность получить более длинный неповторяющийся набор слов.</p>\r\n', 'Спорт', 2, 1416195848, 1416901397, 1, '<p>Каждый веб-разработчик знает, что такое текст-«рыба».Текст этот,\r\nнесмотря на название, не имеет никакого отношения к обитателям\r\nводоемов. Используется он веб-дизайнерами для вставки на\r\nинтернет-страницы и демонстрации внешнего вида контента, просмотра\r\nшрифтов, абзацев, отступов и т.д. Так как цель применения такого\r\nтекста исключительно демонстрационная, то и смысловую нагрузку ему\r\nнести совсем необязательно. Более того, нечитабельность текста\r\nсыграет на руку при оценке качества восприятия макета.</p>', '54731f8e9b6a0.jpg'),
+(5, 'Третий пост!', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="285" src="http://soft.mail.ru/Screens/news/2012/03/02/te_341496.jpg" width="350" /></p>\r\n	&quot;But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful.<!--cut--> Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?&quot;</div>\r\n', 'fdgdfgdf', 2, 1416196131, 1416830874, 1, '"But I must explain to you how all this mistaken idea of denouncing\r\npleasure and praising pain was born and I will give you a complete\r\naccount of the system, and expound the actual teachings of the\r\ngreat explorer of the truth, the master-builder of human happiness.\r\nNo one rejects, dislikes, or avoids pleasure itself, because it is\r\npleasure, but because those who do not know how to pursue pleasure\r\nrationally encounter consequences that are extremely painful.', '54731f9a68d97.jpg'),
+(6, 'Четверный пост', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="250" src="http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg" width="500" /></p>\r\n	<p>\r\n		Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.<!--cut--></p>\r\n	<p>\r\n		Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.</p>\r\n	<p>\r\n		Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\r\n</div>\r\n', 'dsfds', 2, 1416196202, 1416830884, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>', '54731fa46f782.jpg'),
+(7, 'Пятый пост', '<div class="out out-pattern" style="opacity: 1;">\r\n	<p>\r\n		<img alt="" height="365" src="http://jelezyka.com/uploads/posts/2012-12/1354313188_kak-sozdat-i-nastroit-provodnuyu-lokalnuyu-set.jpg" width="567" /></p>\r\n	<p>\r\n		Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.<!--cut--></p>\r\n	<p>\r\n		Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.</p>\r\n	<p>\r\n		Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\r\n</div>\r\n', 'dsfsd', 2, 1416196323, 1416830894, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>', '54731fae318a1.jpg'),
+(8, 'Шестой пост', '<p>\r\n	<img alt="" height="250" src="http://joomlaworld.ru/uploads/images/5/2/e/f/1/f2476d07c4.jpg" width="500" /></p>\r\n<p>\r\n	Их придется отослать назад, если новый губернский предводитель и еще веселее. Новых деятелей и весело провел время и теперь у себя. Свитский генерал самые выборы и уважителен для нейдущих глупостей, каждый дворянин. Которой все его сидел в провинции. Всех это своим юным, непоколебимым. Исполнить все обязанности того положения дворянина. Это, что его богатство и уважителен отплатить свияжскому поддержкой.</p>\r\n<p>\r\n	Очевидно, имел успех и которого вронский был. Пажеском корпусе, &ndash; вроде того чтобы. Вслух, заметив: надо их придется отослать назад, если новый человек в провинции. Аркадьич, которому было у него прозвище в повар вронского, привезенный из единомышленных. Щербацкой, который устраивала его жена, желающая с каким молодую женщину называют. Либеральной среде, в которой все было. Конфузившийся пред анной, и землевладельца. Прозвище в этот день у него.<!--cut--></p>\r\n<p>\r\n	Столом, празднуя выбор неведовского, он чувствовал сам, что, если он. Найти представителя того положения дворянина и многие из единомышленных, либеральных новых. Восторга, не выразить восторга не. Назад, если он продиктовал ее вслух, заметив надо. Получив депешу, только вздохнула о рубле за телеграмму. Madame и учредивший процветающий банк в этот день у себя под. Уступил ему кучу ни к неведовскому: лучше нельзя было.</p>\r\n', 'dsfdfs', 2, 1416196382, 1416830905, 1, '<p>Их придется отослать назад, если новый губернский предводитель и\r\nеще веселее. Новых деятелей и весело провел время и теперь у себя.\r\nСвитский генерал самые выборы и уважителен для нейдущих глупостей,\r\nкаждый дворянин. Которой все его сидел в провинции. Всех это своим\r\nюным, непоколебимым. Исполнить все обязанности того положения\r\nдворянина. Это, что его богатство и уважителен отплатить свияжскому\r\nподдержкой.</p>\r\n<p>Очевидно, имел успех и которого вронский был. Пажеском корпусе,\r\n– вроде того чтобы. Вслух, заметив: надо их придется отослать\r\nназад, если новый человек в провинции. Аркадьич, которому было у\r\nнего прозвище в повар вронского, привезенный из единомышленных.\r\nЩербацкой, который устраивала его жена, желающая с каким молодую\r\nженщину называют. Либеральной среде, в которой все было.\r\nКонфузившийся пред анной, и землевладельца. Прозвище в этот день у\r\nнего.</p>', '54731fb9c33f9.jpg');
 
 -- --------------------------------------------------------
 
@@ -377,7 +418,7 @@ CREATE TABLE IF NOT EXISTS `tbl_profiles` (
 --
 
 INSERT INTO `tbl_profiles` (`user_id`, `lastname`, `firstname`, `avatar`, `date_birth`, `vk_id`, `city`, `country`, `site`, `twitter_id`, `last_activity`) VALUES
-(1, 'Admin', 'Administrator', 'assets/3wHwuWCAzDSlSu0fu-sN/2014-11-03_115120.jpg', '1993-10-20', 'morgunov.sasha', '', '', '', '', 1416856191),
+(1, 'Admin', 'Administrator', 'assets/3wHwuWCAzDSlSu0fu-sN/2014-11-03_115120.jpg', '1993-10-20', 'morgunov.sasha', '', '', '', '', 1416936023),
 (2, 'Demo', 'Demo', 'assets/AJwEnMUNsv6_nbDOzxzf/2014-11-03_115137.jpg', '0000-00-00', '', '', '', '', '', 1416511234),
 (3, 'Моргунов', 'Александр', 'assets/CzJK1R8jlPQmqH4TwSfo/14548.png', '0000-00-00', '', '', '', '', '', 0),
 (4, 'Моргунов', 'Александр', 'assets/KfRB9IT-TVGLWaLdmx6/2014-11-03_115152.jpg', '0000-00-00', '', '', '', '', '', 0),
@@ -388,7 +429,7 @@ INSERT INTO `tbl_profiles` (`user_id`, `lastname`, `firstname`, `avatar`, `date_
 (9, 'Gerrard', 'Stiven', 'assets/uvbus7njtCinQlwwpi7i/noavatar6.png', '1993-12-22', '', 'Liverpool', 'England', '', '', 0),
 (38, 'Morgunov', 'Alexander', '', '1993-12-12', '', '', '', '', '', 1416305460),
 (41, 'Иванов', 'Саша', 'assets/-BBCe313TSGwjNw3dMv/piq_148125_400x400.png', '0000-00-00', '', '', '', '', '', 1416335308),
-(42, 'Возняк', 'Максим', 'assets/oj8bzwpnJJo-I_wrR-Rx/9019515.jpg', '1993-12-22', '', 'Новосибирск', '', '', '', 1416824047);
+(42, 'Возняк', 'Максим', 'assets/oj8bzwpnJJo-I_wrR-Rx/9019515.jpg', '1993-12-22', '', 'Новосибирск', '', '', '', 1417003340);
 
 -- --------------------------------------------------------
 
@@ -726,7 +767,7 @@ INSERT INTO `tbl_soccer_match` (`id`, `date`, `hometeam_id`, `awayteam_id`, `hom
 (119, '2014-11-22 17:30:00', 18, 3, 1, 2, 1, 18, 1955559, 12, '', 'FT'),
 (120, '2014-11-23 13:30:00', 6, 12, 3, 1, 1, 6, 1956162, 12, '', 'FT'),
 (121, '2014-11-23 16:00:00', 8, 11, 1, 2, 1, 8, 1956163, 12, '', 'FT'),
-(122, '2014-11-24 20:00:00', 7, 14, 1, 0, 1, 7, 1956637, 12, '', '34'),
+(122, '2014-11-24 20:00:00', 7, 14, 1, 1, 1, 7, 1956637, 12, '', 'FT'),
 (123, '2014-11-29 12:45:00', 10, 18, -1, -1, 1, 10, -1, 13, '', NULL),
 (124, '2014-11-29 15:00:00', 4, 7, -1, -1, 1, 4, -1, 13, '', NULL),
 (125, '2014-11-29 15:00:00', 12, 20, -1, -1, 1, 12, -1, 13, '', NULL),
@@ -1001,7 +1042,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_commentaries` (
   `important` int(11) DEFAULT NULL,
   `isgoal` int(11) DEFAULT NULL,
   `comment` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12218 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12300 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_commentaries`
@@ -13246,7 +13287,89 @@ INSERT INTO `tbl_soccer_match_commentaries` (`id`, `match_id`, `minute`, `import
 (12214, 122, 25, 0, 0, 'Attempt blocked. Ashley Westwood (Aston Villa) right footed shot from outside the box is blocked.'),
 (12215, 122, 23, 0, 0, 'Attempt blocked. Victor Wanyama (Southampton) right footed shot from the centre of the box is blocked. Assisted by Dusan Tadic.'),
 (12216, 122, 29, 1, 1, 'Goal!  Aston Villa 1, Southampton 0. Gabriel Agbonlahor (Aston Villa) right footed shot from the left side of the box to the bottom right corner. Assisted by Ciaran Clark.'),
-(12217, 122, 29, 1, 1, 'Goal!  Aston Villa 1, Southampton 0. Gabriel Agbonlahor (Aston Villa) left footed shot from the left side of the box to the bottom right corner. Assisted by Ciaran Clark.');
+(12217, 122, 29, 1, 1, 'Goal!  Aston Villa 1, Southampton 0. Gabriel Agbonlahor (Aston Villa) left footed shot from the left side of the box to the bottom right corner. Assisted by Ciaran Clark.'),
+(12218, 122, 32, 0, 0, 'Foul by Gabriel Agbonlahor (Aston Villa).'),
+(12219, 122, 31, 0, 0, 'Victor Wanyama (Southampton) wins a free kick on the right wing.'),
+(12220, 122, 31, 0, 0, 'Foul by Charles N''Zogbia (Aston Villa).'),
+(12221, 122, 32, 0, 0, 'Jose Fonte (Southampton) wins a free kick in the defensive half.'),
+(12222, 122, 33, 0, 0, 'Corner,  Southampton. Conceded by Andreas Weimann.'),
+(12223, 122, 34, 0, 0, 'Alan Hutton (Aston Villa) wins a free kick in the defensive half.'),
+(12224, 122, 33, 0, 0, 'Attempt blocked. Jose Fonte (Southampton) right footed shot from outside the box is blocked. Assisted by Morgan Schneiderlin with a headed pass.'),
+(12225, 122, 34, 0, 0, 'Foul by Sadio Mané (Southampton).'),
+(12226, 122, 36, 0, 0, 'Foul by Tom Cleverley (Aston Villa).'),
+(12227, 122, 36, 0, 0, 'Nathaniel Clyne (Southampton) wins a free kick in the defensive half.'),
+(12228, 122, 38, 0, 0, 'Corner,  Southampton. Conceded by Ashley Westwood.'),
+(12229, 122, 37, 0, 0, 'Corner,  Southampton. Conceded by Brad Guzan.'),
+(12230, 122, 37, 0, 0, 'Attempt saved. Sadio Mané (Southampton) right footed shot from the centre of the box is saved in the bottom right corner. Assisted by Dusan Tadic.'),
+(12231, 122, 39, 0, 0, 'Corner,  Southampton. Conceded by Aly Cissokho.'),
+(12232, 122, 90, 0, 0, 'Foul by Emmanuel Mayuka (Southampton).'),
+(12233, 122, 90, 0, 0, 'Alan Hutton (Aston Villa) wins a free kick in the defensive half.'),
+(12234, 122, 90, 0, 0, 'Foul by Graziano Pellè (Southampton).'),
+(12235, 122, 90, 0, 0, 'Ashley Westwood (Aston Villa) wins a free kick in the defensive half.'),
+(12236, 122, 90, 0, 0, 'Graziano Pellè (Southampton) wins a free kick in the defensive half.'),
+(12237, 122, 90, 0, 0, 'Foul by Ciaran Clark (Aston Villa).'),
+(12238, 122, 89, 0, 0, 'Substitution, Southampton. Jack Cork replaces Shane Long.'),
+(12239, 122, 88, 0, 0, 'Hand ball by Graziano Pellè (Southampton).'),
+(12240, 122, 86, 0, 0, 'Jores Okore (Aston Villa) wins a free kick in the attacking half.'),
+(12241, 122, 86, 0, 0, 'Foul by Graziano Pellè (Southampton).'),
+(12242, 122, 85, 0, 0, 'Foul by Emmanuel Mayuka (Southampton).'),
+(12243, 122, 85, 0, 0, 'Andreas Weimann (Aston Villa) wins a free kick in the defensive half.'),
+(12244, 122, 83, 0, 0, 'Nathaniel Clyne (Southampton) is shown the yellow card for a bad foul.'),
+(12245, 122, 82, 0, 0, 'Gabriel Agbonlahor (Aston Villa) wins a free kick on the left wing.'),
+(12246, 122, 82, 0, 0, 'Foul by Nathaniel Clyne (Southampton).'),
+(12247, 122, 81, 1, 1, 'Goal!  Aston Villa 1, Southampton 1. Nathaniel Clyne (Southampton) right footed shot from the centre of the box to the bottom left corner. Assisted by Ryan Bertrand with a cross.'),
+(12248, 122, 80, 0, 0, 'Foul by Morgan Schneiderlin (Southampton).'),
+(12249, 122, 80, 0, 0, 'Alan Hutton (Aston Villa) wins a free kick in the defensive half.'),
+(12250, 122, 79, 0, 0, 'Substitution, Southampton. Emmanuel Mayuka replaces Sadio Mané.'),
+(12251, 122, 78, 0, 0, 'Attempt missed. Andreas Weimann (Aston Villa) right footed shot from the centre of the box is too high. Assisted by Gabriel Agbonlahor following a fast break.'),
+(12252, 122, 77, 0, 0, 'Attempt blocked. Toby Alderweireld (Southampton) left footed shot from the centre of the box is blocked. Assisted by Nathaniel Clyne.'),
+(12253, 122, 77, 0, 0, 'Attempt missed. Nathaniel Clyne (Southampton) right footed shot from outside the box misses to the left following a corner.'),
+(12254, 122, 77, 0, 0, 'Corner,  Southampton. Conceded by Aly Cissokho.'),
+(12255, 122, 76, 0, 0, 'Attempt blocked. Toby Alderweireld (Southampton) left footed shot from the centre of the box is blocked.'),
+(12256, 122, 76, 0, 0, 'Attempt saved. Dusan Tadic (Southampton) left footed shot from a difficult angle and long range on the right is saved in the top centre of the goal.'),
+(12257, 122, 75, 0, 0, 'Shane Long (Southampton) wins a free kick on the right wing.'),
+(12258, 122, 75, 0, 0, 'Foul by Aly Cissokho (Aston Villa).'),
+(12259, 122, 74, 0, 0, 'Substitution, Aston Villa. Darren Bent replaces Carlos Sánchez.'),
+(12260, 122, 73, 0, 0, 'Offside, Southampton. Dusan Tadic tries a through ball, but Graziano Pellè is caught offside.'),
+(12261, 122, 72, 0, 0, 'Jores Okore (Aston Villa) is shown the yellow card for a bad foul.'),
+(12262, 122, 71, 0, 0, 'Shane Long (Southampton) wins a free kick on the left wing.'),
+(12263, 122, 71, 0, 0, 'Foul by Jores Okore (Aston Villa).'),
+(12264, 122, 67, 0, 0, 'Attempt missed. Victor Wanyama (Southampton) right footed shot from outside the box misses to the right.'),
+(12265, 122, 66, 0, 0, 'Sadio Mané (Southampton) wins a free kick on the left wing.'),
+(12266, 122, 66, 0, 0, 'Foul by Alan Hutton (Aston Villa).'),
+(12267, 122, 64, 0, 0, 'Substitution, Aston Villa. Kieran Richardson replaces Charles N''Zogbia.'),
+(12268, 122, 63, 0, 0, 'Foul by Sadio Mané (Southampton).'),
+(12269, 122, 63, 0, 0, 'Charles N''Zogbia (Aston Villa) wins a free kick in the defensive half.'),
+(12270, 122, 63, 0, 0, 'Nathaniel Clyne (Southampton) wins a free kick in the defensive half.'),
+(12271, 122, 63, 0, 0, 'Foul by Gabriel Agbonlahor (Aston Villa).'),
+(12272, 122, 58, 0, 0, 'Victor Wanyama (Southampton) is shown the yellow card for a bad foul.'),
+(12273, 122, 58, 0, 0, 'Tom Cleverley (Aston Villa) wins a free kick in the defensive half.'),
+(12274, 122, 58, 0, 0, 'Foul by Victor Wanyama (Southampton).'),
+(12275, 122, 57, 0, 0, 'Offside, Aston Villa. Ciaran Clark tries a through ball, but Gabriel Agbonlahor is caught offside.'),
+(12276, 122, 56, 0, 0, 'Hand ball by Graziano Pellè (Southampton).'),
+(12277, 122, 54, 0, 0, 'Foul by Shane Long (Southampton).'),
+(12278, 122, 54, 0, 0, 'Aly Cissokho (Aston Villa) wins a free kick in the defensive half.'),
+(12279, 122, 53, 0, 0, 'Shane Long (Southampton) wins a free kick in the defensive half.'),
+(12280, 122, 53, 0, 0, 'Foul by Tom Cleverley (Aston Villa).'),
+(12281, 122, 49, 0, 0, 'Sadio Mané (Southampton) wins a free kick in the attacking half.'),
+(12282, 122, 49, 0, 0, 'Foul by Jores Okore (Aston Villa).'),
+(12283, 122, 47, 0, 0, 'Attempt blocked. Charles N''Zogbia (Aston Villa) left footed shot from the centre of the box is blocked. Assisted by Andreas Weimann with a cross.'),
+(12284, 122, 45, 0, 0, 'Second Half begins Aston Villa 1, Southampton 0.'),
+(12285, 122, 0, 0, 0, 'Match ends, Aston Villa 1, Southampton 1.'),
+(12286, 122, 45, 0, 0, 'First Half ends, Aston Villa 1, Southampton 0.'),
+(12287, 122, 45, 0, 0, 'Offside, Southampton. Shane Long tries a through ball, but Sadio Mané is caught offside.'),
+(12288, 122, 45, 0, 0, 'Victor Wanyama (Southampton) wins a free kick in the attacking half.'),
+(12289, 122, 45, 0, 0, 'Foul by Charles N''Zogbia (Aston Villa).'),
+(12290, 122, 44, 0, 0, 'Sadio Mané (Southampton) wins a free kick in the attacking half.'),
+(12291, 122, 44, 0, 0, 'Foul by Alan Hutton (Aston Villa).'),
+(12292, 122, 43, 0, 0, 'Attempt missed. Carlos Sánchez (Aston Villa) right footed shot from more than 35 yards is too high. Assisted by Tom Cleverley following a corner.'),
+(12293, 122, 42, 0, 0, 'Corner,  Aston Villa. Conceded by Shane Long.'),
+(12294, 122, 42, 0, 0, 'Delay over. They are ready to continue.'),
+(12295, 122, 41, 0, 0, 'Delay in match Aly Cissokho (Aston Villa) because of an injury.'),
+(12296, 122, 40, 0, 0, 'Foul by Victor Wanyama (Southampton).'),
+(12297, 122, 40, 0, 0, 'Aly Cissokho (Aston Villa) wins a free kick in the attacking half.'),
+(12298, 122, 40, 0, 0, 'Attempt saved. Jose Fonte (Southampton) header from the centre of the box is saved in the centre of the goal. Assisted by Morgan Schneiderlin with a cross.'),
+(12299, 122, 90, 0, 0, 'Second Half ends, Aston Villa 1, Southampton 1.');
 
 -- --------------------------------------------------------
 
@@ -13262,7 +13385,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_event` (
   `team` int(11) DEFAULT NULL,
   `player_id` int(11) DEFAULT NULL,
   `result` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=770 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=774 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_event`
@@ -14027,7 +14150,11 @@ INSERT INTO `tbl_soccer_match_event` (`id`, `match_id`, `type`, `minute`, `team`
 (766, 121, '4', '63', 1, 210, ''),
 (767, 121, '1', '90', 2, 293, ''),
 (768, 121, '4', '90', 1, 208, ''),
-(769, 122, '1', '29', 1, 193, '');
+(769, 122, '1', '29', 1, 193, ''),
+(770, 122, '4', '72', 1, 176, ''),
+(771, 122, '1', '81', 2, 370, ''),
+(772, 122, '4', '58', 2, 381, ''),
+(773, 122, '4', '81', 2, 370, '');
 
 -- --------------------------------------------------------
 
@@ -14057,7 +14184,7 @@ INSERT INTO `tbl_soccer_match_online` (`id`, `match_id`, `hid`, `aid`, `status`)
 (14, 119, 18, 3, 'FT'),
 (15, 120, 6, 12, 'FT'),
 (16, 121, 8, 11, 'FT'),
-(17, 122, 7, 14, '34');
+(17, 122, 7, 14, '42');
 
 -- --------------------------------------------------------
 
@@ -18360,16 +18487,16 @@ INSERT INTO `tbl_soccer_match_player_stats` (`id`, `match_id`, `player_id`, `pos
 (4261, 121, 288, 'M', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4262, 121, 605, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4263, 121, 274, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, 2),
-(4264, 122, 176, 'CD-R', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4265, 122, 177, 'CD-L', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4266, 122, 179, 'RB', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4267, 122, 180, 'LB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4268, 122, 183, 'RM', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4269, 122, 185, 'CM', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4270, 122, 189, 'LM', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
-(4271, 122, 192, 'LF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4272, 122, 193, 'F', 2, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
-(4273, 122, 190, 'RF', NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, NULL, 1),
+(4264, 122, 176, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, 2, NULL, 1, NULL, NULL, NULL, 1),
+(4265, 122, 177, 'CD-L', NULL, NULL, NULL, 1, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4266, 122, 179, 'RB', NULL, NULL, NULL, NULL, NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4267, 122, 180, 'LB', NULL, NULL, NULL, NULL, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4268, 122, 183, 'RM', 1, NULL, NULL, NULL, NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4269, 122, 185, 'CM', 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4270, 122, 189, 'LM', 1, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 1),
+(4271, 122, 192, 'LF', 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(4272, 122, 193, 'F', 2, 1, 1, NULL, 1, 2, 2, NULL, NULL, NULL, NULL, NULL, 1),
+(4273, 122, 190, 'RF', 1, NULL, NULL, NULL, NULL, 1, 4, NULL, NULL, NULL, NULL, NULL, 1),
 (4274, 122, 173, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (4275, 122, 181, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (4276, 122, 184, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
@@ -18377,24 +18504,24 @@ INSERT INTO `tbl_soccer_match_player_stats` (`id`, `match_id`, `player_id`, `pos
 (4278, 122, 191, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (4279, 122, 182, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
 (4280, 122, 197, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4281, 122, 172, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
-(4282, 122, 370, 'RB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4283, 122, 373, 'CD-R', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
-(4284, 122, 374, 'CD-L', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4285, 122, 375, 'LB', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4286, 122, 378, 'LM', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4287, 122, 389, 'AM-R', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
-(4288, 122, 381, 'RM', 2, NULL, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
-(4289, 122, 387, 'AM', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4290, 122, 380, 'AM-L', 1, NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
-(4291, 122, 390, 'F', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4281, 122, 172, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL, 1),
+(4282, 122, 370, 'RB', 2, 1, 1, NULL, NULL, 3, 1, NULL, 1, NULL, NULL, NULL, 2),
+(4283, 122, 373, 'CD-R', 2, 1, NULL, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4284, 122, 374, 'CD-L', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4285, 122, 375, 'LB', NULL, NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4286, 122, 378, 'LM', 1, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4287, 122, 389, 'AM-R', 2, 1, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4288, 122, 381, 'RM', 3, NULL, NULL, NULL, NULL, 2, 3, NULL, 1, NULL, NULL, NULL, 2),
+(4289, 122, 387, 'AM', NULL, NULL, NULL, NULL, NULL, 4, 1, NULL, NULL, NULL, NULL, NULL, 2),
+(4290, 122, 380, 'AM-L', 2, 1, NULL, NULL, 2, 3, 3, NULL, NULL, NULL, NULL, NULL, 2),
+(4291, 122, 390, 'F', 1, NULL, NULL, NULL, 1, 1, 4, NULL, NULL, NULL, NULL, NULL, 2),
 (4292, 122, 366, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4293, 122, 371, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4294, 122, 372, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4295, 122, 377, 'D', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4296, 122, 383, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
 (4297, 122, 385, 'M', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
-(4298, 122, 391, 'F', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2),
+(4298, 122, 391, 'F', NULL, NULL, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 2),
 (4299, 122, 367, 'G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2);
 
 -- --------------------------------------------------------
@@ -20542,21 +20669,21 @@ INSERT INTO `tbl_soccer_match_stats` (`id`, `match_id`, `type`, `valuee`, `team`
 (2139, 121, 'redcards', 0, 2),
 (2140, 121, 'saves', 1, 2),
 (2141, 122, 'ongoal', 1, 1),
-(2142, 122, 'shots', 4, 1),
-(2143, 122, 'fouls', 5, 1),
-(2144, 122, 'corners', 1, 1),
-(2145, 122, 'offsides', 0, 1),
-(2146, 122, 'possestiontime', 35, 1),
-(2147, 122, 'yellowcards', 0, 1),
+(2142, 122, 'shots', 7, 1),
+(2143, 122, 'fouls', 15, 1),
+(2144, 122, 'corners', 2, 1),
+(2145, 122, 'offsides', 1, 1),
+(2146, 122, 'possestiontime', 36, 1),
+(2147, 122, 'yellowcards', 1, 1),
 (2148, 122, 'redcards', 0, 1),
-(2149, 122, 'saves', 0, 1),
-(2150, 122, 'ongoal', 0, 2),
-(2151, 122, 'shots', 6, 2),
-(2152, 122, 'fouls', 4, 2),
-(2153, 122, 'corners', 3, 2),
-(2154, 122, 'offsides', 1, 2),
-(2155, 122, 'possestiontime', 65, 2),
-(2156, 122, 'yellowcards', 0, 2),
+(2149, 122, 'saves', 3, 1),
+(2150, 122, 'ongoal', 4, 2),
+(2151, 122, 'shots', 15, 2),
+(2152, 122, 'fouls', 17, 2),
+(2153, 122, 'corners', 8, 2),
+(2154, 122, 'offsides', 3, 2),
+(2155, 122, 'possestiontime', 64, 2),
+(2156, 122, 'yellowcards', 2, 2),
 (2157, 122, 'redcards', 0, 2),
 (2158, 122, 'saves', 0, 2);
 
@@ -22274,7 +22401,7 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_match_substitution` (
   `off_id` int(11) NOT NULL,
   `minute` int(11) NOT NULL,
   `team` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=667 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=671 ;
 
 --
 -- Дамп данных таблицы `tbl_soccer_match_substitution`
@@ -22943,7 +23070,11 @@ INSERT INTO `tbl_soccer_match_substitution` (`id`, `match_id`, `on_id`, `off_id`
 (663, 121, 288, 291, 59, 2),
 (664, 121, 201, 210, 64, 1),
 (665, 121, 605, 297, 79, 2),
-(666, 121, 218, 575, 87, 1);
+(666, 121, 218, 575, 87, 1),
+(667, 122, 197, 189, 74, 1),
+(668, 122, 188, 190, 64, 1),
+(669, 122, 391, 380, 79, 2),
+(670, 122, 383, 387, 89, 2);
 
 -- --------------------------------------------------------
 
@@ -26945,26 +27076,26 @@ CREATE TABLE IF NOT EXISTS `tbl_soccer_stadium` (
 --
 
 INSERT INTO `tbl_soccer_stadium` (`id`, `name`, `country_id`, `city`, `capacity`, `field_size`, `photo_img`, `founded`, `wiki`, `map`) VALUES
-(1, 'Стэмфорд Бридж', 51, 'Лондон', 41841, '103 x 67 м', '1e1eef.jpg', 1877, NULL, NULL),
-(2, 'Лофтус', 51, 'Лондон', 18360, '102 x 66 м', '5f1fdc.jpg', 1904, NULL, NULL),
-(3, 'Олд Траффорд', 51, 'Манчестер', 76212, '105 x 68 м', 'd89dc0.jpg', 1910, NULL, NULL),
-(4, 'Терф Мур', 51, 'Бернли', 22546, '105 x 68 м', 'c26777.jpg', 1883, NULL, NULL),
-(5, 'Кинг Пауэр', 51, 'Лестер', 32500, '101 x 67 м', 'ead84f.jpg', 2002, NULL, NULL),
-(6, 'Селхерст Парк', 51, 'Лондон', 26309, '101 x 68 м', '7549f9.jpg', 1924, NULL, NULL),
-(7, 'Вилла Парк', 51, 'Бирмингем', 42788, '105 x 68 м', 'd89780.jpg', 1897, NULL, NULL),
-(8, 'Кингстон Коммьюникейшн', 51, 'Кингстон-апон-Халл', 25504, '105 x 68 м', '7f1950.jpg', 2002, NULL, NULL),
-(9, 'Стэдиум оф Лайт', 51, 'Сандерленд', 49000, '105 x 68 м', '9427f1.jpg', 1997, NULL, NULL),
-(10, 'Хоторн', 51, 'Вест Бромвич', 28003, '115 x 74 м', 'c9cca5.jpg', 1900, NULL, NULL),
-(11, 'Уайт Харт Лейн', 51, 'Лондон', 36763, '105 x 68 м', 'a25621.jpg', 1899, NULL, NULL),
-(12, 'Энфилд', 51, 'Ливерпуль', 45362, '101 x 68 м', '1662ae.jpg', 1884, NULL, NULL),
-(13, 'Гудисон Парк', 51, 'Ливерпуль', 40569, '92 x 62 м', 'a34c9c.jpg', 1892, NULL, NULL),
-(14, 'Сент-Мэрис', 51, 'Саутгемптон', 32689, '102 x 68 м', 'f31533.jpg', 2001, NULL, NULL),
-(15, 'Этихад', 51, 'Манчестер', 47726, '106 x 71 м', 'e65eec.jpg', 2002, NULL, NULL),
-(16, 'Болейн Граунд', 51, 'Лондон', 35303, '102 x 66 м', '0f374a.jpg', 1904, NULL, NULL),
-(17, 'Либерти', 2, 'Суонси', 20769, '105 x 68 м', '12f9ec.jpg', 2005, NULL, NULL),
-(18, 'Эмирейтс', 51, 'Лондон', 60355, '105 x 68 м', '76731d.jpg', 2006, NULL, NULL),
-(19, 'Сент-Джеймс Парк', 51, 'Ньюкасл', 52389, '105 x 68 м', '13517d.jpg', 1892, NULL, NULL),
-(20, 'Британия Стэдиум', 51, 'Сток-он-Трент', 28383, '100 x 64 м', '91932b.jpg', 1997, NULL, NULL);
+(1, 'Стэмфорд Бридж', 51, 'Лондон', 41841, '103 x 67 м', '1e1eef.jpg', 1877, NULL, '51.481667~-0.191111'),
+(2, 'Лофтус', 51, 'Лондон', 18360, '102 x 66 м', '5f1fdc.jpg', 1904, NULL, '51.509167~-0.232222'),
+(3, 'Олд Траффорд', 51, 'Манчестер', 76212, '105 x 68 м', 'd89dc0.jpg', 1910, NULL, '53.463053~-2.291325'),
+(4, 'Терф Мур', 51, 'Бернли', 22546, '105 x 68 м', 'c26777.jpg', 1883, NULL, '53.789167~-2.230278'),
+(5, 'Кинг Пауэр', 51, 'Лестер', 32500, '101 x 67 м', 'ead84f.jpg', 2002, NULL, '52.6206~-1.142104'),
+(6, 'Селхерст Парк', 51, 'Лондон', 26309, '101 x 68 м', '7549f9.jpg', 1924, NULL, '51.39824~-0.0855131'),
+(7, 'Вилла Парк', 51, 'Бирмингем', 42788, '105 x 68 м', 'd89780.jpg', 1897, NULL, '52.5091~-1.88463617'),
+(8, 'Кингстон Коммьюникейшн', 51, 'Кингстон-апон-Халл', 25504, '105 x 68 м', '7f1950.jpg', 2002, NULL, '53.74566~-0.36721'),
+(9, 'Стэдиум оф Лайт', 51, 'Сандерленд', 49000, '105 x 68 м', '9427f1.jpg', 1997, NULL, '54.91421~-1.388221'),
+(10, 'Хоторн', 51, 'Вест Бромвич', 28003, '115 x 74 м', 'c9cca5.jpg', 1900, NULL, '52.509167~-1.963932'),
+(11, 'Уайт Харт Лейн', 51, 'Лондон', 36763, '105 x 68 м', 'a25621.jpg', 1899, NULL, '51.60291~-0.0659195'),
+(12, 'Энфилд', 51, 'Ливерпуль', 45362, '101 x 68 м', '1662ae.jpg', 1884, NULL, '53.43082~-2.960828'),
+(13, 'Гудисон Парк', 51, 'Ливерпуль', 40569, '92 x 62 м', 'a34c9c.jpg', 1892, NULL, '53.4385~-2.96572'),
+(14, 'Сент-Мэрис', 51, 'Саутгемптон', 32689, '102 x 68 м', 'f31533.jpg', 2001, NULL, '50.905833~-1.391111'),
+(15, 'Этихад', 51, 'Манчестер', 47726, '106 x 71 м', 'e65eec.jpg', 2002, NULL, '53.483139~-2.2003'),
+(16, 'Болейн Граунд', 51, 'Лондон', 35303, '102 x 66 м', '0f374a.jpg', 1904, NULL, '51.531730426~0.0395727'),
+(17, 'Либерти', 2, 'Суонси', 20769, '105 x 68 м', '12f9ec.jpg', 2005, NULL, '51.6424~-3.9347567'),
+(18, 'Эмирейтс', 51, 'Лондон', 60355, '105 x 68 м', '76731d.jpg', 2006, NULL, '51.555~-0.108333'),
+(19, 'Сент-Джеймс Парк', 51, 'Ньюкасл', 52389, '105 x 68 м', '13517d.jpg', 1892, NULL, '54.975536~-1.621614'),
+(20, 'Британия Стэдиум', 51, 'Сток-он-Трент', 28383, '100 x 64 м', '91932b.jpg', 1997, NULL, '52.9884~-2.17610453');
 
 -- --------------------------------------------------------
 
@@ -27165,7 +27296,7 @@ INSERT INTO `tbl_users` (`id`, `username`, `password`, `email`, `activkey`, `cre
 (9, 'Gerrard93', 'be4035277651b12e1fa08b9b7d55bd35', 'Gerrard93@mail.ru', '5da5db2ecb0fa4b628703085fd19b502', '2014-11-05 19:15:25', '2014-11-05 14:16:06', 0, 1, NULL, NULL),
 (38, 'userauth3406c1a01c', '0b2c8b7368983cd2b2973a98c562db56', '3406c@mail.ru', '', '2014-11-16 23:47:12', '2014-11-16 23:47:12', 0, 1, 'facebook', '651453191642567'),
 (41, 'userautha723572696', 'eb7b0efe18e4a319490b88e1007bdf8a', 'emmalahana@yandex.ru', '', '2014-11-17 20:01:13', '2014-11-17 20:01:13', 0, 1, NULL, NULL),
-(42, 'sasha', '66b5201f54463fe96169f2ce19ec6450', 'sasha@mail.ru', '2bd87eeb69fb606de2e0e69b210b0d7c', '2014-11-23 05:46:02', '2014-11-24 04:52:49', 0, 1, NULL, NULL);
+(42, 'sasha', '66b5201f54463fe96169f2ce19ec6450', 'sasha@mail.ru', '2bd87eeb69fb606de2e0e69b210b0d7c', '2014-11-23 05:46:02', '2014-11-26 06:53:18', 0, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -27203,17 +27334,22 @@ CREATE TABLE IF NOT EXISTS `tbl_video` (
   `text` text NOT NULL,
   `path` text NOT NULL,
   `author_id` int(11) NOT NULL,
-  `create_time` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `create_time` int(11) NOT NULL,
+  `image_name` varchar(128) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- Дамп данных таблицы `tbl_video`
 --
 
-INSERT INTO `tbl_video` (`id`, `title`, `text`, `path`, `author_id`, `create_time`) VALUES
-(1, 'Бесплатная игра', 'Игры для компьютера уже давно завоевали значительное место в жизни людей, которые любят отстраниться от своих проблем и оказаться в другом, увлекательном мире. Для некоторых компьютерные игры превращаются во что-то более существенное, а не просто в развлечение.', '2015-1.mp4', 1, 1416380836),
-(2, 'Зачётный препод', 'Зеки Мюллер известен как невероятно ловкий грабитель офисов и банков. Но последнее из его ограблений становится для героя прямой дорожкой в тюрьму. Мюллера осудили на заключение сроком один год и один месяц. Вернувшись на свободу, он желает отыскать тайник с награбленным.', '2015.mp4', 1, 1416375337),
-(3, 'Самый опасный человек', 'В работе спецслужб, наверное, не было бы столько эффективности, если бы в ней руководствовались соображениями морали, и Гюнтеру Бахманну, трудящемуся в спецслужбе ФРГ, великолепно об этом известно. Работа, выполняемая им и его сотрудниками, вполне заслуживает названия «аморальной». В их обязанности входит поиск людей, имеющих для спецслужбы полезную информацию, а потом с помощью методов давления агенты должны выуживать ее.', 'tur.mp4', 1, 1416375276);
+INSERT INTO `tbl_video` (`id`, `title`, `text`, `path`, `author_id`, `create_time`, `image_name`) VALUES
+(11, 'Новое видео', 'Описание видео', '5472f6f59004d.mp4', 42, 1416820469, ''),
+(12, 'Второе видео', 'Описание', '547450c13df8d.mp4', 42, 1416908993, '547450c13df88.jpg'),
+(13, 'Третье видео', 'амвапва', '547452ce823ef.mp4', 42, 1416909518, '547452ce823ea.jpg'),
+(14, 'Третий', 'авпава', '5474536caa851.mp4', 42, 1416909676, '5474536caa84d.jpg'),
+(15, 'ваыва', 'ывыаыва', '547453a56fd85.mp4', 42, 1416909733, '547453a56fd80.jpg'),
+(16, 'dfsdfsdf', 'ffbfd', '54745527dc18f.mp4', 42, 1416910119, '54745527dc18a.jpg'),
+(17, 'dfdfsdfs', 'fsddvdfvdf', '547455807df37.mp4', 42, 1416910208, '547455807df32.jpg');
 
 --
 -- Indexes for dumped tables
@@ -27248,6 +27384,12 @@ ALTER TABLE `rights`
 --
 ALTER TABLE `tbl_comments`
  ADD PRIMARY KEY (`comment_id`), ADD KEY `owner_name` (`owner_name`,`owner_id`), ADD KEY `creator_id` (`creator_id`), ADD KEY `owner_id` (`owner_id`);
+
+--
+-- Indexes for table `tbl_forecast`
+--
+ALTER TABLE `tbl_forecast`
+ ADD PRIMARY KEY (`id`), ADD KEY `user_id` (`user_id`,`match_id`), ADD KEY `match_id` (`match_id`);
 
 --
 -- Indexes for table `tbl_friend`
@@ -27451,6 +27593,11 @@ ALTER TABLE `tbl_video`
 ALTER TABLE `tbl_comments`
 MODIFY `comment_id` int(12) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT for table `tbl_forecast`
+--
+ALTER TABLE `tbl_forecast`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
 -- AUTO_INCREMENT for table `tbl_friend`
 --
 ALTER TABLE `tbl_friend`
@@ -27459,7 +27606,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=251;
 -- AUTO_INCREMENT for table `tbl_likes`
 --
 ALTER TABLE `tbl_likes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=145;
 --
 -- AUTO_INCREMENT for table `tbl_lookup`
 --
@@ -27469,7 +27616,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `tbl_mchat`
 --
 ALTER TABLE `tbl_mchat`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `tbl_messages`
 --
@@ -27514,12 +27661,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=383;
 -- AUTO_INCREMENT for table `tbl_soccer_match_commentaries`
 --
 ALTER TABLE `tbl_soccer_match_commentaries`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12218;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12300;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_event`
 --
 ALTER TABLE `tbl_soccer_match_event`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=770;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=774;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_online`
 --
@@ -27544,7 +27691,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1681;
 -- AUTO_INCREMENT for table `tbl_soccer_match_substitution`
 --
 ALTER TABLE `tbl_soccer_match_substitution`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=667;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=671;
 --
 -- AUTO_INCREMENT for table `tbl_soccer_match_team`
 --
@@ -27609,7 +27756,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `tbl_video`
 --
 ALTER TABLE `tbl_video`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
@@ -27653,22 +27800,10 @@ ALTER TABLE `tbl_mchat`
 ADD CONSTRAINT `tbl_mchat_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`id`);
 
 --
--- Ограничения внешнего ключа таблицы `tbl_post`
---
-ALTER TABLE `tbl_post`
-ADD CONSTRAINT `tbl_post_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE;
-
---
 -- Ограничения внешнего ключа таблицы `tbl_profiles`
 --
 ALTER TABLE `tbl_profiles`
 ADD CONSTRAINT `user_profile_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `tbl_video`
---
-ALTER TABLE `tbl_video`
-ADD CONSTRAINT `tbl_video_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `tbl_users` (`id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

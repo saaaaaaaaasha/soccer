@@ -3,93 +3,6 @@
     <div class="lefttitle"><strong>Мини-чат</strong></div>
     <div id="mchatpage" class="leftbody">
 
-
-        <script>
-
-            function sbtFrmMC991(){
-                $('#mchatBtn').css({display:'none'});
-                $('#mchatAjax').css({display:''});
-                //_uPostForm('MCaddFrm',{type:'POST',url:'/mchat/?203595553.301998'});
-                var text = $('#mchatMsgF').val();
-                //var REL = $(this).attr("rel");
-                var URL='<?php echo Yii::app()->CreateUrl("/mchat/add"); ?>';
-                var dataString = 'text=' + text;// +'&rel='+ REL;
-                //alert(dataString);
-                //alert(URL+"  ---  "+text);
-                $.ajax({
-                    type: "POST",
-                    url: URL,
-                    data: dataString,
-                    cache: false,
-                    success: function(html){
-                        //alert(html);
-                    }
-                });
-            }
-
-
-            var chatup,chatposition,chatinterval,chatblocking;
-            function sound_on() {$('.sound_off').fadeOut(200, function(){$('.sound_on').fadeIn(200)});setCookie('musics', 'on', 10, "/")}
-            function sound_off() {$('.sound_on').fadeOut(200, function(){$('.sound_off').fadeIn(200)});setCookie('musics', 'off', 10, "/")}
-            function show_chat() {
-                $('.chat_over').animate({bottom:'20px'},200)
-                $('#top_chat').fadeOut(200,function(){$('#bottom_chat').fadeIn(200)})
-                setCookie('chat', '1', 10, "/")}
-
-            function hide_chat() {
-                $('.chat_over').animate({bottom:'-212px'},200)
-                $('#bottom_chat').fadeOut(200,function(){$('#top_chat').fadeIn(200)})
-                setCookie('chat', '0', 10, "/")}
-            function show_profile(nmm) {
-                document.location.href='/index/8-'+nmm
-            }
-            function messages() {
-                $.get('<?php echo Yii::app()->CreateUrl("/mchat/"); ?>', function(dt){
-                    if($('#c_one_clon').html() != $('#c_one', dt).html() && $('#c_one_clon').html() != '0' && $('#c_one_clon').html() != '' && getCookie('musics') != 'off') {
-                        $('#c_tell').html('<embed src="http://myanfield.do.am/audioplayer.swf" flashvars="file=http://myanfield.do.am/message.mp3&startplay=true" wmode="opaque" width="90" height="8"></embed>');
-                        setTimeout(function(){$('#c_tell').html('')},2000)}
-                    setTimeout(function(){$('#c_one_clon').html($('#c_one', dt).html())},2100)
-                    $('#scroller').html($('div.msg', dt).after());
-                    setTimeout(function(){$('#wrapper').fadeIn(200);},200)});
-                setTimeout(function(){messages()},20000)
-            }
-
-            function otbet(xt) {$('#mchatMsgF').val(''+xt+', ');$('#mchatMsgF').focus()}
-
-
-            $(document).ready(function(){
-
-
-                $('#mchatMsgF').keyup(function(e) {
-                    if(e.keyCode == 13){
-                        //
-                        sbtFrmMC991();
-                        messages();
-                        setTimeout(function(){messages()},500);
-                        $('#mchatMsgF').val("");
-                    }
-                });
-
-
-                $('.sound_on').click(function () {sound_off();})
-                $('.sound_off').click(function () {sound_on();})
-                $('.mchat_delstatus').click(function () {$('#mchatMsgF').val("");})
-
-                chatinterval=0;
-                musics = getCookie('musics')
-                if(musics == 'off') {$('.sound_off').show();$('.sound_on').hide()}
-
-                messages()
-                chtcc = getCookie('chat')
-                if(chtcc == '1') {$('.chat_over').css('bottom', '20px');$('#top_chat').hide();$('#bottom_chat').show()}
-
-
-            });
-
-        </script>
-
-
-
         <div class="chat_over" style="width: 210px;">
 
             <div id="cht" onclick="show_chat()">
@@ -152,7 +65,9 @@
 
                 </div>
             </div>
-        </div></div></div>
+        </div>
+
+    </div></div>
 
 
 <div class="leftsection">

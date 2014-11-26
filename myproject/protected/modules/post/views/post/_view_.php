@@ -16,7 +16,7 @@
 		?>
 	</div>
 	<div class="nav">
-		<span class="pic_comments"><?php echo CHtml::link("{$data->commentCount}",$data->url.'#comments'); ?></span> | 
+		<span class="pic_comments"><?php echo $data->commentCount; ?></span> | 
                 
                 <?php
                     $this->widget('likes.widgets.LikeWidget', array('model'=>$data, ));                    
@@ -24,7 +24,7 @@
                 
                 <b>Теги:</b>
 		<?php echo implode(', ', $data->tagLinks); ?>
-		<br/>
+		<br/><br/>
 	</div>
     
 </div>

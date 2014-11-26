@@ -22,7 +22,7 @@ class Post extends CActiveRecord
 	const STATUS_DRAFT=1;
         const STATUS_PUBLISHED=2;
         const STATUS_ARCHIVED=3;
-    
+        const IMG_WIDTH = 530;
     
     /**
 	 * @return string the associated database table name
@@ -39,10 +39,8 @@ class Post extends CActiveRecord
         {
             return array(
                 array('title, content, status', 'required'),
-                array('title', 'length', 'max'=>128),
+                array('title, tags', 'length', 'max'=>60),
                 array('status', 'in', 'range'=>array(1,2,3)),
-                array('tags', 'match', 'pattern'=>'/^[\w\s,]+$/',
-                    'message'=>'В тегах можно использовать только буквы.'),
                 array('tags', 'normalizeTags'),
                 array('preview, image','safe'),
                 array('title, status', 'safe', 'on'=>'search'),
@@ -136,7 +134,7 @@ class Post extends CActiveRecord
         {
             return Yii::app()->createUrl('post/post/view', array(
                 'id'=>$this->id,
-                'title'=>$this->title,
+               // 'title'=>$this->title,
             ));
         }
         
@@ -148,14 +146,16 @@ class Post extends CActiveRecord
                 {
                     $this->create_time=$this->update_time=time();
                     $this->author_id=Yii::app()->user->id;
+                    $this->create_preview(); 
                 }
                 else
                 {   
                     $this->update_time=time();
+                     $this->cut_img_content($this->image);
                 }
                 
-                $this->create_preview();     
-                $this->cut_img_content();                    
+                    $this->create_preview(); 
+                                   
                 
                 return true;
             }
@@ -163,13 +163,37 @@ class Post extends CActiveRecord
                 return false;
         }
         
-        public function cut_img_content()
+        public function cut_img_content($image_name='')
         {
               $img =array(0);
               if(preg_match('/src="([^"]*)"/',$this->content, $img)){
-                   $this->image=$img[1];
-                    
-                } 
+              
+                if (trim($image_name)=='')
+                {
+                    $strSource = uniqid().".jpg";
+                }
+                else{
+                    $strSource = $image_name;
+                }
+                
+                
+                $path=Yii::getPathOfAlias('webroot').'/upload/'.$strSource; 
+                                                
+              
+                $img = AcImage::createImage($img[1]);
+                
+                $img->cropCenter('5pr', '3pr');
+                $img->resizeByWidth(self::IMG_WIDTH);
+                
+                if(file_exists($path)){
+                   unlink($path);
+                }                
+                 
+                $img-> saveAsJPG($path);
+                
+                $this->image=$strSource;              
+                                    
+               } 
         }
         
         public function create_preview()
